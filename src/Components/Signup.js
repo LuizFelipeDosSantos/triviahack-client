@@ -6,10 +6,7 @@ import { API_BASE_URL } from "../consts";
 export function Signup() {
   const navigate = useNavigate();
   const [previewSource, setPreviewSource] = useState();
-
-  /* error also as state variable?*/
-
-  /* state variable form input */
+  const [errorState, setErrorState] = useState();
   const [formState, setFormState] = useState({
     avatar: "",
     username: "",
@@ -25,11 +22,6 @@ export function Signup() {
     };
   };
 
-  /* need that functin? or part of new user? */
-  /* const uploadImage = (base64EncodedImage) => {
-    console.log(base64EncodedImage);
-  }; */
-
   function handleInput(event) {
     if (event.target.name === 'avatar') {
       const file = event.target.files[0];
@@ -44,37 +36,51 @@ export function Signup() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    //if(!selectedFile) return; //if no file was uploaded, but it is not mandatory...if no selected file use default avatar
-    //uploadImage(previewSource);
     addNewUser(formState);
   };
 
   async function addNewUser() {
     try {
+        /* axios.post takes two arguments: url and data we pass along */
       const response = await axios.post(API_BASE_URL + "/signup", {formState, avatar: previewSource});
       console.log(response.data);
       /* navigate back to login page */
       navigate("/");
     } catch (err) {
-      console.error(err);
+        setErrorState(err);
     }
   }
 
   return (
     <div>
-      <h1>TRIVIAHACK</h1>
+      <h1><a href="/">TRIVIAHACK</a></h1>
       <h2>Sign up </h2>
-      <form onSubmit={handleSubmit}>
-        {/* or : action method enctype? instead consts sets method and body & headers... */}
 
-        {/*  error message */}
+      {previewSource && (
+        <img
+          src={previewSource}
+          alt="chosen avatar"
+          style={{ height: "20vh" }}
+        />
+      )}
+
+      <form onSubmit={handleSubmit}>
+
+        {/* alternatively : action method enctype? instead consts sets method and body & headers... */}
+
+        {errorState && <h2 style={{ color: "red" }}>{errorState.message}</h2>}
+
         {/* where is upload specified to certain parameters: file size  */}
+
         <input
           type="file"
           name="avatar"
           value={formState.avatar}
           onChange={handleInput}
         />
+
+        <br/>
+
         <input
           required
           type="text"
@@ -83,6 +89,9 @@ export function Signup() {
           onChange={handleInput}
           placeholder="Enter a username"
         />
+
+        <br/>
+
         <input
           required
           type="email"
@@ -91,7 +100,9 @@ export function Signup() {
           onChange={handleInput}
           placeholder="Enter an email"
         />
-        {/* how to check password pattern: twice onChange? */}
+
+        <br/>
+
         <input
           required
           type="password"
@@ -99,21 +110,15 @@ export function Signup() {
           value={formState.password}
           title="Password must contain at least 6 characters, including at least one uppercase, one lowercase and one number."
           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
-          // onchange="this.setCustomValidity(this.validity.patternMismatch ? this.title : '')"
           onChange={handleInput}
           autoComplete={"new-password"}
           placeholder="Enter a password"
         />
+
+        <br/>
+
         <button type="submit"> Sign up </button>
       </form>
-
-      {previewSource && (
-        <img
-          src={previewSource}
-          alt="chosen avatar"
-          style={{ height: "15vh" }}
-        />
-      )}
       
     </div>
   );

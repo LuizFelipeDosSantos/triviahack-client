@@ -7,9 +7,7 @@ import { AuthContext } from "../context/AuthProviderWrapper";
 export function Login() {
   const navigate = useNavigate();
   const { addUserToContext } = useContext(AuthContext);
-
-  /* error also as state variable?*/
-
+  const [errorState, setErrorState] = useState();
   const [formState, setFormState] = useState({ email: "", password: "" });
 
   function handleInput(event) {
@@ -33,8 +31,8 @@ export function Login() {
       /* navigate back to home page after successful login*/
       navigate("/home");
     } catch (err) {
-      console.log(err);
-    }
+      setErrorState(err);
+  }
   }
 
   return (
@@ -43,7 +41,7 @@ export function Login() {
       <h2>Log in</h2>
       <form onSubmit={handleSubmit}>
 
-        {/*  error message ?????*/}
+      {errorState && <h2 style={{ color: "red" }}>{errorState.message}</h2>}
         
         <input
           type="email"
@@ -53,6 +51,9 @@ export function Login() {
           onChange={handleInput}
           placeholder="Enter your Email"
         />
+
+        <br/>
+
         <input
           type="password"
           name="password"
