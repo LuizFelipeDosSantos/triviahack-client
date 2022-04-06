@@ -1,70 +1,160 @@
-# Getting Started with Create React App
+# TRIVIHACK
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
 
-## Available Scripts
+Test your knowlegde in different areas with this quiz app and create your own quiz.
 
-In the project directory, you can run:
+## User Stories
 
-### `npm start`
+-  **404** As an anon/user I can see a 404 page if I try to reach a page that does not exist so that I know it's my fault
+-  **Signup** As an anon I can sign up in the platform so that I can start taking a quiz of my choice or create new ones
+-  **Login** As a user I can login to the platform
+-  **Logout** As a user I can logout from the platform so no one else can use it
+- **Home Page** As a user I can choose single player or multi player mode.
+-  **Quiz Categories** As a user I can choose a quiz category and see list of quizzes created by user and friends
+-  **Quiz Level** As a user I can choose a level of difficulty
+-  **Play Quiz** As a user I can answer 10 questions for each quiz and gain a score
+-  **Create Quiz** As a user I can create, edit and delete my own quizzes
+-  **Profile** As a user I can change my avatar, add friends and see leaderboard
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Backlog
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+-  **Play Quiz** As a user I can invite friends to play quiz
+-  **Play Quiz** Question timer for each question to 30 seconds
 
-### `npm test`
+  
+# Client
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Routes
 
-### `npm run build`
+- / - Login
+- /signup - Signup form
+- /home - homepage with mode choice
+- /categories - quiz category list
+- /level - level of difficulty
+- /quiz - single quiz game
+- /quiz/create - create a new quiz
+- /quiz/edit/:id - edit a quiz
+- /profile - see user profile
+- 404
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Pages
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Log in Page (public)
+- Sign up Page (public)
+- Home page (user only)
+- List of Quiz Categories (user only)
+- Level of Difficulty (user only)
+- Quiz (user only)
+- Create Quiz (user only)
+- Edit Quiz (user only)
+- Profile Page (user only)
+- 404 (public)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Components // to be edited
 
-### `npm run eject`
+- Question component
+  - Input: restaurant: any
+  - Output: favorite(restaurantId: string, on: boolean)
+- ... component
+  - Output: change(terms: string)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## IO
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Services // to be edited
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- Auth Service
+  - auth.login(user)
+  - auth.signup(user)
+  - auth.logout()
+  - auth.me()
+  - auth.getUser() // synchronous
+- Restaurant Service
+  - restaurant.list()
+  - restaurant.create(data)
+  - restaurant.detail(id)
+  - restaurant.addFavorite(id)
+  - restaurant.removeFavorite(id)   
 
-## Learn More
+# Server
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Models
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+User model
 
-### Code Splitting
+```
+username - String // required & unique
+email - String // required & unique
+password - String // required
+avatar - UrlString
+friends - [ObjectID<User>]
+Score - Number (Score * Level - added with every quiz taken, except quizzed created by this user)
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Quiz model
 
-### Analyzing the Bundle Size
+```
+owner - ObjectID<User> // required
+name - String // required
+difficulty - enum [ easy, medium, hard ]
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Question model
 
-### Making a Progressive Web App
+```
+quiz - ObjectID<Quiz> // required
+question - String // required
+incorrect_answers - [String]
+correct_answer - String
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## API Endpoints/Backend Routes // to be edited
 
-### Advanced Configuration
+- GET /auth/me
+- POST /auth/signup
+  - body:
+    - username
+    - email
+    - password
+- POST /auth/login
+  - body:
+    - username
+    - password
+- POST /auth/logout
+  - body: (empty)
+- POST /user/me/favorite
+  - body:
+    - restaurantId
+- DELETE /user/me/favorite/:restaurantId
+  - body: (empty)
+- GET /restaurant
+- POST /restaurant
+  - body:
+    - name
+    - phone
+    - address
+- GET /restaurant/:id
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+  
 
-### Deployment
+## Links
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Trello
 
-### `npm run build` fails to minify
+[Link to your trello board](https://trello.com/b/sMbPrnWa/triviahack)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Git
+
+The url to your repository and to your deployed project
+
+[Server repository Link](https://github.com/Rowe32/triviahack-server)
+[Client repository Link](https://github.com/LuizFelipeDosSantos/triviahack-client)
+
+[Deploy Link](http://heroku.com)
+
+### Slides
+
+The url to your presentation slides
+
+[Slides Link](http://slides.com)
