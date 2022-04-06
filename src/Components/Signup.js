@@ -31,37 +31,27 @@ export function Signup() {
   }; */
 
   function handleInput(event) {
-    let file = '';
     if (event.target.name === 'avatar') {
-      file = event.target.files[0];
+      const file = event.target.files[0];
       previewFile(file);
     }
 
-    console.log(file, typeof file);
     setFormState({
       ...formState,
-      [event.target.name]: event.target.value,
-    });
+      [event.target.name]: event.target.value
+    });  
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
     //if(!selectedFile) return; //if no file was uploaded, but it is not mandatory...if no selected file use default avatar
     //uploadImage(previewSource);
-    //const reader = new FileReader();
-    //reader.readAsDataURL(previewSource);
-    //reader.onloadend = () => {
-      setFormState({
-        ...formState,
-        avatar: previewSource,
-      });
-    //};
     addNewUser(formState);
   };
 
   async function addNewUser() {
     try {
-      const response = await axios.post(API_BASE_URL + "/signup", formState);
+      const response = await axios.post(API_BASE_URL + "/signup", {formState, avatar: previewSource});
       console.log(response.data);
       /* navigate back to login page */
       navigate("/");
