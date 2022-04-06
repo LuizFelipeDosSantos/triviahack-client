@@ -2,6 +2,7 @@ import axios from "axios";
 import { useContext } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthProviderWrapper";
+import { API_BASE_URL } from "../consts";
 
 export function LayoutComponent() {
   const { user, removeUserFromContext} = useContext(AuthContext);
