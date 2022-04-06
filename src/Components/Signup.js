@@ -31,9 +31,13 @@ export function Signup() {
   }; */
 
   function handleInput(event) {
-    const file = event.target.avatar;
-    previewFile(file);
+    let file = '';
+    if (event.target.name === 'avatar') {
+      file = event.target.files[0];
+      previewFile(file);
+    }
 
+    console.log(file, typeof file);
     setFormState({
       ...formState,
       [event.target.name]: event.target.value,
@@ -44,6 +48,14 @@ export function Signup() {
     event.preventDefault();
     //if(!selectedFile) return; //if no file was uploaded, but it is not mandatory...if no selected file use default avatar
     //uploadImage(previewSource);
+    //const reader = new FileReader();
+    //reader.readAsDataURL(previewSource);
+    //reader.onloadend = () => {
+      setFormState({
+        ...formState,
+        avatar: previewSource,
+      });
+    //};
     addNewUser(formState);
   };
 
