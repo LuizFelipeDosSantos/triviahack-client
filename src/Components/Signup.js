@@ -26,9 +26,9 @@ export function Signup() {
   };
 
   /* need that functin? or part of new user? */
-  const uploadImage = (base64EncodedImage) => {
+  /* const uploadImage = (base64EncodedImage) => {
     console.log(base64EncodedImage);
-  };
+  }; */
 
   function handleInput(event) {
     const file = event.target.avatar;
@@ -43,12 +43,11 @@ export function Signup() {
   const handleSubmit = (event) => {
     event.preventDefault();
     //if(!selectedFile) return; //if no file was uploaded, but it is not mandatory...if no selected file use default avatar
-    uploadImage(previewSource);
+    //uploadImage(previewSource);
     addNewUser(formState);
   };
 
   async function addNewUser() {
-    /* do I pass here formState as parameter? */
     try {
       const response = await axios.post(API_BASE_URL + "/signup", formState);
       console.log(response.data);
@@ -64,10 +63,10 @@ export function Signup() {
       <h1>TRIVIAHACK</h1>
       <h2>Sign up </h2>
       <form onSubmit={handleSubmit}>
-        {" "}
         {/* or : action method enctype? instead consts sets method and body & headers... */}
+
         {/*  error message */}
-        {/* upload specified:  */}
+        {/* where is upload specified to certain parameters: file size  */}
         <input
           type="file"
           name="avatar"
@@ -80,7 +79,7 @@ export function Signup() {
           name="username"
           value={formState.username}
           onChange={handleInput}
-          placeholder="Enter your username"
+          placeholder="Enter a username"
         />
         <input
           required
@@ -88,7 +87,7 @@ export function Signup() {
           name="email"
           value={formState.email}
           onChange={handleInput}
-          placeholder="Enter your Email"
+          placeholder="Enter an email"
         />
         {/* how to check password pattern: twice onChange? */}
         <input
@@ -98,10 +97,10 @@ export function Signup() {
           value={formState.password}
           title="Password must contain at least 6 characters, including at least one uppercase, one lowercase and one number."
           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
-          // onchange="this.setCustomValidity(this.validity.patternMismatch ? this.title : '');"></input>
-          // autoComplete={"new-password"}
+          // onchange="this.setCustomValidity(this.validity.patternMismatch ? this.title : '')"
           onChange={handleInput}
-          placeholder="Enter your Password"
+          autoComplete={"new-password"}
+          placeholder="Enter a password"
         />
         <button type="submit"> Sign up </button>
       </form>
@@ -113,6 +112,7 @@ export function Signup() {
           style={{ height: "15vh" }}
         />
       )}
+      
     </div>
   );
 }

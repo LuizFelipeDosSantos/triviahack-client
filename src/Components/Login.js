@@ -25,7 +25,6 @@ export function Login() {
   };
 
   async function loginUser() {
-    /* pass formState as parameter? */
     try {
       const response = await axios.post(API_BASE_URL + "/signup", formState);
       console.log(response.data);
@@ -43,11 +42,13 @@ export function Login() {
       <h1>TRIVIAHACK</h1>
       <h2>Log in</h2>
       <form onSubmit={handleSubmit}>
-        {/*  error message */}
+
+        {/*  error message ?????*/}
+        
         <input
           type="email"
           name="email"
-          //autoComplete="email"
+          autoComplete="email"
           value={formState.email}
           onChange={handleInput}
           placeholder="Enter your Email"
@@ -55,7 +56,7 @@ export function Login() {
         <input
           type="password"
           name="password"
-          //autoComplete={"current-password"}
+          autoComplete={"current-password"}
           value={formState.password}
           onChange={handleInput}
           placeholder="Enter your Password"
