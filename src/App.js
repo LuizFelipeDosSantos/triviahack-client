@@ -1,24 +1,36 @@
-import logo from './logo.svg';
 import './App.css';
+import { Routes, Route } from 'react-router-dom';
+import { Login } from './Components/Login';
+import { Signup } from './Components/Signup';
+import { LayoutComponent } from './Components/LayoutComponent';
+import { Custom404Page } from './Components/Custom404Page';
+/* import { Categories }
+import { Modi }
+import { Level }
+import { Profile }
+import { EditQuiz } */
+
 
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route path="/" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
+      <Route path="*" element={<Custom404Page />} />
+      <Route element={<LayoutComponent />}>
+        {/* <Route path="/home" element={<Modi />} />
+        <Route path="/categories" element={<Categories />} />
+        <Route path="/level" element={<Level />} />
+        <Route path="/quiz">
+          <Route index element={<PlayQuiz />} />
+          <Route path="create" element={<CreateQuiz />} />
+          <Route path="edit/:id" element={<EditQuiz />} />
+        </Route>
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/categories" element={<Categories />} /> */}
+      </Route>
+    </Routes>
   );
 }
 
