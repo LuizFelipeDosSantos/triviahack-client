@@ -18,6 +18,7 @@ function App() {
       <Route path="/" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="*" element={<Custom404Page />} />
+      {/* Layout encapsulation of routes with navbar */}
       <Route element={<LayoutComponent />}>
         {/* <Route path="/home" element={<Modi />} />
         <Route path="/categories" element={<Categories />} />

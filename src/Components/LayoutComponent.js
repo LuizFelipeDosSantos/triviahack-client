@@ -1,46 +1,46 @@
+import axios from "axios";
 import { useContext } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthProviderWrapper";
 
 export function LayoutComponent() {
-  const { user } = useContext(AuthContext);
+  const { user, removeUserFromContext} = useContext(AuthContext);
+  const navigate = useNavigate();
 
   async function logout() {
     try {
-        const response = await axios.post(API_BASE_URL + "/logout");
-        removeUserFromContext();
-        navigate("/login");
-      } catch (err) {
-        console.log(err);
-        alert("there was an error logging out");
-      }
-    };
+      const response = await axios.post(API_BASE_URL + "/logout");
+      console.log(response.data);
+      removeUserFromContext();
+      navigate("/login");
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   return (
     <div>
-        {user ? (
-            <>
-                <nav>
-                    <NavLink to="/home"> 
-                        TRIVIAHACK
-                    </NavLink>
+      {
+        user ? (
+          <>
+            <nav className="navbar">
+              <NavLink to="/home">TRIVIAHACK</NavLink>
 
-                    <NavLink to="/profile">
-                        Profile
-                    </NavLink>
+              <NavLink to="/profile">Profile</NavLink>
 
-                    <NavLink to="/quiz/create">
-                        Create Quiz
-                    </NavLink>
+              <NavLink to="/quiz/create">Create Quiz</NavLink>
 
-                    <button onClick={logout}>Logout</button>
-                </nav>
+              <button onClick={logout}>Logout</button>
+            </nav>
 
-                <Outlet />
-            </>
-        ) : { useNavigate("/login") }
-        {/* does this work? pass error message along: "Please login to access these pages?" */}
-        }
+            <Outlet />
+          </>
+        ) : (
+          navigate("/login")
+        )
+
+        // does this work? pass error message along: "Please login to access these pages?"
+      }
     </div>
   );
 }
