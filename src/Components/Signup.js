@@ -42,7 +42,7 @@ export function Signup() {
   async function addNewUser() {
     try {
         /* axios.post takes two arguments: url and data we pass along */
-      const response = await axios.post(API_BASE_URL + "/signup", {formState, avatar: previewSource});
+      const response = await axios.post(API_BASE_URL + "/signup", {user: formState, avatar: previewSource});
       console.log(response.data);
       /* navigate back to login page */
       navigate("/");
