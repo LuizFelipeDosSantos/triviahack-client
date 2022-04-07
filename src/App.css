@@ -1,3 +1,8 @@
 .App {
   text-align: center;
+  margin-left: 5vw;
+}
+
+.navbar > * {
+  margin: 4vw;
 }

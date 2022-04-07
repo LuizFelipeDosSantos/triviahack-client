@@ -1,3 +1,4 @@
+
 import axios from "axios";
 import { useContext } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
@@ -20,7 +21,7 @@ export function LayoutComponent() {
   }
 
   return (
-    <div>
+    <div className="App">
       {
         user ? (
           <>
@@ -29,7 +30,7 @@ export function LayoutComponent() {
 
               <NavLink to="/profile">Profile</NavLink>
 
-              <NavLink to="/quiz/create">Create Quiz</NavLink>
+              <NavLink to="/quiz/list">My Quizzes</NavLink>
 
               <button onClick={logout}>Logout</button>
             </nav>
@@ -37,10 +38,12 @@ export function LayoutComponent() {
             <Outlet />
           </>
         ) : (
-          navigate("/login")
+          
+          // does this work? pass error message along: "Please login to access these pages?"
+          navigate("/")
         )
 
-        // does this work? pass error message along: "Please login to access these pages?"
+
       }
     </div>
   );

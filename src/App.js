@@ -4,15 +4,15 @@ import { Login } from './Components/Login';
 import { Signup } from './Components/Signup';
 import { LayoutComponent } from './Components/LayoutComponent';
 import { Custom404Page } from './Components/Custom404Page';
+import { Mode } from './Components/Mode';
+import { Profile } from './Components/Profile';
 /* import { Categories }
-import { Modi }
 import { Level }
 import { Profile }
 import { EditQuiz } */
 
 
 function App() {
-
   return (
     <Routes>
       <Route path="/" element={<Login />} />
@@ -20,7 +20,7 @@ function App() {
       <Route path="*" element={<Custom404Page />} />
       {/* Layout encapsulation of routes with navbar */}
       <Route element={<LayoutComponent />}>
-        <Route path="/home"  />
+        <Route path="/home" element={<Mode/>} />
         {/* <Route path="/categories" element={<Categories />} />
         <Route path="/level" element={<Level />} />
         <Route path="/quiz">
@@ -29,11 +29,12 @@ function App() {
           <Route path="create" element={<CreateQuiz />} />
           <Route path="edit/:id" element={<EditQuiz />} />
         </Route>
-        <Route path="/profile" element={<Profile />} />
         <Route path="/categories" element={<Categories />} />  */}
+        <Route path="/profile" element={<Profile />} />
       </Route>
     </Routes>
   );
 }
+
 
 export default App;

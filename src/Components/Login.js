@@ -24,11 +24,12 @@ export function Login() {
 
   async function loginUser() {
     try {
-      /* send data to server on router.post("/login"....)*/
+      /* send data to server on router.post("/login"....) - & receive error message or session*/
       const response = await axios.post(API_BASE_URL + "/login", formState);
       console.log(response.data);
       addUserToContext(response.data.user);
       getCsrfToken();
+      /* can expire after some time - we should log user out if expired or prolong the cookie age */
       /* navigate back to home page after successful login*/
       navigate("/home");
     } catch (err) {
