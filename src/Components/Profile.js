@@ -5,7 +5,7 @@ import { API_BASE_URL } from "../consts";
 
 export function Profile() {
     const [errorState, setErrorState] = useState();
-    const [newFriend, setNewFriend] = useState();
+    const [newFriend, setNewFriend] = useState("");
     const [edit, setEdit] = useState(false);
     const [userState, setUserState] = useState({username: "", avatar: "", friends: [], score: 0, });
     const [previewSource, setPreviewSource] = useState();
@@ -29,6 +29,8 @@ export function Profile() {
 
     const toggleForm = () => setEdit(!edit);
 
+
+             /* AVATAR */
     const previewFile = (event) => {
         const reader = new FileReader();
         reader.readAsDataURL(event.target.files[0]);
@@ -53,14 +55,14 @@ export function Profile() {
         }
     }
  
-
+            /* ADD FRIEND */
     function handleFriendInput(event) {
         setNewFriend(event.target.value);
     }
 
     async function handleNewFriendSubmit() {
         try {
-            //if (!...) return;
+            if (newFriend === "") return;
             const response = await axios.put(API_BASE_URL + "/user/add-friend", newFriend);
             console.log(response.data);
         }
@@ -70,13 +72,8 @@ export function Profile() {
         }
     }
 
-    
     const noFriendsAdded = userState.friends.length === 0;
-    const addFriendsMessage = () => {
-        return (
-          <div>Add some friends to see their score.</div>
-        );
-      };
+    const addFriendsMessage = () => <div>Add some friends to see their score.</div>;
 
     return (
         <div>
@@ -84,8 +81,7 @@ export function Profile() {
             <h3>Score: {userState.score}</h3>
             <img style={{ display: edit ? 'none' : 'block' }} src={userState.avatar} width={200} alt="avatar" />
             <br/>
-            <button onClick={toggleForm}> {edit ? 'Finish editing' : 'Change Avatar'} </button> 
-
+            
             <div className="editAvatarForm" style={{ display: edit ? 'block' : 'none' }}>
                
                 {previewSource && (
@@ -111,7 +107,8 @@ export function Profile() {
                     <button type="submit"> Change to this one </button>
                 </form>
             </div>
-      
+            <br/>
+            <button onClick={toggleForm}> {edit ? 'Finish editing' : 'Change Avatar'} </button> 
             
             <h2>Add Friends</h2>     
             
@@ -123,7 +120,7 @@ export function Profile() {
                     type="text"
                     name="addFriend"
                     placeholder="Enter friend's Triviahack username"
-                    //do I NEED VALUE FIELd??
+                    value={newFriend}
                     onChange={handleFriendInput}
                     />
 
