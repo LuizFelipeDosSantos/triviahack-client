@@ -40,6 +40,7 @@ export function Login() {
 
   return (
     <div>
+      <img></img>
       <h1>TRIVIAHACK</h1>
       <h2>Log in</h2>
       <form onSubmit={handleSubmit}>
