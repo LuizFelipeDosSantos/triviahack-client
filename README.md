@@ -14,7 +14,7 @@ Test your knowlegde in different areas with this quiz app and create your own qu
 -  **Quiz Categories** As a user I can choose a quiz category and see list of quizzes created by user and friends
 -  **Quiz Level** As a user I can choose a level of difficulty
 -  **Play Quiz** As a user I can answer 10 questions for each quiz and gain a score
--  **Create Quiz** As a user I can create, edit and delete my own quizzes
+-  **My Quizzes** As a user I can create, edit and delete my own quizzes
 -  **Profile** As a user I can change my avatar, add friends and see leaderboard
 
 ## Backlog
@@ -33,6 +33,7 @@ Test your knowlegde in different areas with this quiz app and create your own qu
 - /categories - quiz category list
 - /level - level of difficulty
 - /quiz - single quiz game
+- /quiz/list - list of quizzes created by user
 - /quiz/create - create a new quiz
 - /quiz/edit/:id - edit a quiz
 - /profile - see user profile
@@ -46,6 +47,7 @@ Test your knowlegde in different areas with this quiz app and create your own qu
 - List of Quiz Categories (user only)
 - Level of Difficulty (user only)
 - Quiz (user only)
+- Quiz List (user only)
 - Create Quiz (user only)
 - Edit Quiz (user only)
 - Profile Page (user only)

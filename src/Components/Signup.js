@@ -47,7 +47,7 @@ export function Signup() {
       /* navigate back to login page */
       navigate("/");
     } catch (err) {
-        setErrorState(err);
+        setErrorState(err.errorMessage);
     }
   }
 
@@ -68,7 +68,7 @@ export function Signup() {
 
         {/* alternatively : action method enctype? instead consts sets method and body & headers... */}
 
-        {errorState && <h2 style={{ color: "red" }}>{errorState.message}</h2>}
+        {errorState && <h2 style={{ color: "red" }}>{errorState}</h2>}
 
         {/* where is upload specified to certain parameters: file size  */}
 

@@ -13,7 +13,7 @@ export function LayoutComponent() {
       const response = await axios.post(API_BASE_URL + "/logout");
       console.log(response.data);
       removeUserFromContext();
-      navigate("/login");
+      navigate("/");
     } catch (err) {
       console.error(err);
     }

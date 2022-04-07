@@ -24,15 +24,17 @@ export function Login() {
 
   async function loginUser() {
     try {
-      const response = await axios.post(API_BASE_URL + "/signup", formState);
+      /* send data to server on router.post("/login"....)*/
+      const response = await axios.post(API_BASE_URL + "/login", formState);
       console.log(response.data);
       addUserToContext(response.data.user);
       getCsrfToken();
       /* navigate back to home page after successful login*/
       navigate("/home");
     } catch (err) {
-      setErrorState(err);
-  }
+      console.log(err.response.data);
+      setErrorState({ message: err.response.data.errorMessage });
+    }
   }
 
   return (
