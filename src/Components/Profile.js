@@ -7,6 +7,7 @@ export function Profile() {
     const [errorState, setErrorState] = useState();
     const [newFriend, setNewFriend] = useState("");
     const [edit, setEdit] = useState(false);
+    const [showForm, setShowForm] = useState(false);
     const [userState, setUserState] = useState({username: "", avatar: "", friends: [], score: 0, });
     const [previewSource, setPreviewSource] = useState();
 
@@ -24,10 +25,11 @@ export function Profile() {
           }
         }
         fetchUser();
-    }, [edit]); //runs on mount and upon change
+    }, [edit]); //runs on mount and upon change (new Avatar, add or delete friend)
 
 
-    const toggleForm = () => setEdit(!edit);
+   /* Toggle Form to Upload new Avatar */
+    const toggleForm = () => setShowForm(!showForm);
 
 
              /* AVATAR */
@@ -49,9 +51,10 @@ export function Profile() {
             if (!previewSource) return;
             const response = await axios.put(API_BASE_URL + "/user/edit", {avatar: previewSource});
             console.log(response.data);
+            setEdit(!edit)
         } catch (err) {
-            console.error(err)
-            setErrorState(err.errorMessage);
+            console.log(err.response.data);
+            setErrorState({ message: err.response.data.errorMessage });
         }
     }
  
@@ -60,18 +63,32 @@ export function Profile() {
         setNewFriend(event.target.value);
     }
 
-    async function handleNewFriendSubmit() {
+    async function handleNewFriendSubmit(event) {
+        event.preventDefault();
         try {
             if (newFriend === "") return;
-            const response = await axios.put(API_BASE_URL + "/user/add-friend", newFriend);
+            const response = await axios.put(API_BASE_URL + "/user/add-friend", {username: newFriend});
             console.log(response.data);
+            setEdit(!edit);
         }
         catch (err) {
-            console.error(err)
-            setErrorState(err.errorMessage);
+            console.log(err.response.data);
+            setErrorState({ message: err.response.data.errorMessage });
         }
     }
 
+    async function deleteFriend(friendToDelete) {
+        try {
+            const response = await axios.put(API_BASE_URL + "/user/delete-friend", {username: friendToDelete});
+            console.log(response.data);
+            setEdit(!edit);
+        }
+        catch (err) {
+            console.log(err.response.data);
+            setErrorState({ message: err.response.data.errorMessage });
+        }
+    }
+    
     const noFriendsAdded = userState.friends.length === 0;
     const addFriendsMessage = () => <div>Add some friends to see their score.</div>;
 
@@ -79,10 +96,11 @@ export function Profile() {
         <div>
             <h2>{userState.username}</h2>
             <h3>Score: {userState.score}</h3>
-            <img style={{ display: edit ? 'none' : 'block' }} src={userState.avatar} width={200} alt="avatar" />
+
+            <img style={{ display: showForm ? 'none' : 'block' }} src={userState.avatar} width={200} alt="avatar" />
             <br/>
             
-            <div className="editAvatarForm" style={{ display: edit ? 'block' : 'none' }}>
+            <div className="editAvatarForm" style={{ display: showForm ? 'block' : 'none' }}>
                
                 {previewSource && (
                     <img
@@ -96,7 +114,7 @@ export function Profile() {
                     <br/>
                 <form onSubmit={handleSubmit}>
                 
-                {errorState && <h2 style={{ color: "red" }}>{errorState.errorMessage}</h2>}
+                {errorState && <h2 style={{ color: "red" }}>{errorState.message}</h2>}
 
                     <input
                     type="file"
@@ -108,13 +126,13 @@ export function Profile() {
                 </form>
             </div>
             <br/>
-            <button onClick={toggleForm}> {edit ? 'Finish editing' : 'Change Avatar'} </button> 
+            <button onClick={toggleForm}> { showForm ? 'Finish editing' : 'Change Avatar'} </button> 
             
             <h2>Add Friends</h2>     
             
             <form onSubmit={handleNewFriendSubmit}>
                 
-                {errorState && <h2 style={{ color: "red" }}>{errorState.errorMessage}</h2>}
+                {errorState && <h2 style={{ color: "red" }}>{errorState.message}</h2>}
 
                     <input
                     type="text"
@@ -151,7 +169,7 @@ export function Profile() {
                                 <h3>{friend.score}</h3>
                             </td>
                            <td>
-                                <button> Delete </button>
+                                <button onClick={() => deleteFriend(friend.username)}> Delete </button>
                             </td>
                         </tr>
                         );
