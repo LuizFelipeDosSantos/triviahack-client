@@ -1,9 +1,10 @@
 import axios from "axios";
 import { useState } from "react";
 import { API_BASE_URL } from "../consts";
+import { useNavigate } from "react-router-dom";
 
 export function CreateQuiz() {
-    const [newQuiz, setNewQuiz] = useState({ name: "", difficulty: "" }); 
+    const [newQuiz, setNewQuiz] = useState({ name: "", difficulty: "easy" }); 
     const [showQuestionForm, setShowQuestionForm] = useState(false);
     const [newQuestion, setNewQuestion] = useState({
         question: "", 
@@ -12,8 +13,9 @@ export function CreateQuiz() {
         incorrect_answer2: "",
         incorrect_answer3: "", })
     const toggleForm = () => setShowQuestionForm(!showQuestionForm);
-    let questions = [];
-    const quizComplete = questions.length === 10;
+    const [questionsArr, setQuestionsArr] = useState([]);
+    const quizComplete = questionsArr.length === 10;
+    const navigate = useNavigate();
 
     /* QUIZ NAME & LEVEL */
     const handleQuizInput = (event) => {
@@ -25,7 +27,6 @@ export function CreateQuiz() {
 
     const handleQuizSubmit = (event) => {
         event.preventDefault();
-        setShowQuestionForm(!showQuestionForm);
         console.log(newQuiz)
     }
 
@@ -39,12 +40,14 @@ export function CreateQuiz() {
 
     const handleQuestionSubmit = (event) => {
         event.preventDefault();
-        questions.push({
+        setQuestionsArr([
+            ...questionsArr,
+            {
             question: newQuestion.question,
             correct_answer: newQuestion.correct_answer,
             incorrect_answers: [newQuestion.incorrect_answer1, newQuestion.incorrect_answer2, newQuestion.incorrect_answer3]
-        });
-        console.log(questions)
+        }
+        ])
         /* resetting form */
         setNewQuestion({
             question: "", 
@@ -56,11 +59,12 @@ export function CreateQuiz() {
     }
 
     async function createQuiz() {
-        console.log(questions.length)
+        console.log(questionsArr.length)
         if (quizComplete) {
            try {
-                const response = await axios.post(API_BASE_URL + "/quiz/create", {quiz: newQuiz, questions} ); 
+                const response = await axios.post(API_BASE_URL + "/quiz/create", {quiz: newQuiz, questionsArr} ); 
                 console.log(response.data);
+                navigate("/quiz/list");
             }
             catch (err) {
                 console.log(err.response.data.errorMessage);
@@ -76,6 +80,7 @@ export function CreateQuiz() {
 
                 <label for="name">Name of your Quiz: </label>
                 <input
+                    required
                     type="text"
                     name="name"
                     value={newQuiz.name}
@@ -87,7 +92,6 @@ export function CreateQuiz() {
             
                 <label for="difficulty">Level of Difficulty: </label>
                 <select name="difficulty" value={newQuiz.difficulty} onChange={handleQuizInput} >
-                {/* set defaultvalue? */}
                     <option value="easy">easy</option>
                     <option value="medium">medium</option>
                     <option value="hard">hard</option>
@@ -102,12 +106,12 @@ export function CreateQuiz() {
 
             <br/>
 
-            <div >
+            <div style={{ display: showQuestionForm ? 'block' : 'none' }}>
 
-                {/* style={{ display: showQuestionForm ? 'block' : 'none' }} */}
             <form onSubmit={handleQuestionSubmit}>
                 <label for="question">Question: </label>
                 <input
+                    required
                     type="text"
                     name="question"
                     value={newQuestion.question}
@@ -119,6 +123,7 @@ export function CreateQuiz() {
                 {/* correct answer */}
                 <label for="question">Correct Answer: </label>
                 <input
+                    required
                     type="text"
                     name="correct_answer"
                     value={newQuestion.correct_answer}
@@ -130,36 +135,39 @@ export function CreateQuiz() {
                 {/* wrong answers */}
                 <label for="incorrect_answer1">Wrong Answer 1: </label>
                 <input
-                type="text"
-                name="incorrect_answer1"
-                value={newQuestion.incorrect_answer1}
-                onChange={handleQuestionInput}
-                placeholder="Enter a wrong answer"
-                />
+                    required
+                    type="text"
+                    name="incorrect_answer1"
+                    value={newQuestion.incorrect_answer1}
+                    onChange={handleQuestionInput}
+                    placeholder="Enter a wrong answer"
+                    />
                 <br/>
 
                 <label for="incorrect_answer2">Wrong Answer 2: </label>
                 <input
-                type="text"
-                name="incorrect_answer2"
-                value={newQuestion.incorrect_answer2}
-                onChange={handleQuestionInput}
-                placeholder="Enter a wrong answer"
-                />
+                    required
+                    type="text"
+                    name="incorrect_answer2"
+                    value={newQuestion.incorrect_answer2}
+                    onChange={handleQuestionInput}
+                    placeholder="Enter a wrong answer"
+                    />
                 <br/>
 
                 <label for="incorrect_answer3">Wrong Answer 3: </label>
                 <input
-                type="text"
-                name="incorrect_answer3"
-                value={newQuestion.incorrect_answer3}
-                onChange={handleQuestionInput}
-                placeholder="Enter a wrong answer"
-                />
+                    required
+                    type="text"
+                    name="incorrect_answer3"
+                    value={newQuestion.incorrect_answer3}
+                    onChange={handleQuestionInput}
+                    placeholder="Enter a wrong answer"
+                    />
                 <br/>
                 <br/>
                 
-                <button type="submit"> next </button>
+                <button type="submit" style={{ display: quizComplete ? 'none' : 'block' }} > next </button>
          
             </form>
 
@@ -167,7 +175,7 @@ export function CreateQuiz() {
                 {/* button toggles: save or submit */}
                 <br/>
                 <br/>
-                <button onClick={createQuiz}> Submit Quiz </button>
+                <button style={{ display: quizComplete ? 'block' : 'none' }} onClick={createQuiz}> Submit Quiz </button>
             </div>
         </div>
     )
