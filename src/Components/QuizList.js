@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { API_BASE_URL } from "../consts";
 
 
 export function QuizList() {
@@ -27,9 +28,10 @@ export function QuizList() {
         <div>
             <h1>My Quizzes</h1>
             <ul>
-                {quizlistState.map((quiz) => {
+            <li>hello</li>
+             {/*    {quizlistState.map((quiz) => {
                     
-                })}
+                })} */}
             </ul>
 
             
