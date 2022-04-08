@@ -64,6 +64,7 @@ export function CreateQuiz() {
            try {
                 const response = await axios.post(API_BASE_URL + "/quiz/create", {quiz: newQuiz, questionsArr} ); 
                 console.log(response.data);
+                setQuestionsArr([])
                 navigate("/quiz/list");
             }
             catch (err) {

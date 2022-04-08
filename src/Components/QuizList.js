@@ -22,13 +22,13 @@ export function QuizList() {
             }
         }
         fetchQuizzes();
-    }, []); //runs on mount and changes of edit/delete quiz
-
+    }, [quizList]); //runs on mount and changes if edit/delete quiz
 
     /* DELETE */
     async function deleteQuiz(quizToDelete) {
         try {
-            const response = await axios.delete(API_BASE_URL + "/quiz/delete", {quiz: quizToDelete}); //quiz ID
+            console.log(quizToDelete)
+            const response = await axios.delete(API_BASE_URL + "/quiz/delete", {params: {quizId: quizToDelete}}); //quiz ID
             console.log(response.data);
         }
         catch (err) {
@@ -37,7 +37,10 @@ export function QuizList() {
         }
     }
 
-     /* EDIT: create Quiz but prefilled!!! */
+     /* EDIT: create Quiz but prefilled: component like createquiz??!!! */
+     /* I already have all quiz data */
+     /* to receive this data use : useLocation (level.js) */
+     /* navigate(Route, { state : { function / data -- }}) */
     async function editQuiz(quizToEdit) {
         try {
             const response = await axios.put(API_BASE_URL + "/quiz/edit", {quiz: quizToEdit }); // + questions
@@ -61,10 +64,10 @@ export function QuizList() {
                 {quizList &&
                     quizList.map((quiz) => {
                         return (
-                            <li key={quiz.id}>
-                                <p>{quiz.name}</p>
-                                <button onClick={ editQuiz(quiz.id)}> edit </button>
-                                <button onClick={ deleteQuiz(quiz.id)}> delete </button>
+                            <li key={quiz._id}>
+                                <p>{quiz.name} </p>
+                                <button onClick={ () => editQuiz(quiz._id)}> edit </button>
+                                <button onClick={ () => deleteQuiz(quiz._id)}> delete </button>
                             </li>
                         )
                     })}
