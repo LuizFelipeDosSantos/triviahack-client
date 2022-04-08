@@ -11,6 +11,7 @@ import { EditQuiz } from './Components/EditQuiz';
 import { CreateQuiz } from './Components/CreateQuiz'
 import { Categories } from './Components/Categories';
 import { Level } from './Components/Level';
+import { PlayQuiz } from './Components/PlayQuiz';
 
 function App() {
   return (
@@ -22,7 +23,7 @@ function App() {
       <Route element={<LayoutComponent />}>
         <Route path="/home" element={<Mode/>} />
         <Route path="/quiz">
-          {/* <Route index element={<PlayQuiz />} /> */}
+          <Route index element={<PlayQuiz />} />
           <Route path="list" element={<QuizList />} />
           <Route path="create" element={<CreateQuiz />} />
           <Route path="edit/:id" element={<EditQuiz />} />
