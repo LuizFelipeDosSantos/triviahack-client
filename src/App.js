@@ -6,10 +6,12 @@ import { LayoutComponent } from './Components/LayoutComponent';
 import { Custom404Page } from './Components/Custom404Page';
 import { Mode } from './Components/Mode';
 import { Profile } from './Components/Profile';
+import { QuizList } from './Components/QuizList';
+import { EditQuiz } from './Components/EditQuiz';
+import { CreateQuiz } from './Components/CreateQuiz'
 /* import { Categories }
 import { Level }
-import { Profile }
-import { EditQuiz } */
+ */
 
 
 function App() {
@@ -21,15 +23,14 @@ function App() {
       {/* Layout encapsulation of routes with navbar */}
       <Route element={<LayoutComponent />}>
         <Route path="/home" element={<Mode/>} />
-        {/* <Route path="/categories" element={<Categories />} />
-        <Route path="/level" element={<Level />} />
+        {/* <Route path="/level" element={<Level />} /> */}
         <Route path="/quiz">
-          <Route index element={<PlayQuiz />} />
+          {/* <Route index element={<PlayQuiz />} /> */}
           <Route path="list" element={<QuizList />} />
           <Route path="create" element={<CreateQuiz />} />
           <Route path="edit/:id" element={<EditQuiz />} />
         </Route>
-        <Route path="/categories" element={<Categories />} />  */}
+       {/*  <Route path="/categories" element={<Categories />} />  */}
         <Route path="/profile" element={<Profile />} />
       </Route>
     </Routes>

@@ -20,8 +20,8 @@ export function Profile() {
             const { username, avatar, friends, score } = data;
             setUserState({ username, avatar, friends, score });
           } catch (err) {
-            console.log("We got an error");
-            console.error(err.response.data);
+            console.log(err.response.data);
+            setErrorState({ message: err.response.data.errorMessage });
           }
         }
         fetchUser();
