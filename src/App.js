@@ -10,8 +10,7 @@ import { QuizList } from './Components/QuizList';
 import { EditQuiz } from './Components/EditQuiz';
 import { CreateQuiz } from './Components/CreateQuiz'
 import { Categories } from './Components/Categories';
-/* import { Level } */
-
+import { Level } from './Components/Level';
 
 function App() {
   return (
@@ -22,14 +21,14 @@ function App() {
       {/* Layout encapsulation of routes with navbar */}
       <Route element={<LayoutComponent />}>
         <Route path="/home" element={<Mode/>} />
-        {/* <Route path="/level" element={<Level />} /> */}
         <Route path="/quiz">
           {/* <Route index element={<PlayQuiz />} /> */}
           <Route path="list" element={<QuizList />} />
           <Route path="create" element={<CreateQuiz />} />
           <Route path="edit/:id" element={<EditQuiz />} />
         </Route>
-        <Route path="/categories" element={<Categories />} /> 
+        <Route path="/categories" element={<Categories />} />
+        <Route path="/level" element={<Level />} />
         <Route path="/profile" element={<Profile />} />
       </Route>
     </Routes>

@@ -1,8 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../consts";
 
 export function Categories() {
+    const navigate = useNavigate();
     const [categories, setCategories] = useState();
     const [ownFriendsQuizzes, setOwnFriendsQuizzes] = useState();
 
@@ -37,7 +39,9 @@ export function Categories() {
                 categories.map((category) => {
                     return (
                         <div key={category.id}>
-                            <button>{category.name}</button>
+                            <button onClick={() => {
+                                navigate('/level', { state: { category }})
+                            }}>{category.name}</button>
                         </div>
                     )
                 })}
@@ -48,7 +52,9 @@ export function Categories() {
                 ownFriendsQuizzes.map((quiz) => {
                     return (
                         <div key={quiz._id}>
-                            <button>{quiz.name}</button>
+                            <button onClick={() => {
+                                navigate('/level', { state: { quiz }})
+                            }}>{quiz.name}</button>
                         </div>
                     )
                 })}
