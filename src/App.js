@@ -9,9 +9,8 @@ import { Profile } from './Components/Profile';
 import { QuizList } from './Components/QuizList';
 import { EditQuiz } from './Components/EditQuiz';
 import { CreateQuiz } from './Components/CreateQuiz'
-/* import { Categories }
-import { Level }
- */
+import { Categories } from './Components/Categories';
+/* import { Level } */
 
 
 function App() {
@@ -30,7 +29,7 @@ function App() {
           <Route path="create" element={<CreateQuiz />} />
           <Route path="edit/:id" element={<EditQuiz />} />
         </Route>
-       {/*  <Route path="/categories" element={<Categories />} />  */}
+        <Route path="/categories" element={<Categories />} /> 
         <Route path="/profile" element={<Profile />} />
       </Route>
     </Routes>
