@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../consts";
+import logo from '../Logo/logo.png'
 
 export function Signup() {
   const navigate = useNavigate();
@@ -53,74 +54,80 @@ export function Signup() {
   }
 
   return (
-    <div>
-      <h1><a href="/">TRIVIAHACK</a></h1>
-      <h2>Sign up </h2>
+    <div className="login">
+      <div className="login-box">
+        <a href="/"><img className="logo" src={logo} alt="triviahack logo"/></a>
+        <h2>Sign up </h2>
 
-      {previewSource && (
-        <img
-          src={previewSource}
-          alt="chosen avatar"
-          style={{ height: "20vh" }}
-        />
-      )}
+        {previewSource && (
+          <img
+            className="avatar"
+            src={previewSource}
+            alt="chosen avatar"
+            style={{ height: "20vh" }}
+          />
+        )}
 
-      <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
 
-        {/* alternatively : action method enctype? instead consts sets method and body & headers... */}
+          {/* alternatively : action method enctype? instead consts sets method and body & headers... */}
 
-        {errorState && <h2 style={{ color: "red" }}>{errorState.message}</h2>}
+         
 
-        {/* where is upload specified to certain parameters: file size  */}
+          {/* where is upload specified to certain parameters: file size  */}
+          <div className="inputfields">
 
-        <input
-          type="file"
-          name="avatar"
-          value={formState.avatar}
-          onChange={handleInput}
-        />
+            <label for="avatar">Avatar:</label>
+            <input
+              type="file"
+              name="avatar"
+              value={formState.avatar}
+              onChange={handleInput}
+            />
 
-        <br/>
+            <br/>
 
-        <input
-          required
-          type="text"
-          name="username"
-          value={formState.username}
-          onChange={handleInput}
-          placeholder="Enter a username"
-        />
+            <label for="username">Username:</label>
+            <input
+              required
+              type="text"
+              name="username"
+              value={formState.username}
+              onChange={handleInput}
+              placeholder="Enter a username"
+            />
 
-        <br/>
+            <br/>
+            <label for="email">Email:</label>
+            <input
+              required
+              type="email"
+              name="email"
+              value={formState.email}
+              onChange={handleInput}
+              placeholder="Enter an email"
+            />
 
-        <input
-          required
-          type="email"
-          name="email"
-          value={formState.email}
-          onChange={handleInput}
-          placeholder="Enter an email"
-        />
+            <br/>
+            <label for="password">Password:</label>
+            <input
+              required
+              type="password"
+              name="password"
+              value={formState.password}
+              title="Password must contain at least 6 characters, including at least one uppercase, one lowercase and one number."
+              pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
+              onChange={handleInput}
+              autoComplete={"new-password"}
+              placeholder="Enter a password"
+            />
+          </div>
+          <br/>
 
-        <br/>
-
-        <input
-          required
-          type="password"
-          name="password"
-          value={formState.password}
-          title="Password must contain at least 6 characters, including at least one uppercase, one lowercase and one number."
-          pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
-          onChange={handleInput}
-          autoComplete={"new-password"}
-          placeholder="Enter a password"
-        />
-
-        <br/>
-
-        <button type="submit"> Sign up </button>
-      </form>
-      
+          <button className="btn" type="submit"> Sign up </button>
+        </form>
+        {errorState && <h2>{errorState.message}</h2>}
+      </div>
     </div>
   );
 }

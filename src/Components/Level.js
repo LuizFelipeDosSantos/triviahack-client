@@ -5,29 +5,29 @@ export function Level() {
     const {state : { category, quiz }} = useLocation();
 
     return (
-        <div>
+        <div className="home">
             <h2>Select Difficulty</h2>
             <div className="flex-column">
                 {category
                  ?  <>
                         <div>
-                            <button onClick={() => {
+                            <button className="btn" onClick={() => {
                                 navigate('/quiz', { state : { category, level: "easy"}})
                             }}>Easy</button>
                         </div>
                         <div>
-                            <button onClick={() => {
+                            <button className="btn" onClick={() => {
                                 navigate('/quiz', { state : { category, level: "medium"}})
                             }}>Medium</button>
                         </div>
                         <div>
-                            <button onClick={() => {
+                            <button className="btn" onClick={() => {
                                 navigate('/quiz', { state : { category, level: "hard"}})
                             }}>Hard</button>
                         </div>
                     </>
                  :  <div>
-                        <button onClick={() => {
+                        <button className="btn" onClick={() => {
                                 navigate('/quiz', { state : { quiz }})
                         }}>{quiz.difficulty}</button>
                     </div>}
