@@ -27,7 +27,6 @@ export function CreateQuiz() {
 
     const handleQuizSubmit = (event) => {
         event.preventDefault();
-        console.log(newQuiz)
     }
 
     /* QUIZ QUESTIONS */
@@ -59,10 +58,9 @@ export function CreateQuiz() {
     }
 
     async function createQuiz() {
-        console.log(questionsArr.length)
         if (quizComplete) {
            try {
-                const response = await axios.post(API_BASE_URL + "/quiz/create", {quiz: newQuiz, questionsArr} ); 
+                const response = await axios.post(API_BASE_URL + "/quiz/create", {quiz: newQuiz, questions: questionsArr, }); 
                 console.log(response.data);
                 setQuestionsArr([])
                 navigate("/quiz/list");

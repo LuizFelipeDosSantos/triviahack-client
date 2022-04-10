@@ -4,11 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../consts";
 
 export function QuizList() {
-    const [errorState, setErrorState] = useState();
-    const [quizList, setQuizList] = useState([]);
+    const [ quizList, setQuizList] = useState([]);
     const navigate = useNavigate();
+    const [ listWasEdited, setListWasEdited ] = useState(false);
     
-    /* fetch quiz data from server */
+    /* fetch user's quiz data from server */
     useEffect(() => {
         async function fetchQuizzes() {
             try {
@@ -17,44 +17,33 @@ export function QuizList() {
                 const { quizzes } = data;
                 setQuizList(quizzes);
             } catch (err) {
-                console.log(err.response.data);
-                setErrorState({ message: err.response.data.errorMessage });
+                console.log(err.response.data.errorMessage);
             }
         }
         fetchQuizzes();
-    }, [quizList]); //runs on mount and changes if edit/delete quiz
+    }, [listWasEdited]);
 
     /* DELETE */
     async function deleteQuiz(quizToDelete) {
         try {
-            console.log(quizToDelete)
             const response = await axios.delete(API_BASE_URL + "/quiz/delete", {params: {quizId: quizToDelete}}); //quiz ID
             console.log(response.data);
+            setListWasEdited(!listWasEdited);
         }
         catch (err) {
-            console.log(err.response.data);
-            setErrorState({ message: err.response.data.errorMessage });
+            console.log(err.response.data.errorMessage);
         }
     }
 
-     /* EDIT: create Quiz but prefilled: component like createquiz??!!! */
-     /* I already have all quiz data */
-     /* to receive this data use : useLocation (level.js) */
-     /* navigate(Route, { state : { function / data -- }}) */
-    async function editQuiz(quizToEdit) {
+     /* EDIT*/
+    function editQuiz(quizIdToEdit) {
         try {
-            const response = await axios.put(API_BASE_URL + "/quiz/edit", {quiz: quizToEdit }); // + questions
-            console.log(response.data);
+            const quiz = quizList.filter((quiz) => quiz._id === quizIdToEdit)[0];
+            navigate("/quiz/edit", { state : { quiz }});
         }
         catch (err) {
-            console.log(err.response.data);
-            setErrorState({ message: err.response.data.errorMessage });
-        }
-    }
-
-    /* Navigate to Quiz Editor */
-    const openEditor = () => {
-        navigate("/quiz/create")
+            console.log(err);
+        }  
     }
 
     return (
@@ -73,8 +62,7 @@ export function QuizList() {
                     })}
             </ul>
 
-            {/* <button onClick={ navigate("/quiz/create") }> Create new Quiz </button> */}
-            <button onClick={openEditor}> Create new Quiz </button>
+            <button onClick={ () => navigate("/quiz/create") }> Create new Quiz </button>
         </div>
     )
 }
