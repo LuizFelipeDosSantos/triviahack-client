@@ -80,10 +80,10 @@
 }
 
 .avatar {
-  object-fit: contain;
+  border: 0.5vw solid #42819D;
   border-radius: 50%;
-  height: 5vh;
-  width: auto;
+  width: 10vw;
+  height: auto;
 }
 
 .login-box h2 {
