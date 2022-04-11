@@ -28,7 +28,7 @@ export function LayoutComponent() {
           <>
             <nav className="navbar">
             <a href="/"><img className="icon" src={logoIcon} alt="triviahack logo"/></a>
-                <NavLink to="/home">TRIVIAHACK</NavLink>
+                <NavLink to="/home">Play</NavLink>
 
                 <NavLink to="/profile">Profile</NavLink>
 
