@@ -19,8 +19,8 @@ export function PlayQuiz() {
             try {
                 const response = await axios.get(API_BASE_URL + "/questions", { params: {
                     quizId: quiz ? quiz._id : "",
-                    category: category.id,
-                    difficulty: level
+                    category: category ? category.id : "",
+                    difficulty: level ? level : ""
                 }});
                 setQuestions(response.data.questions);
                 setAnswers(randomize([
