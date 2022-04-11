@@ -54,7 +54,7 @@ export function QuizList() {
                     quizList.map((quiz) => {
                         return (
                             <li key={quiz._id}>
-                                <p>{quiz.name} </p>
+                                <p>{quiz.name} - {quiz.difficulty}</p>
                                 <button onClick={ () => editQuiz(quiz._id)}> edit </button>
                                 <button onClick={ () => deleteQuiz(quiz._id)}> delete </button>
                             </li>

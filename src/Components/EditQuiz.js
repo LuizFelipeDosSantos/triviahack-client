@@ -15,7 +15,6 @@ export function EditQuiz() {
         async function fetchQuestions() {
             try {
                 const response = await axios.get(API_BASE_URL + "/questions", {params: { quizId: quiz._id }});
-                console.log(response.data.questions);
                 const newQuestionFormat = response.data.questions.map((question) => {
                     return {
                         question : question.question,
@@ -23,6 +22,7 @@ export function EditQuiz() {
                         incorrect_answer1 : question.incorrect_answers[0],
                         incorrect_answer2 : question.incorrect_answers[1],
                         incorrect_answer3 : question.incorrect_answers[2],
+                        _id : question._id,
                     }
                 })
                 setAllQuestionsToEdit(newQuestionFormat);
@@ -44,15 +44,34 @@ export function EditQuiz() {
     }
  
     /* QUESTIONS */
-    const handleQuestionsInput = (event) => {
+    const handleQuestionInput = (event) => {
         setQuestionToEdit({
              ...questionToEdit,
             [event.target.name]: event.target.value,
         });
     } 
 
+    const previous = () => {
+        if (currentQuestion >= 1) {
+            setCurrentQuestion(currentQuestion - 1)
+        }
+    }
+
+    const next = () => {
+        if (currentQuestion < 9) {
+            setCurrentQuestion(currentQuestion + 1)
+        }
+    }
+
+    function saveQuestion() {
+        let newArr = [...allQuestionsToEdit];
+        newArr[currentQuestion] = questionToEdit;
+        setAllQuestionsToEdit(newArr);
+    }
+
     const handleSubmit = (event) => {
         event.preventDefault();
+        /* fill form with next/previous question */
         setQuestionToEdit(allQuestionsToEdit[currentQuestion]);
     }
 
@@ -61,11 +80,11 @@ export function EditQuiz() {
             return  {
                 question : question.question,
                 correct_answer: question.correct_answer,
-                incorrect_answers: [question.incorrect_answer1, question.incorrect_answer2, question.incorrect_answer3]
+                incorrect_answers: [question.incorrect_answer1, question.incorrect_answer2, question.incorrect_answer3],
+                _id : question._id,
             }})
-        
         try {
-            const response = await axios.put(API_BASE_URL + "/quiz/edit", {quiz: quizEdited, questions });
+            const response = await axios.put(API_BASE_URL + "/quiz/edit", { quiz: quizEdited, questions : questions });
             console.log(response.data);
             navigate("/quiz/list");
         }
@@ -87,7 +106,6 @@ export function EditQuiz() {
                 onChange={handleNameLevelInput}
                 placeholder="Enter a name for your quiz"
                 />
-
             <br/>
 
             <label for="difficulty">Level of Difficulty: </label>
@@ -97,7 +115,6 @@ export function EditQuiz() {
                 <option value="hard">hard</option>
             </select>
 
-            <br/>
             <br/>
             </form>
 
@@ -113,7 +130,7 @@ export function EditQuiz() {
                         type="text"
                         name="question"
                         value={questionToEdit.question}
-                        onChange={handleQuestionsInput}
+                        onChange={handleQuestionInput}
                         />
                         <br/>
 
@@ -123,7 +140,7 @@ export function EditQuiz() {
                         type="text"
                         name="correct_answer"
                         value={questionToEdit.correct_answer}
-                        onChange={handleQuestionsInput}
+                        onChange={handleQuestionInput}
                         />
                         <br/>
 
@@ -133,7 +150,7 @@ export function EditQuiz() {
                         type="text"
                         name="incorrect_answer1"
                         value={questionToEdit.incorrect_answer1}
-                        onChange={handleQuestionsInput}
+                        onChange={handleQuestionInput}
                         />
                     <br/>
 
@@ -143,7 +160,7 @@ export function EditQuiz() {
                         type="text"
                         name="incorrect_answer2"
                         value={questionToEdit.incorrect_answer2}
-                        onChange={handleQuestionsInput}
+                        onChange={handleQuestionInput}
                         />
                     <br/>
 
@@ -153,14 +170,15 @@ export function EditQuiz() {
                         type="text"
                         name="incorrect_answer3"
                         value={questionToEdit.incorrect_answer3}
-                        onChange={handleQuestionsInput}
+                        onChange={handleQuestionInput}
                         />
                     <br/>
                     <br/>
-                    <h5>{(currentQuestion + 1) + "/" + allQuestionsToEdit.length}</h5>
+                    <h5>{(currentQuestion + 1) + "/" + allQuestionsToEdit.length }</h5>
 
-                    <button type="submit" onClick={ setCurrentQuestion(currentQuestion - 1)} > previous </button>
-                    <button type="submit" onClick={ setCurrentQuestion(currentQuestion + 1)} > next </button>
+                    <button type="submit" onClick={ saveQuestion } > save changes </button>
+                    <button onClick={ previous } > {"<<"} </button>
+                    <button onClick={ next } > {">>"} </button>
                     
                 </form>              
             }
