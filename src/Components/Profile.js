@@ -140,7 +140,7 @@ export function Profile() {
             
             <form onSubmit={handleNewFriendSubmit}>
                 
-                {errorState && <h2 style={{ color: "red" }}>{errorState.message}</h2>}
+                {errorState && <h2 style={{ color: "#42819D" }}>{errorState.message}</h2>}
 
                     <input
                     type="text"

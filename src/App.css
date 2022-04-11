@@ -186,6 +186,11 @@
   display: flex;
   flex-direction: column;
 }
+.friends > form > input {
+  font-size: 1.2rem;
+  border: 0.3vw solid #42819D;
+  border-radius: 1vw;
+}
 
 .profile button {
   padding: 1vh;
@@ -212,4 +217,31 @@
 
 .leaderboard {
   margin-top: 3vh;
+}
+
+/* ---------------------- */
+/* QuizLIst */
+.quizListContainer {
+  color: #24527A;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+}
+.quizListContainer button {
+  width: fit-content;
+}
+
+.quizListContainer ul {
+  list-style: none;
+}
+
+.quizListContainer li {
+  border: 3px solid #24527A;
+  border-radius: 1vw;
+  padding: 1vw;
+  margin-bottom: 2vh;
+  display: flex;
+  flex-direction: row;
 }
