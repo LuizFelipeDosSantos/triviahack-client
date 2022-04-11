@@ -26,7 +26,7 @@ function App() {
           <Route index element={<PlayQuiz />} />
           <Route path="list" element={<QuizList />} />
           <Route path="create" element={<CreateQuiz />} />
-          <Route path="edit/:id" element={<EditQuiz />} />
+          <Route path="edit" element={<EditQuiz />} />
         </Route>
         <Route path="/categories" element={<Categories />} />
         <Route path="/level" element={<Level />} />
