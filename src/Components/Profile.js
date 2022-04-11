@@ -96,39 +96,43 @@ export function Profile() {
     return (
         <div className="profile">
             <div className="profile-info">
-                <h2>{userState.username}</h2>
-                <h3>Score: {userState.score}</h3>
-
-                <img className="avatar" style={{ display: showForm ? 'none' : 'block' }} src={userState.avatar} alt="avatar" />
-                <br/>
-                
-                <div className="editAvatarForm" style={{ display: showForm ? 'block' : 'none' }}>
-                
-                    {previewSource && (
-                        <img
-                        className="avatar"
-                        src={previewSource}
-                        alt="chosen avatar"
-                        />
-                    )}
-                    
-                        <br/>
-                        <br/>
-                    <form onSubmit={handleSubmit}>
-                    
-                    {errorState && <h2 style={{ color: "red" }}>{errorState.message}</h2>}
-
-                        <input
-                        type="file"
-                        name="avatar"
-                        onChange={previewFile}
-                        />
-                        <br/>
-                        <button className="btn" type="submit"> Change to this one </button>
-                    </form>
+                <div className="nameScore"> 
+                    <h2>{userState.username}</h2>
+                    <p>Score: <b>{userState.score}</b></p>
                 </div>
-                <br/>
-                <button className="btn" onClick={toggleForm}> { showForm ? 'Finish editing' : 'Change Avatar'} </button> 
+
+                <div className="avatarBox"> 
+                    <img className="avatar" style={{ display: showForm ? 'none' : 'block' }} src={userState.avatar} alt="avatar" />
+                    <br/>
+                    
+                    <div className="editAvatarForm" style={{ display: showForm ? 'block' : 'none' }}>
+                    
+                        {previewSource && (
+                            <img
+                            className="avatar"
+                            src={previewSource}
+                            alt="chosen avatar"
+                            />
+                        )}
+                        
+                            <br/>
+                            <br/>
+                        <form onSubmit={handleSubmit}>
+                        
+                        {errorState && <h2 style={{ color: "red" }}>{errorState.message}</h2>}
+
+                            <input
+                            type="file"
+                            name="avatar"
+                            onChange={previewFile}
+                            />
+                            <br/>
+                            <button className="btn" type="submit"> Change to this one </button>
+                        </form>
+                    </div>
+                    <br/>
+                    <button onClick={toggleForm}> { showForm ? 'Finish editing' : 'Change Avatar'} </button> 
+                </div>           
             </div>
 
             <div className="friends">
@@ -141,7 +145,7 @@ export function Profile() {
                     <input
                     type="text"
                     name="addFriend"
-                    placeholder="Enter friend's Triviahack username"
+                    placeholder="Enter friend's username"
                     value={newFriend}
                     onChange={handleFriendInput}
                     />
@@ -156,6 +160,7 @@ export function Profile() {
             <table>
                 <thead>
                     <tr>
+                        <th></th>
                         <th>Friends</th>
                         <th>Score</th>
                     </tr>
@@ -168,13 +173,10 @@ export function Profile() {
                     .map(friend => {
                         return (
                         <tr key={nanoid()}>
+                            <td><img className="avatar leaderB" src={friend.avatar} alt={`${friend.username}'s avatar`}/></td>
+                            <td>{friend.username}</td>
+                            <td>{friend.score}</td>
                             <td>
-                                <h3>{friend.username}</h3>
-                            </td>
-                            <td>
-                                <h3>{friend.score}</h3>
-                            </td>
-                           <td>
                                 <button onClick={() => deleteFriend(friend.username)}> Delete </button>
                             </td>
                         </tr>

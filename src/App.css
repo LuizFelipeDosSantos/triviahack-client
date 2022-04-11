@@ -4,6 +4,7 @@
   font-family: 'Roboto Condensed', sans-serif;
 }
 
+/* ------------------- */
 /* NAVBAR */
 .navbar {
   background-color: #24527A;
@@ -40,7 +41,7 @@
   font-weight: bold;
 }
 
-/* ---- */
+/* ------------------- */
 
 .flex-list {
   display: flex;
@@ -53,6 +54,7 @@
   flex-direction: column;
 }
 
+/* ------------------- */
 /* LOGIN & SignUP*/
 
 .login {
@@ -102,7 +104,7 @@
 }
 
 .login-box input {
-  width: 50vw;
+  width: 49vw;
   margin-bottom: 1vh;
   margin-top: 1vh;
   font-size: 1.1rem;
@@ -123,8 +125,8 @@
   width: 20vw;
   border-radius: 0.9vw;
 }
-
-/* ----HOME */
+/* ------------------- */
+/* HOME */
 .home {
   display: flex;
   justify-content: center;
@@ -137,6 +139,7 @@
   margin: 2vh;
 }
 
+/* ------------------- */
 /* Categories */
 .cat-page {
   color: #24527A;
@@ -159,8 +162,8 @@
   margin: 1vh;
 }
 
-
-/* profile */
+/* ------------------- */
+/* Profile */
 .profile {
   display: flex;
   flex-wrap: wrap;
@@ -168,29 +171,45 @@
   justify-content: center;
   text-align: center;
   align-items: center;
+  color: #24527A;
 }
 
 .profile-info {
   border: 3px solid #24527A;
   border-radius: 5px;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   margin: 4vh;
   padding: 4vh;
 }
 
+.nameScore {
+  display: flex;
+  flex-direction: column;
+}
+
 .profile button {
-  width: 9vw;
+  padding: 1vh;
+  background-color: #24527A;
+  color: #83b1c5;
+  font-size: 0.8rem;
+  border-radius: 0.9vw;
+  width: fit-content;
 }
 
 .profile img {
-  width: 10vw;
-  height: auto;
-  margin: 3vh;
+  margin: 1vh;
+}
+
+.leaderB {
+  width: 8vw;
 }
 
 .profile table {
   border: 3px solid #24527A;
   border-radius: 5px;
+  padding: 2vw;
+}
+
+.leaderboard {
+  margin-top: 3vh;
 }
