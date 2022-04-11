@@ -55,14 +55,16 @@ export function QuizList() {
                         return (
                             <li key={quiz._id}>
                                 <p>{quiz.name} - {quiz.difficulty}</p>
-                                <button className="btn" onClick={ () => editQuiz(quiz._id)}> edit </button>
-                                <button className="btn" onClick={ () => deleteQuiz(quiz._id)}> delete </button>
+                                <button className="btn" onClick={ () => editQuiz(quiz._id)}> 
+                                <i class="material-icons">edit</i></button>
+                                <button className="btn" onClick={ () => deleteQuiz(quiz._id)}> 
+                                <i class="material-icons">delete</i></button>
                             </li>
                         )
                     })}
             </ul>
 
-            <button className="btn" onClick={ () => navigate("/quiz/create") }> Create new Quiz </button>
+            <button className="btn" onClick={ () => navigate("/quiz/create") }><i class="material-icons">add_circle</i> Create new Quiz </button>
         </div>
     )
 }
