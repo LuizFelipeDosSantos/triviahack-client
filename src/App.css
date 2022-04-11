@@ -1,11 +1,46 @@
 .App {
-  text-align: center;
-  margin-left: 5vw;
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto Condensed', sans-serif;
 }
 
-.navbar > * {
-  margin: 4vw;
+/* NAVBAR */
+.navbar {
+  background-color: #24527A;
+  color: white;
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+  padding-right: 2vw;
 }
+
+.icon {
+  height: 6vh;
+  padding: 1vh;
+  padding-left: 2vw;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+/* .navbar :active {
+  background-color: white;
+} */
+
+.navbar button {
+  background-color: #24527A;
+  color: white;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* ---- */
 
 .flex-list {
   display: flex;
@@ -16,4 +51,146 @@
 .flex-column {
   display: flex;
   flex-direction: column;
+}
+
+/* LOGIN & SignUP*/
+
+.login {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  background-color: #24527A;
+  position: absolute;
+  bottom: 0px;
+  top: 0px;
+  width: 100%;
+}
+
+.login-box {
+  background-color: white;
+  color: #24527A;
+  font-size: 1rem;
+  width: 50vw;
+  text-align: center;
+  border: 2vw solid #24527A;
+  border-radius: 3vw;
+  padding: 4vh;
+}
+
+.logo {
+  width: 30vw;
+  border-radius: 5%;
+}
+
+.avatar {
+  border: 0.3vw solid #42819D;
+  border-radius: 50%;
+  width: 30vw;
+  height: auto;
+  object-fit: fill;
+}
+
+.login-box h2 {
+  font-size: 1.2rem;
+  color:#42819D;
+  font-weight: 600;
+}
+
+.inputfields {
+  text-align: left;
+}
+
+.login-box input {
+  width: 50vw;
+  margin-bottom: 1vh;
+  margin-top: 1vh;
+  font-size: 1.1rem;
+  border: 0.3vw solid #42819D;
+  border-radius: 1vw;
+}
+
+.login-box a {
+  color: #42819D;
+}
+
+.btn {
+  padding: 2vh;
+  align-self: center;
+  background-color: #24527A;
+  color: #83b1c5;
+  font-weight: bold;
+  width: 20vw;
+  border-radius: 0.9vw;
+}
+
+/* ----HOME */
+.home {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10vh;
+  color: #24527A;
+}
+
+.home button {
+  margin: 2vh;
+}
+
+/* Categories */
+.cat-page {
+  color: #24527A;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.cat {
+  margin: 0.3vw;
+  color: white;
+  background-color: #42819D;
+}
+
+.cat-page button {
+  background-color: white;
+  color: #24527A;
+  border: 0.4vw solid #42819D;
+  margin: 1vh;
+}
+
+
+/* profile */
+.profile {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+
+.profile-info {
+  border: 3px solid #24527A;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 4vh;
+  padding: 4vh;
+}
+
+.profile button {
+  width: 9vw;
+}
+
+.profile img {
+  width: 10vw;
+  height: auto;
+  margin: 3vh;
+}
+
+.profile table {
+  border: 3px solid #24527A;
+  border-radius: 5px;
 }

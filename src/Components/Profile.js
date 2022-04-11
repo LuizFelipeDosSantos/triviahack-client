@@ -70,6 +70,7 @@ export function Profile() {
             const response = await axios.put(API_BASE_URL + "/user/add-friend", {username: newFriend});
             console.log(response.data);
             setEdit(!edit);
+            setNewFriend("")
         }
         catch (err) {
             console.log(err.response.data);
@@ -93,41 +94,44 @@ export function Profile() {
     const addFriendsMessage = () => <div>Add some friends to see their score.</div>;
 
     return (
-        <div>
-            <h2>{userState.username}</h2>
-            <h3>Score: {userState.score}</h3>
+        <div className="profile">
+            <div className="profile-info">
+                <h2>{userState.username}</h2>
+                <h3>Score: {userState.score}</h3>
 
-            <img style={{ display: showForm ? 'none' : 'block' }} src={userState.avatar} width={200} alt="avatar" />
-            <br/>
-            
-            <div className="editAvatarForm" style={{ display: showForm ? 'block' : 'none' }}>
-               
-                {previewSource && (
-                    <img
-                    src={previewSource}
-                    alt="chosen avatar"
-                    style={{ height: "20vh" }}
-                    />
-                )}
+                <img className="avatar" style={{ display: showForm ? 'none' : 'block' }} src={userState.avatar} alt="avatar" />
+                <br/>
                 
-                    <br/>
-                    <br/>
-                <form onSubmit={handleSubmit}>
+                <div className="editAvatarForm" style={{ display: showForm ? 'block' : 'none' }}>
                 
-                {errorState && <h2 style={{ color: "red" }}>{errorState.message}</h2>}
+                    {previewSource && (
+                        <img
+                        className="avatar"
+                        src={previewSource}
+                        alt="chosen avatar"
+                        />
+                    )}
+                    
+                        <br/>
+                        <br/>
+                    <form onSubmit={handleSubmit}>
+                    
+                    {errorState && <h2 style={{ color: "red" }}>{errorState.message}</h2>}
 
-                    <input
-                    type="file"
-                    name="avatar"
-                    onChange={previewFile}
-                    />
-                    <br/>
-                    <button type="submit"> Change to this one </button>
-                </form>
+                        <input
+                        type="file"
+                        name="avatar"
+                        onChange={previewFile}
+                        />
+                        <br/>
+                        <button className="btn" type="submit"> Change to this one </button>
+                    </form>
+                </div>
+                <br/>
+                <button className="btn" onClick={toggleForm}> { showForm ? 'Finish editing' : 'Change Avatar'} </button> 
             </div>
-            <br/>
-            <button onClick={toggleForm}> { showForm ? 'Finish editing' : 'Change Avatar'} </button> 
-            
+
+            <div className="friends">
             <h2>Add Friends</h2>     
             
             <form onSubmit={handleNewFriendSubmit}>
@@ -142,9 +146,11 @@ export function Profile() {
                     onChange={handleFriendInput}
                     />
 
-                    <button type="submit"> Add </button>
+                    <button className="btn" type="submit"> Add </button>
             </form>
+            </div>
 
+            <div className="leaderboard">
         {/* Leaderboard with my score and my freinds*/}
             <h2>Triviahack League</h2>
             <table>
@@ -176,6 +182,7 @@ export function Profile() {
                     })}
                 </tbody>
             </table>
+            </div>
         </div>
     )
 }

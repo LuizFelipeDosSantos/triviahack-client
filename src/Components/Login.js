@@ -3,6 +3,7 @@ import { useState, useContext } from "react";
 import { API_BASE_URL, getCsrfToken } from "../consts";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthProviderWrapper";
+import logo from '../Logo/logo.png'
 
 export function Login() {
   const navigate = useNavigate();
@@ -39,39 +40,42 @@ export function Login() {
   }
 
   return (
-    <div>
-      <h1>TRIVIAHACK</h1>
-      <h2>Log in</h2>
-      <form onSubmit={handleSubmit}>
+    <div className="login">
+      <div className="login-box">
+        <img className="logo" src={logo} alt="triviahack logo"/>
+        <h2>Log in</h2>
+        <form onSubmit={handleSubmit}>
 
-      {errorState && <h2 style={{ color: "red" }}>{errorState.message}</h2>}
-        
-        <input
-          type="email"
-          name="email"
-          autoComplete="email"
-          value={formState.email}
-          onChange={handleInput}
-          placeholder="Enter your Email"
-        />
-
-        <br/>
-
-        <input
-          type="password"
-          name="password"
-          autoComplete={"current-password"}
-          value={formState.password}
-          onChange={handleInput}
-          placeholder="Enter your Password"
-        />
-
-        <button type="submit"> Log in </button>
-      </form>
-
-      <p>
-        Not registered yet? <a href="/signup">Join TRIVIHACK</a>
-      </p>
+          <div className="inputfields">
+            <label for="email">Email:</label>
+            <br/>
+            <input
+              type="email"
+              name="email"
+              autoComplete="email"
+              value={formState.email}
+              onChange={handleInput}
+              placeholder="Enter your Email"
+            />
+            <br/>
+            <label for="password">Password:</label>
+            <br/>
+            <input
+              type="password"
+              name="password"
+              autoComplete={"current-password"}
+              value={formState.password}
+              onChange={handleInput}
+              placeholder="Enter your Password"
+            />
+            </div>
+          <p>
+            Not registered yet? <a href="/signup">Join TRIVIHACK</a>
+          </p>
+          <button className="btn" type="submit"> Log in </button>
+        </form>
+        {errorState && <h2>{errorState.message}</h2>}
+      </div>
     </div>
   );
 }

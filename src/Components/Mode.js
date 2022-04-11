@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router-dom";
+import logo2 from '../Logo/logo2.png'
+
 
 export function Mode() {
     const navigate = useNavigate();
@@ -8,13 +10,14 @@ export function Mode() {
     }
 
     return (
-        <div className="flex-column">
+        <div className="flex-column home">
+            <img className="logo" src={logo2} alt="triviahack logo"/>
             <h2>Select Mode</h2>
             <div>
-                <button onClick={singlePlayerGame}>Single-Player</button>
+                <button className="btn" onClick={singlePlayerGame}>Single-Player</button>
             </div>
             <div>
-                <button>Multi-Player</button>
+                <button className="btn" >Multi-Player</button>
             </div>
         </div>
     )

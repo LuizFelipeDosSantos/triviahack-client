@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../consts";
+import logoIcon from '../Logo/logoIcon.png'
 
 export function Categories() {
     const navigate = useNavigate();
@@ -32,27 +33,27 @@ export function Categories() {
     }, []);
 
     return (
-        <div>
-            <h3>Categories</h3>
+        <div className="cat-page">
+            <h3> <img className="icon" src={logoIcon} alt="triviahack logo"/>Categories</h3>
             <div className="flex-list">
                 {categories && 
                 categories.map((category) => {
                     return (
                         <div key={category.id}>
-                            <button onClick={() => {
+                            <button className="btn cat" onClick={() => {
                                 navigate('/level', { state: { category }})
                             }}>{category.name}</button>
                         </div>
                     )
                 })}
             </div>
-            <h3>My Own & My Friends Quizzes</h3>
+            <h3><img className="icon" src={logoIcon} alt="triviahack logo"/>My Own & My Friends Quizzes</h3>
             <div className="flex-list">
                 {ownFriendsQuizzes && 
                 ownFriendsQuizzes.map((quiz) => {
                     return (
                         <div key={quiz._id}>
-                            <button onClick={() => {
+                            <button className="btn cat" onClick={() => {
                                 navigate('/level', { state: { quiz }})
                             }}>{quiz.name}</button>
                         </div>
