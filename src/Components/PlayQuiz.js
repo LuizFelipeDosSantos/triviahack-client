@@ -60,7 +60,7 @@ export function PlayQuiz() {
                 setChosenAnswer("");
             } else {
                 setQuizCompleted(!quizCompleted);
-                fetchUpdateUserScore();
+                if (!quiz) fetchUpdateUserScore();
             }
         }, 2000);
         return () => clearTimeout(timerShowAnswer);
