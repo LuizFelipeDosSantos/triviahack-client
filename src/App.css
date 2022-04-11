@@ -69,8 +69,8 @@
   width: 30vw;
   margin: 10vh;
   text-align: center;
-  border: 3px solid #24527A;
-  border-radius: 5px;
+  border: 2vw solid #24527A;
+  border-radius: 3vw;
   padding: 4vh;
 }
 
@@ -144,6 +144,13 @@
   color: white;
   background-color: #42819D;
 }
+
+.cat-page button {
+  background-color: white;
+  color: #24527A;
+  border: 0.6vw solid #42819D;
+}
+
 
 /* profile */
 .profile {
