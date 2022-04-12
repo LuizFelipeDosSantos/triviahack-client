@@ -178,7 +178,7 @@ export function Profile() {
                     {noFriendsAdded
                     ? addFriendsMessage()
                     : userState.friends
-                    .sort((a, b) => a.score - b.score)
+                    .sort((a, b) => b.score - a.score)
                     .map(friend => {
                         return (
                         <tr key={nanoid()}>
