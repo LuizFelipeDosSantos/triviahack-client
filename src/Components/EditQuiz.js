@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../consts";
+import logoIcon from '../Logo/logoIcon.png'
 
 export function EditQuiz() {
     const navigate = useNavigate();
@@ -94,8 +95,12 @@ export function EditQuiz() {
     }
 
     return (
-        <div>
-            <h1> Edit this Quiz </h1>
+        <div className="quiz quiz-edit">
+            <div className="header">
+                <img className="icon" src={logoIcon} alt="triviahack logo"/>
+                <h3> Edit this Quiz </h3>
+            </div>
+            
             {/* Name & Level */}
             <form onSubmit={(event)=> event.preventDefault()}>
             <label for="name">Name of your Quiz: </label>
@@ -114,8 +119,6 @@ export function EditQuiz() {
                 <option value="medium">medium</option>
                 <option value="hard">hard</option>
             </select>
-
-            <br/>
             </form>
 
             {/* ------------------------------------ */}
@@ -124,7 +127,7 @@ export function EditQuiz() {
            
             <div>
             {questionToEdit &&
-                <form onSubmit={handleSubmit} >
+                <form className="quizEditform" onSubmit={handleSubmit} >       
                     <label for="question">Question: </label>
                     <input
                         type="text"
@@ -132,9 +135,7 @@ export function EditQuiz() {
                         value={questionToEdit.question}
                         onChange={handleQuestionInput}
                         />
-                        <br/>
-
-                    <label for="question">Correct Answer: </label>
+                    <label style={{color: "#38824e"}} for="question">Correct Answer: </label>
                     <input
                         required
                         type="text"
@@ -142,9 +143,7 @@ export function EditQuiz() {
                         value={questionToEdit.correct_answer}
                         onChange={handleQuestionInput}
                         />
-                        <br/>
-
-                    <label for="incorrect_answer1">Wrong Answer 1: </label>
+                    <label style={{color: "#c24040"}} for="incorrect_answer1">Wrong Answer 1: </label>
                     <input
                         required
                         type="text"
@@ -152,9 +151,7 @@ export function EditQuiz() {
                         value={questionToEdit.incorrect_answer1}
                         onChange={handleQuestionInput}
                         />
-                    <br/>
-
-                    <label for="incorrect_answer2">Wrong Answer 2: </label>
+                    <label style={{color: "#c24040"}} for="incorrect_answer2">Wrong Answer 2: </label>
                     <input
                         required
                         type="text"
@@ -162,9 +159,7 @@ export function EditQuiz() {
                         value={questionToEdit.incorrect_answer2}
                         onChange={handleQuestionInput}
                         />
-                    <br/>
-
-                    <label for="incorrect_answer3">Wrong Answer 3: </label>
+                    <label style={{color: "#c24040"}} for="incorrect_answer3">Wrong Answer 3: </label>
                     <input
                         required
                         type="text"
@@ -172,20 +167,18 @@ export function EditQuiz() {
                         value={questionToEdit.incorrect_answer3}
                         onChange={handleQuestionInput}
                         />
-                    <br/>
-                    <br/>
+                    <button className="btn" type="submit" onClick={ saveQuestion } > 
+                        <i class="material-icons-outlined md-18">save</i> 
+                    </button>
                     <h5>{(currentQuestion + 1) + "/" + allQuestionsToEdit.length }</h5>
-
-                    <button type="submit" onClick={ saveQuestion } > save changes </button>
-                    <button onClick={ previous } > {"<<"} </button>
-                    <button onClick={ next } > {">>"} </button>
-                    
+                    <div>
+                        <button className="btn" onClick={ previous } > {"<<"} </button>
+                        <button className="btn" onClick={ next } > {">>"} </button>
+                    </div>
                 </form>              
             }
             </div> 
-                <br/>
-               <br/>
-             <button onClick={finishEdit}> Submit all Changes </button>
+            <button className="btn" onClick={finishEdit}> Submit all Changes </button>
         </div>
     )
 }

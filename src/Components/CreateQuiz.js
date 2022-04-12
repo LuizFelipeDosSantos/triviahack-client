@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { API_BASE_URL } from "../consts";
 import { useNavigate } from "react-router-dom";
+import logoIcon from '../Logo/logoIcon.png'
 
 export function CreateQuiz() {
     const [newQuiz, setNewQuiz] = useState({ name: "", difficulty: "easy" }); 
@@ -73,10 +74,12 @@ export function CreateQuiz() {
     }
 
     return (
-        <div>
-            <h1>Create your own Quiz</h1>
+        <div className="quiz quiz-edit">
+            <div className="header">
+                <img className="icon" src={logoIcon} alt="triviahack logo"/>
+                <h3>Create your own Quiz</h3>
+            </div>
             <form onSubmit={handleQuizSubmit}>
-
                 <label for="name">Name of your Quiz: </label>
                 <input
                     required
@@ -86,19 +89,16 @@ export function CreateQuiz() {
                     onChange={handleQuizInput}
                     placeholder="Enter a name for your quiz"
                     />
-
                 <br/>
-            
                 <label for="difficulty">Level of Difficulty: </label>
                 <select name="difficulty" value={newQuiz.difficulty} onChange={handleQuizInput} >
                     <option value="easy">easy</option>
                     <option value="medium">medium</option>
                     <option value="hard">hard</option>
                 </select>
-
-                <br/>
-                <br/>
-                <button type="submit" onClick={toggleForm}> Start with the questions </button>
+                <div className="quiz">
+                    <button className="btn" type="submit" onClick={toggleForm}> Start </button>
+                </div>
             </form>
 
             {/* ------------------------------------ */}
@@ -107,74 +107,60 @@ export function CreateQuiz() {
 
             <div style={{ display: showQuestionForm ? 'block' : 'none' }}>
 
-            <form onSubmit={handleQuestionSubmit}>
-                <label for="question">Question: </label>
-                <input
-                    required
-                    type="text"
-                    name="question"
-                    value={newQuestion.question}
-                    onChange={handleQuestionInput}
-                    placeholder="Enter a question"
-                    />
-                    <br/>
-
-                {/* correct answer */}
-                <label for="question">Correct Answer: </label>
-                <input
-                    required
-                    type="text"
-                    name="correct_answer"
-                    value={newQuestion.correct_answer}
-                    onChange={handleQuestionInput}
-                    placeholder="Enter the correct answer"
-                    />
-                    <br/>
-
-                {/* wrong answers */}
-                <label for="incorrect_answer1">Wrong Answer 1: </label>
-                <input
-                    required
-                    type="text"
-                    name="incorrect_answer1"
-                    value={newQuestion.incorrect_answer1}
-                    onChange={handleQuestionInput}
-                    placeholder="Enter a wrong answer"
-                    />
-                <br/>
-
-                <label for="incorrect_answer2">Wrong Answer 2: </label>
-                <input
-                    required
-                    type="text"
-                    name="incorrect_answer2"
-                    value={newQuestion.incorrect_answer2}
-                    onChange={handleQuestionInput}
-                    placeholder="Enter a wrong answer"
-                    />
-                <br/>
-
-                <label for="incorrect_answer3">Wrong Answer 3: </label>
-                <input
-                    required
-                    type="text"
-                    name="incorrect_answer3"
-                    value={newQuestion.incorrect_answer3}
-                    onChange={handleQuestionInput}
-                    placeholder="Enter a wrong answer"
-                    />
-                <br/>
-                <br/>
-                
-                <button type="submit" style={{ display: quizComplete ? 'none' : 'block' }} > next </button>
-         
-            </form>
+                <form className="quizEditform" onSubmit={handleQuestionSubmit}>
+                    <label for="question">Question: </label>
+                    <input
+                        required
+                        type="text"
+                        name="question"
+                        value={newQuestion.question}
+                        onChange={handleQuestionInput}
+                        placeholder="Enter a question"
+                        />
+                    <label style={{color: "#38824e"}} for="question">Correct Answer: </label>
+                    <input
+                        required
+                        type="text"
+                        name="correct_answer"
+                        value={newQuestion.correct_answer}
+                        onChange={handleQuestionInput}
+                        placeholder="Enter the correct answer"
+                        />
+                    <label style={{color: "#c24040"}} for="incorrect_answer1">Wrong Answer 1: </label>
+                    <input
+                        required
+                        type="text"
+                        name="incorrect_answer1"
+                        value={newQuestion.incorrect_answer1}
+                        onChange={handleQuestionInput}
+                        placeholder="Enter a wrong answer"
+                        />
+                    <label style={{color: "#c24040"}} for="incorrect_answer2">Wrong Answer 2: </label>
+                    <input
+                        required
+                        type="text"
+                        name="incorrect_answer2"
+                        value={newQuestion.incorrect_answer2}
+                        onChange={handleQuestionInput}
+                        placeholder="Enter a wrong answer"
+                        />
+                    <label style={{color: "#c24040"}} for="incorrect_answer3">Wrong Answer 3: </label>
+                    <input
+                        required
+                        type="text"
+                        name="incorrect_answer3"
+                        value={newQuestion.incorrect_answer3}
+                        onChange={handleQuestionInput}
+                        placeholder="Enter a wrong answer"
+                        />
+                    <button className="btn" type="submit" >{">>"}</button>
+                </form>
 
                 {/* only appears after 10 questions filled - how about saving process in between?? submit any time and the rest is empty? pre-filled: question + number and answewr.... */}
                 {/* button toggles: save or submit */}
-                <br/>
-                <br/>
-                <button style={{ display: quizComplete ? 'block' : 'none' }} onClick={createQuiz}> Submit Quiz </button>
+                <div className="quiz">
+                    <button className="btn" style={{ display: quizComplete ? 'block' : 'none' }} onClick={createQuiz}> Submit Quiz </button>
+                </div>
             </div>
         </div>
     )

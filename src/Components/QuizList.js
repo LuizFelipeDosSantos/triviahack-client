@@ -59,18 +59,22 @@ export function QuizList() {
                     quizList.map((quiz) => {
                         return (
                             <li key={quiz._id}>
-                                <h3>{quiz.name}</h3>
-                                <p>- {quiz.difficulty}</p> 
-                                <button className="iconBtn" onClick={ () => editQuiz(quiz._id)}> 
-                                <i class="material-icons-outlined md-18" icon>edit</i></button>
-                                <button className="iconBtn" onClick={ () => deleteQuiz(quiz._id)}> 
-                                <i class="material-icons-outlined md-18">delete</i></button>
+                                <div className="nameLevel">
+                                    <h3>{quiz.name}</h3>
+                                    <p>- {quiz.difficulty}</p>
+                                </div>
+                                <div>
+                                    <button className="iconBtn" onClick={ () => editQuiz(quiz._id)}> 
+                                    <i class="material-icons-outlined md-18" icon>edit</i></button>
+                                    <button className="iconBtn" onClick={ () => deleteQuiz(quiz._id)}> 
+                                    <i class="material-icons-outlined md-18">delete</i></button>
+                                </div>
                             </li>
                         )
                     })}
             </ul>
 
-            <button className="btn" onClick={ () => navigate("/quiz/create") }><i class="material-icons-outlined md-18">add_circle</i><br/>Create new Quiz </button>
+            <button className="btn" onClick={ () => navigate("/quiz/create") }><i class="material-icons-outlined md-18">add_circle</i><br/>Create Quiz </button>
         </div>
     )
 }

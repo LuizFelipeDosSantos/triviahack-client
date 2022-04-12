@@ -87,12 +87,23 @@
   border-radius: 5%;
 }
 
-.avatar {
-  border: 0.3vw solid #42819D;
+.avatarDiv {
+  width: 7rem;
+  height: 7rem;
   border-radius: 50%;
-  width: 30vw;
-  height: auto;
-  object-fit: fill;
+  margin: 1rem auto 0.4rem auto;
+  overflow: hidden;
+  position: relative;
+  border: 0.3vw solid #42819D;
+}
+
+.avatar {
+  width: initial;
+  max-width: none;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  height: inherit;
 }
 
 .login-box h2 {
@@ -112,6 +123,7 @@
   font-size: 1.1rem;
   border: 0.3vw solid #42819D;
   border-radius: 1vw;
+  outline-color:#24527A;
 }
 
 .login-box a {
@@ -157,10 +169,20 @@
 .cat-page button {
   background-color: white;
   color: #24527A;
-  border: 0.4vw solid #42819D;
-  margin: 0.8vh;
+  border: 0.3vw solid #42819D;
+  margin: 0.7vh;
+  padding: 1.5vw;
   width: fit-content;
+  font-size: 0.7rem;
 }
+
+.cat-page button:hover {
+  background-color: #24527A;
+  color: white;
+  transition: 0.7s;
+  border: none;
+}
+
 .header {
   display: flex;
   flex-direction: row;
@@ -207,13 +229,19 @@
   width: fit-content;
 }
 
-.profile img {
-  margin: 1vh;
+.profile .avatarDiv {
+  width: 5rem;
+  height: 5rem;
 }
 
-.leaderB {
-  width: 8vw;
+.editAvatarForm input::file-selector-button {
+  padding: 1vh;
+  background-color: #24527A;
+  color: #83b1c5;
+  width: fit-content;
+  border-radius: 0.3vw;
 }
+
 
 .profile table {
   border: 3px solid #24527A;
@@ -223,6 +251,13 @@
 
 .leaderboard {
   margin-top: 3vh;
+}
+
+
+.leaderboard .avatarDiv {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 0.2vw solid #42819D;
 }
 
 /* ---------------------- */
@@ -256,6 +291,14 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
+}
+
+.nameLevel {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 2vw;
 }
 
 .quizList h3 {
@@ -265,13 +308,13 @@
 
 /* ---------------- */
 /* PLAY QUIZ */
-.play {
+.quiz {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.play h3, h5 {
+.quiz h3, h5 {
   color:#87a3af;
 }
 .question {
@@ -295,4 +338,38 @@
   margin: 2vh;
   padding: 2vh;
   width: fit-content;
+}
+
+/* ------------- */
+/* Create & edit Quiz */
+.quiz-edit {
+  color: #24527A;
+  font-weight: bold;
+  margin: 0 5vw;
+}
+
+.quiz-edit input, select {
+  outline-color: #24527A;
+  margin: 0.5vh;
+}
+
+.quiz-edit select option {
+  background: #42819D;
+  color: white;
+}
+
+.quizEditform {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.quizEditform input[name="question"] {
+  width: 70vw;
+}
+
+.quiz-edit button {
+  margin: 1vw;
+  font-size: 0.7rem;
 }

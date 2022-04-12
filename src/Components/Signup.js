@@ -60,12 +60,14 @@ export function Signup() {
         <h2>Sign up </h2>
 
         {previewSource && (
-          <img
-            className="avatar"
-            src={previewSource}
-            alt="chosen avatar"
-            style={{ height: "20vh" }}
-          />
+          <div className="avatarDiv">
+            <img
+              className="avatar"
+              src={previewSource}
+              alt="chosen avatar"
+              style={{ height: "20vh" }}
+            />
+          </div>
         )}
 
         <form onSubmit={handleSubmit}>

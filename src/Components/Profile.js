@@ -102,17 +102,23 @@ export function Profile() {
                 </div>
 
                 <div className="avatarBox"> 
-                    <img className="avatar" style={{ display: showForm ? 'none' : 'block' }} src={userState.avatar} alt="avatar" />
+                {/* if avatar dann das bild ansonsten default icon */}
+                {/* <i class="material-icons-outlined md-18">face</i> */}
+                    <div className="avatarDiv" style={{ display: showForm ? 'none' : 'block' }}>
+                        <img className="avatar" src={ userState.avatar} alt="avatar" />
+                    </div>                        
                     <br/>
                     
                     <div className="editAvatarForm" style={{ display: showForm ? 'block' : 'none' }}>
                     
                         {previewSource && (
-                            <img
-                            className="avatar"
-                            src={previewSource}
-                            alt="chosen avatar"
-                            />
+                            <div className="avatarDiv">
+                                <img
+                                className="avatar"
+                                src={previewSource}
+                                alt="chosen avatar"
+                                />
+                            </div>
                         )}
                         
                             <br/>
@@ -127,11 +133,13 @@ export function Profile() {
                             onChange={previewFile}
                             />
                             <br/>
-                            <button className="btn" type="submit"> Change to this one </button>
+                            <button className="btn" type="submit"> 
+                                <i class="material-icons-outlined md-18">save</i> 
+                            </button>
                         </form>
                     </div>
                     <br/>
-                    <button className="iconBtn" onClick={toggleForm}> { showForm ? 'Finish editing' : 'Change Avatar'} </button> 
+                    <button className="btn" onClick={toggleForm}> { showForm ? <i class="material-icons-outlined md-18">keyboard_return</i> : <i class="material-icons-outlined md-18">edit</i>} </button> 
                 </div>           
             </div>
 
@@ -150,7 +158,9 @@ export function Profile() {
                     onChange={handleFriendInput}
                     />
 
-                    <button className="btn" type="submit"> Add </button>
+                    <button className="btn" type="submit"> 
+                    <i class="material-icons-outlined md-18">person_add</i>
+                     </button>
             </form>
             </div>
 
@@ -173,7 +183,11 @@ export function Profile() {
                     .map(friend => {
                         return (
                         <tr key={nanoid()}>
-                            <td><img className="avatar leaderB" src={friend.avatar} alt={`${friend.username}'s avatar`}/></td>
+                            <td>
+                                <div className="avatarDiv">
+                                    <img className="avatar" src={friend.avatar} alt={`${friend.username}'s avatar`}/>
+                                </div>
+                            </td>
                             <td>{friend.username}</td>
                             <td>{friend.score}</td>
                             <td>

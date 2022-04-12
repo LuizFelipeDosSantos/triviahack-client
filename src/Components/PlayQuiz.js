@@ -119,7 +119,7 @@ export function PlayQuiz() {
     }
 
     return (
-        <div className="play">
+        <div className="quiz">
             {(questions && answers && !quizCompleted) &&
                 <>
                     <div className="header">
