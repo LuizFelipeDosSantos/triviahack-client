@@ -2,6 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { nanoid } from "nanoid";
 import { API_BASE_URL } from "../consts";
+import logoIcon from '../Logo/logoIcon.png'
+
 
 export function Profile() {
     const [errorState, setErrorState] = useState();
@@ -95,52 +97,49 @@ export function Profile() {
 
     return (
         <div className="profile">
-            <div className="profile-info">
-                <div className="nameScore"> 
-                    <h2>{userState.username}</h2>
-                    <p>Score: <b>{userState.score}</b></p>
-                </div>
+            <div className="header">
+                <img className="icon" src={logoIcon} alt="triviahack logo"/>
+                <h3>{userState.username}</h3>
+                <p>Score: <b>{userState.score}</b></p>
 
-                <div className="avatarBox"> 
-                {/* if avatar dann das bild ansonsten default icon */}
-                {/* <i class="material-icons-outlined md-18">face</i> */}
-                    <div className="avatarDiv" style={{ display: showForm ? 'none' : 'block' }}>
-                        <img className="avatar" src={ userState.avatar} alt="avatar" />
-                    </div>                        
-                    <br/>
-                    
-                    <div className="editAvatarForm" style={{ display: showForm ? 'block' : 'none' }}>
-                    
-                        {previewSource && (
-                            <div className="avatarDiv">
-                                <img
-                                className="avatar"
-                                src={previewSource}
-                                alt="chosen avatar"
-                                />
-                            </div>
-                        )}
-                        
-                            <br/>
-                            <br/>
-                        <form onSubmit={handleSubmit}>
-                        
-                        {errorState && <h2 style={{ color: "red" }}>{errorState.message}</h2>}
+         {/* if avatar dann das bild ansonsten default avatar: logo mit karten*/}
 
-                            <input
-                            type="file"
-                            name="avatar"
-                            onChange={previewFile}
+                <div className="avatarDiv" style={{ display: showForm ? 'none' : 'block' }}>
+                    <img className="avatar" src={ userState.avatar} alt="avatar" />
+                </div>            
+                <button className="iconBtn" onClick={toggleForm}> 
+                    { showForm ? <i class="material-icons-outlined md-18">keyboard_return</i> : <i class="material-icons-outlined md-18">edit</i>}
+                </button>  
+            </div>
+
+            <div>
+                                        
+                         
+                <div className="editAvatarForm" style={{ display: showForm ? 'flex' : 'none' }}>
+                    
+                    {previewSource && (
+                        <div className="avatarDiv">
+                            <img
+                            className="avatar"
+                            src={previewSource}
+                            alt="chosen avatar"
                             />
-                            <br/>
-                            <button className="btn" type="submit"> 
-                                <i class="material-icons-outlined md-18">save</i> 
-                            </button>
-                        </form>
-                    </div>
-                    <br/>
-                    <button className="btn" onClick={toggleForm}> { showForm ? <i class="material-icons-outlined md-18">keyboard_return</i> : <i class="material-icons-outlined md-18">edit</i>} </button> 
-                </div>           
+                        </div>
+                    )}
+                    <form onSubmit={handleSubmit}>
+                    
+                    {errorState && <h2>{errorState.message}</h2>}
+                        <input
+                        type="file"
+                        name="avatar"
+                        onChange={previewFile}
+                        />
+                        <br/>
+                        <button className="iconBtn" type="submit"> 
+                            <i class="material-icons-outlined md-18">save</i> 
+                        </button>
+                    </form>
+                </div>                                    
             </div>
 
             <div className="friends">
@@ -158,7 +157,7 @@ export function Profile() {
                     onChange={handleFriendInput}
                     />
 
-                    <button className="btn" type="submit"> 
+                    <button className="iconBtn" type="submit"> 
                     <i class="material-icons-outlined md-18">person_add</i>
                      </button>
             </form>

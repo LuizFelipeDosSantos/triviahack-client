@@ -195,29 +195,36 @@
 .profile {
   display: flex;
   flex-wrap: wrap;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   text-align: center;
   align-items: center;
   color: #24527A;
 }
 
-.profile-info {
-  border: 3px solid #24527A;
-  border-radius: 5px;
+.editAvatarForm {
+  border: 1vw solid #42819D;
+  border-radius: 2vw;
   display: flex;
-  margin: 4vh;
-  padding: 4vh;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  padding: 2vw;
 }
 
-.nameScore {
-  display: flex;
-  flex-direction: column;
+.editAvatarForm * {
+  margin: 0.5vw;
 }
+
+.profile .header > *{
+  margin: 0 4vw;
+}
+
 .friends > form > input {
   font-size: 1.2rem;
   border: 0.3vw solid #42819D;
   border-radius: 1vw;
+  outline-color: #24527A;
 }
 
 .iconBtn {
@@ -230,8 +237,9 @@
 }
 
 .profile .avatarDiv {
-  width: 5rem;
-  height: 5rem;
+  width: 4rem;
+  height: 4rem;
+  margin: 1vh;
 }
 
 .editAvatarForm input::file-selector-button {
@@ -239,20 +247,18 @@
   background-color: #24527A;
   color: #83b1c5;
   width: fit-content;
-  border-radius: 0.3vw;
+  border-radius: 0.8vw;
 }
 
-
 .profile table {
-  border: 3px solid #24527A;
-  border-radius: 5px;
+  border: 0.7vw solid #42819D;
+  border-radius: 2vw;
   padding: 2vw;
 }
 
 .leaderboard {
   margin-top: 3vh;
 }
-
 
 .leaderboard .avatarDiv {
   width: 2.5rem;
@@ -284,7 +290,7 @@
 }
 
 .quizList li {
-  border: 3px solid #87a3af;
+  border: 3px solid #42819D;
   border-radius: 1vw;
   padding: 1vw;
   margin-bottom: 2vh;
