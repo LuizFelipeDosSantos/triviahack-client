@@ -1,4 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
+import logoIcon from '../Logo/logoIcon.png'
 
 export function Level() {
     const navigate = useNavigate();
@@ -6,6 +7,7 @@ export function Level() {
 
     return (
         <div className="home">
+            <img className="icon" src={logoIcon} alt="triviahack logo"/>
             <h2>Select Difficulty</h2>
             <div className="flex-column">
                 {category
