@@ -100,7 +100,7 @@ export function Profile() {
             <div className="header">
                 <img className="icon" src={logoIcon} alt="triviahack logo"/>
                 <h3>{userState.username}</h3>
-                <p>Score: <b>{userState.score}</b></p>
+                <p>Score <b>{userState.score}</b></p>
 
          {/* if avatar dann das bild ansonsten default avatar: logo mit karten*/}
 
