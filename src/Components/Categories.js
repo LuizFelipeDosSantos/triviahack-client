@@ -34,7 +34,10 @@ export function Categories() {
 
     return (
         <div className="cat-page">
-            <h3> <img className="icon" src={logoIcon} alt="triviahack logo"/>Categories</h3>
+            <div className="header">
+                <img className="icon" src={logoIcon} alt="triviahack logo"/>
+                <h3>Categories</h3>
+            </div>
             <div className="flex-list">
                 {categories && 
                 categories.map((category) => {
@@ -47,7 +50,12 @@ export function Categories() {
                     )
                 })}
             </div>
-            <h3><img className="icon" src={logoIcon} alt="triviahack logo"/>My Own & My Friends Quizzes</h3>
+
+            <div className="header">
+                <img className="icon" src={logoIcon} alt="triviahack logo"/>
+                <h3>My Own & My Friends Quizzes</h3>
+            </div>
+            
             <div className="flex-list">
                 {ownFriendsQuizzes && 
                 ownFriendsQuizzes.map((quiz) => {

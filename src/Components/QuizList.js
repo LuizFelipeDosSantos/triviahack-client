@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../consts";
+import logoIcon from '../Logo/logoIcon.png'
 
 export function QuizList() {
     const [ quizList, setQuizList] = useState([]);
@@ -47,24 +48,29 @@ export function QuizList() {
     }
 
     return (
-        <div className="quizListContainer">
-            <h1>My Quizzes</h1>
+        <div className="quizList">
+            <div className="header">
+                <img className="icon" src={logoIcon} alt="triviahack logo"/>
+                <h3>My Quizzes</h3>
+            </div>
+    
             <ul>
                 {quizList &&
                     quizList.map((quiz) => {
                         return (
                             <li key={quiz._id}>
-                                <p>{quiz.name} - {quiz.difficulty}</p>
-                                <button className="btn" onClick={ () => editQuiz(quiz._id)}> 
-                                <i class="material-icons">edit</i></button>
-                                <button className="btn" onClick={ () => deleteQuiz(quiz._id)}> 
+                                <h3>{quiz.name}</h3>
+                                <p>- {quiz.difficulty}</p> 
+                                <button className="iconBtn" onClick={ () => editQuiz(quiz._id)}> 
+                                <i class="material-icons" icon>edit</i></button>
+                                <button className="iconBtn" onClick={ () => deleteQuiz(quiz._id)}> 
                                 <i class="material-icons">delete</i></button>
                             </li>
                         )
                     })}
             </ul>
 
-            <button className="btn" onClick={ () => navigate("/quiz/create") }><i class="material-icons">add_circle</i> Create new Quiz </button>
+            <button className="btn" onClick={ () => navigate("/quiz/create") }><i class="material-icons">add_circle</i><br/>Create new Quiz </button>
         </div>
     )
 }

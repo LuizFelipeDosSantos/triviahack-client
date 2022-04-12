@@ -14,10 +14,10 @@ export function Mode() {
             <img className="logo" src={logo2} alt="triviahack logo"/>
             <h2>Select Mode</h2>
             <div>
-                <button className="btn" onClick={singlePlayerGame}><i class="material-icons">person</i>Single-Player</button>
+                <button className="btn" onClick={singlePlayerGame}><i class="material-icons">person</i><br/>Single-Player</button>
             </div>
             <div>
-                <button className="btn"><i class="material-icons">groups</i>Multi-Player</button>
+                <button className="btn"><i class="material-icons">groups</i><br/>Multi-Player</button>
             </div>
         </div>
     )

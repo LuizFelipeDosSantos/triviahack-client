@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { API_BASE_URL } from "../consts";
+import logoIcon from '../Logo/logoIcon.png'
 
 export function PlayQuiz() {
     const he = require('he');
@@ -89,37 +90,58 @@ export function PlayQuiz() {
         if (!showCorrectAnswer) return;
         if (chosenAnswer === answer) {
             if (answer === he.decode(questions[currentQuestion].correct_answer)) {
-                return {backgroundColor: "green"}
-            } else {
-                return {backgroundColor: "red"}
+                return { /* green */
+                    backgroundColor: "#38824e", 
+                    color: "white", 
+                    border: "0.4vw solid #2b613b" 
+                } 
+            } else { /* red */
+                return {
+                    backgroundColor: "#c24040", 
+                    color: "white", 
+                    border: "0.4vw solid #8a2d2d"
+                } 
             }
         } else {
             if (answer === he.decode(questions[currentQuestion].correct_answer)) {
-                return {backgroundColor: "green"}
+                return { /* green */
+                    backgroundColor: "#38824e", 
+                    color: "white", 
+                    border: "0.4vw solid #2b613b"
+                }
             }
-            return {backgroundColor: "gray"}
+            return {
+                backgroundColor: "lightgrey", 
+                color: "lightgrey", 
+                border: "0.4vw solid lightgrey"
+            }
         }
     }
 
     return (
-        <div>
+        <div className="play">
             {(questions && answers && !quizCompleted) &&
                 <>
-                    <h2>{quiz ? quiz.name : category.name + " - " + level}</h2>
-                    <h3>{he.decode(questions[currentQuestion].question)}</h3>
-                    <div>
-                        <button disabled={showCorrectAnswer} onClick={answerQuestion} style={answerStyles(answers[0])}>{answers[0]}</button>
-                        <button disabled={showCorrectAnswer} onClick={answerQuestion} style={answerStyles(answers[1])}>{answers[1]}</button>
-                        <button disabled={showCorrectAnswer} onClick={answerQuestion} style={answerStyles(answers[2])}>{answers[2]}</button>
-                        <button disabled={showCorrectAnswer} onClick={answerQuestion} style={answerStyles(answers[3])}>{answers[3]}</button>
+                    <div className="header">
+                        <img className="icon" src={logoIcon} alt="triviahack logo"/>
+                        <h3>{quiz ? quiz.name : category.name + " - " + level}</h3>
+                    </div>
+                    <div className="question">
+                        <h2>{he.decode(questions[currentQuestion].question)}</h2>
+                    </div>
+                    <div className="answers">
+                        <button className="answerBtn" disabled={showCorrectAnswer} onClick={answerQuestion} style={answerStyles(answers[0])}>{answers[0]}</button>
+                        <button className="answerBtn" disabled={showCorrectAnswer} onClick={answerQuestion} style={answerStyles(answers[1])}>{answers[1]}</button>
+                        <button className="answerBtn" disabled={showCorrectAnswer} onClick={answerQuestion} style={answerStyles(answers[2])}>{answers[2]}</button>
+                        <button className="answerBtn" disabled={showCorrectAnswer} onClick={answerQuestion} style={answerStyles(answers[3])}>{answers[3]}</button>
                     </div>
                     <h5>{(currentQuestion + 1) + "/" + questions.length}</h5>
                 </>
             }
             {quizCompleted &&
                 <>
-                    <h2>QUIZ COMPLETED</h2>
-                    <h2>SCORE: {score}</h2>
+                    <h5> - QUIZ COMPLETED - </h5>
+                    <h3>SCORE: {score}</h3>
                 </>
             }
 
