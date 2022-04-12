@@ -4,7 +4,11 @@ export function Mode() {
     const navigate = useNavigate();
 
     const singlePlayerGame = () => {
-        navigate("/categories");
+        navigate("/categories", { state: { multiplayer: false }});
+    }
+
+    const multiplayerGame = () => {
+        navigate("/room");
     }
 
     return (
@@ -14,7 +18,7 @@ export function Mode() {
                 <button onClick={singlePlayerGame}>Single-Player</button>
             </div>
             <div>
-                <button>Multi-Player</button>
+                <button onClick={multiplayerGame}>Multi-Player</button>
             </div>
         </div>
     )

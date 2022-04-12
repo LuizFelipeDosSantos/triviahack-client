@@ -1,10 +1,12 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { API_BASE_URL } from "../consts";
+import { MultiPlayerContext } from "../context/MultiPlayer";
 
-export function PlayQuiz() {
+export function PlayQuizMultiplayer() {
     const he = require('he');
+    const { multiplayerData } = useContext(MultiPlayerContext);
     const { state : { category, level, quiz } } = useLocation();
     const [ questions, setQuestions ] = useState();
     const [ currentQuestion, setCurrentQuestion] = useState(0);
@@ -13,6 +15,7 @@ export function PlayQuiz() {
     const [ score, setScore ] = useState(0);
     const [ showCorrectAnswer, setShowCorrectAnswer ] = useState(false);
     const [ chosenAnswer, setChosenAnswer ] = useState("");
+    const [ playersAnswered, setPlayersAnswered ] = useState(0);
 
     useEffect(() => {
         async function fetchQuestions() {
@@ -22,6 +25,7 @@ export function PlayQuiz() {
                     category: category.id,
                     difficulty: level
                 }});
+                multiplayerData.socket.emit("startGame", {gameId: multiplayerData.gameId, questions: response.data.questions, state: { category, level, quiz }});
                 setQuestions(response.data.questions);
                 setAnswers(randomize([
                     he.decode(response.data.questions[0].correct_answer),
@@ -33,21 +37,23 @@ export function PlayQuiz() {
                 console.log(error.response.data.errorMessage);
             }
         }
-        fetchQuestions();
+        if (multiplayerData.host) {
+            fetchQuestions();
+        } else {
+            setQuestions(multiplayerData.questions);
+            setAnswers(randomize([
+                he.decode(multiplayerData.questions[0].correct_answer),
+                he.decode(multiplayerData.questions[0].incorrect_answers[0]),
+                he.decode(multiplayerData.questions[0].incorrect_answers[1]),
+                he.decode(multiplayerData.questions[0].incorrect_answers[2])
+            ]));
+        }
+        console.log(multiplayerData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
-        async function fetchUpdateUserScore() {
-            try {
-                await axios.put(API_BASE_URL + "/user/update-score", { score });
-            } catch (error) {
-                console.log(error.response.data.errorMessage); 
-            }
-        }
-
-        if (chosenAnswer === "") return
-        const timerShowAnswer = setTimeout(() => {
+        if (playersAnswered === multiplayerData.usersRoom.length) {
             if (currentQuestion < 9) {
                 setCurrentQuestion(currentQuestion + 1);
                 setAnswers(randomize([
@@ -60,12 +66,16 @@ export function PlayQuiz() {
                 setChosenAnswer("");
             } else {
                 setQuizCompleted(!quizCompleted);
-                if (!quiz) fetchUpdateUserScore();
             }
-        }, 2000);
-        return () => clearTimeout(timerShowAnswer);
+            setPlayersAnswered(0);
+        }
+
+        multiplayerData.socket.removeEventListener("playerAnswered");
+        multiplayerData.socket.on("playerAnswered", statusUpdate => {
+            setPlayersAnswered(playersAnswered + 1);
+        });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [chosenAnswer]);
+    }, [playersAnswered]);
 
     function randomize(answersArray) {
         for(let i = 0; i < answersArray.length - 1; i++){
@@ -83,6 +93,7 @@ export function PlayQuiz() {
             setScore(score + 1);
         }
         setShowCorrectAnswer(!showCorrectAnswer);
+        multiplayerData.socket.emit("answerQuestion", {gameId: multiplayerData.gameId});
     }
 
     function answerStyles(answer) {

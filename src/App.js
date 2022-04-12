@@ -12,6 +12,8 @@ import { CreateQuiz } from './Components/CreateQuiz'
 import { Categories } from './Components/Categories';
 import { Level } from './Components/Level';
 import { PlayQuiz } from './Components/PlayQuiz';
+import { Room } from './Components/Room';
+import { PlayQuizMultiplayer } from './Components/PlayQuizMultiplayer';
 
 function App() {
   return (
@@ -31,6 +33,8 @@ function App() {
         <Route path="/categories" element={<Categories />} />
         <Route path="/level" element={<Level />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/room" element={<Room />}/>
+        <Route path="/quiz-multiplayer" element={<PlayQuizMultiplayer />}/>
       </Route>
     </Routes>
   );
