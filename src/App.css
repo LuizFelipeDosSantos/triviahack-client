@@ -227,6 +227,10 @@
 
 /* ---------------------- */
 /* QuizLIst */
+.material-icons-outlined.md-18 { 
+  font-size: 2.5vh; 
+}
+
 .quizList {
   color: #24527A;
   display: flex;

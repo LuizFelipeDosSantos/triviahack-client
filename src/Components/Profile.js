@@ -177,7 +177,7 @@ export function Profile() {
                             <td>{friend.username}</td>
                             <td>{friend.score}</td>
                             <td>
-                                <button className="iconBtn" onClick={() => deleteFriend(friend.username)}> <i class="material-icons">delete</i> </button>
+                                <button className="iconBtn" onClick={() => deleteFriend(friend.username)}> <i class="material-icons-outlined md-18">delete</i> </button>
                             </td>
                         </tr>
                         );

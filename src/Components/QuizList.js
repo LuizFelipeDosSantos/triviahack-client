@@ -62,15 +62,15 @@ export function QuizList() {
                                 <h3>{quiz.name}</h3>
                                 <p>- {quiz.difficulty}</p> 
                                 <button className="iconBtn" onClick={ () => editQuiz(quiz._id)}> 
-                                <i class="material-icons" icon>edit</i></button>
+                                <i class="material-icons-outlined md-18" icon>edit</i></button>
                                 <button className="iconBtn" onClick={ () => deleteQuiz(quiz._id)}> 
-                                <i class="material-icons">delete</i></button>
+                                <i class="material-icons-outlined md-18">delete</i></button>
                             </li>
                         )
                     })}
             </ul>
 
-            <button className="btn" onClick={ () => navigate("/quiz/create") }><i class="material-icons">add_circle</i><br/>Create new Quiz </button>
+            <button className="btn" onClick={ () => navigate("/quiz/create") }><i class="material-icons-outlined md-18">add_circle</i><br/>Create new Quiz </button>
         </div>
     )
 }
