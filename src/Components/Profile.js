@@ -20,8 +20,9 @@ export function Profile() {
             const { data } = await axios.get(`${API_BASE_URL}/user`);
             if (!data) return;
             let { username, avatar, friends, score } = data;
+            /* add each user to own leaderboard */
             if (!friends.includes(username)) {
-                friends = [username];
+                friends = [...friends, {username, avatar, score}];
             }
             setUserState({ username, avatar, friends, score });
           } catch (err) {
@@ -70,8 +71,7 @@ export function Profile() {
     async function handleNewFriendSubmit(event) {
         event.preventDefault();
         try {
-            if (newFriend === "") return;
-            if (userState.friends.includes(newFriend)) return;
+            if (newFriend === "" || userState.friends.some(friend => friend.username === newFriend )) return;
             const response = await axios.put(API_BASE_URL + "/user/add-friend", {username: newFriend});
             console.log(response.data);
             setEdit(!edit);
@@ -95,9 +95,9 @@ export function Profile() {
         }
     }
     
-    /* check if user is the only person inside board */
+    /* check if user is the only person in leaderboard */
     const noFriendsAdded = userState.friends.length === 1;
-    const addFriendsMessage = () => <div>Add some friends to see their score.</div>;
+    const addFriendsMessage = () => <tr><td></td> <td>Add some friends to see their score.</td> </tr>;
 
     return (
         <div className="profile">
