@@ -19,7 +19,10 @@ export function Profile() {
           try {
             const { data } = await axios.get(`${API_BASE_URL}/user`);
             if (!data) return;
-            const { username, avatar, friends, score } = data;
+            let { username, avatar, friends, score } = data;
+            if (!friends.includes(username)) {
+                friends = [username];
+            }
             setUserState({ username, avatar, friends, score });
           } catch (err) {
             console.log(err.response.data);
@@ -52,7 +55,6 @@ export function Profile() {
         try {
             if (!previewSource) return;
             const response = await axios.put(API_BASE_URL + "/user/edit", {avatar: previewSource});
-            console.log(response.data);
             setEdit(!edit)
         } catch (err) {
             console.log(err.response.data);
@@ -69,6 +71,7 @@ export function Profile() {
         event.preventDefault();
         try {
             if (newFriend === "") return;
+            if (userState.friends.includes(newFriend)) return;
             const response = await axios.put(API_BASE_URL + "/user/add-friend", {username: newFriend});
             console.log(response.data);
             setEdit(!edit);
@@ -92,7 +95,8 @@ export function Profile() {
         }
     }
     
-    const noFriendsAdded = userState.friends.length === 0;
+    /* check if user is the only person inside board */
+    const noFriendsAdded = userState.friends.length === 1;
     const addFriendsMessage = () => <div>Add some friends to see their score.</div>;
 
     return (

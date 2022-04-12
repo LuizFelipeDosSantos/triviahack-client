@@ -411,3 +411,16 @@
   margin: 1vw;
   font-size: 0.7rem;
 }
+
+/* --------------- */
+/* 404page */
+.page404 {
+  color: #24527A;
+  text-align: center;
+  background-color: #24527A;
+  height: 100vh;
+}
+.page404 img {
+  width: 100vw;
+  height: auto;
+}
