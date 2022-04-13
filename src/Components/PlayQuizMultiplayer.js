@@ -26,8 +26,8 @@ export function PlayQuizMultiplayer() {
             try {
                 const response = await axios.get(API_BASE_URL + "/questions", { params: {
                     quizId: quiz ? quiz._id : "",
-                    category: category.id,
-                    difficulty: level
+                    category: category ? category.id : "",
+                    difficulty: level ? level : ""
                 }});
                 multiplayerData.socket.emit("startGame", {gameId: multiplayerData.gameId, questions: response.data.questions, state: { category, level, quiz }});
                 setQuestions(response.data.questions);
@@ -38,7 +38,8 @@ export function PlayQuizMultiplayer() {
                     he.decode(response.data.questions[0].incorrect_answers[2])
                 ]));
             } catch (error) {
-                console.log(error.response.data.errorMessage);
+                console.log(error);
+                //console.log(error.response.data.errorMessage);
             }
         }
         if (multiplayerData.host) {
