@@ -25,17 +25,17 @@ function App() {
       <Route element={<LayoutComponent />}>
         <Route path="/home" element={<Mode/>} />
         <Route path="/quiz">
-          <Route index element={<PlayQuiz />} />
           <Route path="list" element={<QuizList />} />
           <Route path="create" element={<CreateQuiz />} />
           <Route path="edit/:id" element={<EditQuiz />} />
         </Route>
-        <Route path="/categories" element={<Categories />} />
-        <Route path="/level" element={<Level />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/room" element={<Room />}/>
-        <Route path="/quiz-multiplayer" element={<PlayQuizMultiplayer />}/>
       </Route>
+      <Route path="/categories" element={<Categories />} />
+      <Route path="/level" element={<Level />} />
+      <Route path="/quiz-single-player" element={<PlayQuiz />} />
+      <Route path="/quiz-multiplayer" element={<PlayQuizMultiplayer />}/>
     </Routes>
   );
 }

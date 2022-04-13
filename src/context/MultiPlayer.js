@@ -6,7 +6,6 @@ export function MultiPlayer(props) {
   const [multiplayerData, setmultiplayerData] = useState(null);
 
   const addMultiPlayerDataToContext = (newMultiPlayerData) => {
-    if (multiplayerData) return
     setmultiplayerData(newMultiPlayerData);
   };
 

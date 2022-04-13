@@ -6,7 +6,7 @@ export function Level() {
 
     const redirectSingleMultiPlayer = (state) => {
         if (!multiplayer) {
-            navigate('/quiz', {state : state})
+            navigate('/quiz-single-player', {state : state})
         } else {
             navigate('/quiz-multiplayer', {state : state});
         }

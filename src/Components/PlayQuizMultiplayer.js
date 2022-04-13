@@ -55,11 +55,6 @@ export function PlayQuizMultiplayer() {
         multiplayerData.socket.on("scoreUpdated", statusUpdate => {
             updateUsersRoom(statusUpdate.usersRoom);
         });
-
-        return () => {
-            multiplayerData.socket.emit("disconnectGame", {gameId: multiplayerData.gameId});
-            multiplayerData.socket.disconnect();
-        };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -138,7 +133,7 @@ export function PlayQuizMultiplayer() {
     }
 
     function playAgain() {
-        navigate("/home");
+        navigate("/room");
     }
 
     return (
@@ -160,7 +155,7 @@ export function PlayQuizMultiplayer() {
                 <>
                     <h2>QUIZ COMPLETED</h2>
                     <h2>RANKING:</h2>
-                    {multiplayerData.usersRoom.sort((a, b) => b.score - a.score).map(user => {
+                    {[...multiplayerData.usersRoom].sort((a, b) => b.score - a.score).map(user => {
                         return (
                             <div key={user.username}>
                                 <h2>{user.username + " - " + user.score}</h2>

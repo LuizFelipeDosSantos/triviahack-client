@@ -15,10 +15,10 @@ export function Mode() {
         <div className="flex-column">
             <h2>Select Mode</h2>
             <div>
-                <button onClick={singlePlayerGame}>Single-Player</button>
+                <button onClick={singlePlayerGame}>Single Player</button>
             </div>
             <div>
-                <button onClick={multiplayerGame}>Multi-Player</button>
+                <button onClick={multiplayerGame}>Multiplayer</button>
             </div>
         </div>
     )
