@@ -39,7 +39,7 @@ export function Categories() {
                 <img className="icon" src={logoIcon} alt="triviahack logo"/>
                 <h3>Categories</h3>
             </div>
-            <div className="flex-list">
+            <div className="cat-list">
                 {categories && 
                 categories.map((category) => {
                     return (
@@ -58,7 +58,7 @@ export function Categories() {
                 <h3>My Own & My Friends Quizzes</h3>
             </div>
             
-            <div className="flex-list">
+            <div className="cat-list">
                 {ownFriendsQuizzes && 
                 ownFriendsQuizzes.map((quiz) => {
                     return (

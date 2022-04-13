@@ -56,6 +56,7 @@ export function Profile() {
         try {
             if (!previewSource) return;
             const response = await axios.put(API_BASE_URL + "/user/edit", {avatar: previewSource});
+            console.log(response.data)
             setEdit(!edit)
         } catch (err) {
             console.log(err.response.data);
@@ -103,9 +104,10 @@ export function Profile() {
         <div className="profile">
             <div className="header">
                 <img className="icon" src={logoIcon} alt="triviahack logo"/>
-                <h3>{userState.username}</h3>
-                <p>Score <b>{userState.score}</b></p>
-
+                <div className="nameScore">
+                    <h3>{userState.username}</h3>
+                    <p>Score <b>{userState.score}</b></p>
+                </div>
          {/* if avatar dann das bild ansonsten default avatar: logo mit karten*/}
                 
                 <div className="avatarDiv" style={{ display: showForm ? 'none' : 'block' }}>
@@ -147,60 +149,59 @@ export function Profile() {
             </div>
 
             <div className="friends">
-            <h2>Add Friends</h2>     
-            
-            <form onSubmit={handleNewFriendSubmit}>
+                <h2>Add Friends</h2>     
                 
-                {errorState && <h2 style={{ color: "#42819D" }}>{errorState.message}</h2>}
+                <form onSubmit={handleNewFriendSubmit}>
+                    
+                    {errorState && <h2 style={{ color: "#42819D" }}>{errorState.message}</h2>}
 
-                    <input
-                    type="text"
-                    name="addFriend"
-                    placeholder="Enter friend's username"
-                    value={newFriend}
-                    onChange={handleFriendInput}
-                    />
+                        <input
+                        type="text"
+                        name="addFriend"
+                        placeholder="Enter friend's username"
+                        value={newFriend}
+                        onChange={handleFriendInput}
+                        />
 
-                    <button className="iconBtn" type="submit"> 
-                    <i class="material-icons-outlined md-18">person_add</i>
-                     </button>
-            </form>
+                        <button className="iconBtn" type="submit"> 
+                        <i class="material-icons-outlined md-18">person_add</i>
+                        </button>
+                </form>
             </div>
 
             <div className="leaderboard">
-        {/* Leaderboard with my score and my freinds*/}
-            <h2>Triviahack League</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Friends</th>
-                        <th>Score</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {noFriendsAdded
-                    ? addFriendsMessage()
-                    : userState.friends
-                    .sort((a, b) => b.score - a.score)
-                    .map(friend => {
-                        return (
-                        <tr key={nanoid()}>
-                            <td>
-                                <div className="avatarDiv">
-                                    <img className="avatar" src={friend.avatar} alt={`${friend.username}'s avatar`}/>
-                                </div>
-                            </td>
-                            <td>{friend.username}</td>
-                            <td>{friend.score}</td>
-                            <td>
-                                <button className="iconBtn" onClick={() => deleteFriend(friend.username)}> <i class="material-icons-outlined md-18">delete</i> </button>
-                            </td>
+                <h2>Triviahack League</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Friends</th>
+                            <th>Score</th>
                         </tr>
-                        );
-                    })}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {noFriendsAdded
+                        ? addFriendsMessage()
+                        : userState.friends
+                        .sort((a, b) => b.score - a.score)
+                        .map(friend => {
+                            return (
+                            <tr key={nanoid()}>
+                                <td>
+                                    <div className="avatarDiv">
+                                        <img className="avatar" src={friend.avatar} alt={`${friend.username}'s avatar`}/>
+                                    </div>
+                                </td>
+                                <td>{friend.username}</td>
+                                <td>{friend.score}</td>
+                                <td>
+                                    <button className="iconBtn" onClick={() => deleteFriend(friend.username)}> <i class="material-icons-outlined md-18">delete</i> </button>
+                                </td>
+                            </tr>
+                            );
+                        })}
+                    </tbody>
+                </table>
             </div>
         </div>
     )

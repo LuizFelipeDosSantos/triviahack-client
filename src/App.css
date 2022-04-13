@@ -3,7 +3,9 @@
   padding: 0;
   font-family: 'Roboto Condensed', sans-serif;
 }
-
+.material-icons-outlined.md-18 { 
+  font-size: 2.5vh; 
+}
 /* ------------------- */
 /* NAVBAR */
 .navbar {
@@ -13,6 +15,16 @@
   display: flex;
   align-items: center;
   padding-right: 2vw;
+}
+
+.logoAndIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoAndIcon p {
+  margin: 0;
 }
 
 .icon {
@@ -25,35 +37,25 @@
   text-decoration: none;
   color: white;
   font-size: 1.2rem;
-  font-weight: bold;
+  font-weight: 500;
 }
 
-/* .navbar :active {
-  background-color: white;
-} */
+.navbar a:hover, a:active {
+  color:#83b1c5
+}
 
 .navbar button {
   background-color: #24527A;
   color: white;
   border: none;
-  font-size: 1.1rem;
+  font-size: 1rem;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 500;
+  font-family: 'Roboto Condensed', sans-serif;
 }
 
-/* ------------------- */
-
-.flex-list {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  margin: 0 4vw;
-}
-
-.flex-column {
-  display: flex;
-  flex-direction: column;
+.navbar button:hover {
+  color:#83b1c5;
 }
 
 /* ------------------- */
@@ -104,7 +106,6 @@
   transform: translateX(-50%);
   height: inherit;
   object-fit: cover;
-/*   object-position: 50% 50%; */
 }
 
 .login-box h2 {
@@ -167,6 +168,15 @@
  color:#24527A;
 }
 
+.cat-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  background: #24527A;
+  padding: 1vh;
+}
+
 .cat {
   color: white;
   background-color: #42819D;
@@ -218,13 +228,21 @@
   padding: 2vw;
 }
 
-.editAvatarForm * {
-  margin: 0.5vw;
+.profile .header {
+  margin-top: 2vh;
+  justify-content: space-between;
 }
 
 .profile .header h3, p {
   margin-left: 5vw;
-  color: #42819D
+  color: #42819D;
+}
+
+.nameScore {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 3vw;
 }
 
 .friends > form > input {
@@ -246,7 +264,6 @@
 .profile .avatarDiv {
   width: 4rem;
   height: 4rem;
-  margin: 1vh;
 }
 
 .editAvatarForm input::file-selector-button {
@@ -275,9 +292,6 @@
 
 /* ---------------------- */
 /* QuizLIst */
-.material-icons-outlined.md-18 { 
-  font-size: 2.5vh; 
-}
 
 .quizList {
   color: #24527A;
@@ -326,6 +340,12 @@
   margin-left: 2vw;
 }
 
+/* ------------------- */
+/* Level, Mode, Room */
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
 /* ---------------- */
 /* PLAY QUIZ */
 .quiz {
