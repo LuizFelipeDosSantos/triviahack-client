@@ -27,11 +27,17 @@ export function LayoutComponent() {
           <>
             <nav className="navbar">
                 <img className="icon" src={logoIcon} alt="triviahack logo"/>
-                <NavLink to="/home">Play</NavLink>
+                <NavLink to="/home">
+                <i class="material-icons-outlined md-18">play_circle</i>
+                &#160;Play</NavLink>
 
-                <NavLink to="/profile">Profile</NavLink>
+                <NavLink to="/profile">
+                <i class="material-icons-outlined md-18">account_circle</i>
+                &#160;Profile</NavLink>
 
-                <NavLink to="/quiz/list">My Quizzes</NavLink>
+                <NavLink to="/quiz/list">
+                <i class="material-icons-outlined md-18">list_alt</i>
+                &#160;My Quizzes</NavLink>
 
                 <button onClick={logout}>
                 <i class="material-icons-outlined md-18">logout</i>
