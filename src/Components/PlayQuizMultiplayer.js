@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../consts";
 import { AuthContext } from "../context/AuthProviderWrapper";
 import { MultiPlayerContext } from "../context/MultiPlayer";
+import logoIcon from '../Logo/logoIcon.png'
 
 export function PlayQuizMultiplayer() {
     const he = require('he');
@@ -125,15 +126,31 @@ export function PlayQuizMultiplayer() {
         if (!showCorrectAnswer) return;
         if (chosenAnswer === answer) {
             if (answer === he.decode(questions[currentQuestion].correct_answer)) {
-                return {backgroundColor: "green"}
+                return {
+                    backgroundColor: "#38824e", 
+                    color: "white", 
+                    border: "0.4vw solid #2b613b" 
+                }
             } else {
-                return {backgroundColor: "red"}
+                return {
+                    backgroundColor: "#c24040", 
+                    color: "white", 
+                    border: "0.4vw solid #8a2d2d"
+                }
             }
         } else {
             if (answer === he.decode(questions[currentQuestion].correct_answer)) {
-                return {backgroundColor: "green"}
+                return {
+                    backgroundColor: "#38824e", 
+                    color: "white", 
+                    border: "0.4vw solid #2b613b"
+                }
             }
-            return {backgroundColor: "gray"}
+            return {
+                backgroundColor: "lightgrey", 
+                color: "lightgrey", 
+                border: "0.4vw solid lightgrey"
+            }
         }
     }
 
@@ -142,33 +159,39 @@ export function PlayQuizMultiplayer() {
     }
 
     return (
-        <div>
+        <div className="quiz">
             {(questions && answers && !quizCompleted) &&
                 <>
-                    <h2>{quiz ? quiz.name : category.name + " - " + level}</h2>
-                    <h3>{he.decode(questions[currentQuestion].question)}</h3>
-                    <div>
-                        <button disabled={showCorrectAnswer} onClick={answerQuestion} style={answerStyles(answers[0])}>{answers[0]}</button>
-                        <button disabled={showCorrectAnswer} onClick={answerQuestion} style={answerStyles(answers[1])}>{answers[1]}</button>
-                        <button disabled={showCorrectAnswer} onClick={answerQuestion} style={answerStyles(answers[2])}>{answers[2]}</button>
-                        <button disabled={showCorrectAnswer} onClick={answerQuestion} style={answerStyles(answers[3])}>{answers[3]}</button>
+                    <div className="header">
+                        <img className="icon" src={logoIcon} alt="triviahack logo"/>
+                        <h3>{quiz ? quiz.name : category.name + " - " + level}</h3>
                     </div>
-                    <h5>{(currentQuestion + 1) + "/" + questions.length}</h5>
+                    <div className="question">
+                        <h2>{he.decode(questions[currentQuestion].question)}</h2>
+                    </div> 
+                    <div className="answers">
+                        <button className="answerBtn" disabled={showCorrectAnswer} onClick={answerQuestion} style={answerStyles(answers[0])}>{answers[0]}</button>
+                        <button className="answerBtn" disabled={showCorrectAnswer} onClick={answerQuestion} style={answerStyles(answers[1])}>{answers[1]}</button>
+                        <button className="answerBtn" disabled={showCorrectAnswer} onClick={answerQuestion} style={answerStyles(answers[2])}>{answers[2]}</button>
+                        <button className="answerBtn" disabled={showCorrectAnswer} onClick={answerQuestion} style={answerStyles(answers[3])}>{answers[3]}</button>
+                    </div>
+                    <h4>{(currentQuestion + 1) + " / " + questions.length}</h4>
                 </>
             }
             {quizCompleted &&
-                <>
-                    <h2>QUIZ COMPLETED</h2>
-                    <h2>RANKING:</h2>
+                <div className="endQuiz">
+                    <img className="icon" src={logoIcon} alt="triviahack logo"/>
+                    <h3> - QUIZ COMPLETED - </h3>
+                    <h1>RANKING:</h1>
                     {multiplayerData.usersRoom.sort((a, b) => b.score - a.score).map(user => {
                         return (
                             <div key={user.username}>
-                                <h2>{user.username + " - " + user.score}</h2>
+                                <h3>{user.username + " - " + user.score}</h3>
                             </div>
                         )
                     })}
-                    <button onClick={playAgain}>Play Again</button>
-                </>
+                    <button className="btn" onClick={playAgain}>Play Again</button>
+                </div>
             }
 
             
