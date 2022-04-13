@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import logo2 from '../Logo/logo2.png'
+import logoIcon from '../Logo/logoIcon.png'
 
 
 export function Mode() {
@@ -15,7 +15,7 @@ export function Mode() {
 
     return (
         <div className="flex-column home">
-            <img className="logo" src={logo2} alt="triviahack logo"/>
+            <img className="icon" src={logoIcon} alt="triviahack logo"/>
             <h2>Select Mode</h2>
             <div>
                 <button className="btn" onClick={singlePlayerGame}><i class="material-icons-outlined">person</i><br/>Single-Player</button>

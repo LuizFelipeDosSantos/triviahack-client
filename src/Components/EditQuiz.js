@@ -170,7 +170,7 @@ export function EditQuiz() {
                     <button className="btn" type="submit" onClick={ saveQuestion } > 
                         <i class="material-icons-outlined md-18">save</i> 
                     </button>
-                    <h5>{(currentQuestion + 1) + "/" + allQuestionsToEdit.length }</h5>
+                    <h5>{(currentQuestion + 1) + " / " + allQuestionsToEdit.length }</h5>
                     <div>
                         <button className="btn" onClick={ previous } > {"<<"} </button>
                         <button className="btn" onClick={ next } > {">>"} </button>

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation , useNavigate} from "react-router-dom";
 import { API_BASE_URL } from "../consts";
 import logoIcon from '../Logo/logoIcon.png'
 
@@ -14,6 +14,7 @@ export function PlayQuiz() {
     const [ score, setScore ] = useState(0);
     const [ showCorrectAnswer, setShowCorrectAnswer ] = useState(false);
     const [ chosenAnswer, setChosenAnswer ] = useState("");
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function fetchQuestions() {
@@ -135,14 +136,16 @@ export function PlayQuiz() {
                         <button className="answerBtn" disabled={showCorrectAnswer} onClick={answerQuestion} style={answerStyles(answers[2])}>{answers[2]}</button>
                         <button className="answerBtn" disabled={showCorrectAnswer} onClick={answerQuestion} style={answerStyles(answers[3])}>{answers[3]}</button>
                     </div>
-                    <h5>{(currentQuestion + 1) + "/" + questions.length}</h5>
+                    <h4>{(currentQuestion + 1) + " / " + questions.length}</h4>
                 </>
             }
             {quizCompleted &&
-                <>
-                    <h5> - QUIZ COMPLETED - </h5>
-                    <h3>SCORE: {score}</h3>
-                </>
+                <div className="endQuiz">
+                    <img className="icon" src={logoIcon} alt="triviahack logo"/>
+                    <h3> - QUIZ COMPLETED - </h3>
+                    <h1>SCORE: {score}</h1>
+                    <button className="btn" onClick={ () => navigate("/home") }> Play again </button>
+                </div>
             }
 
             

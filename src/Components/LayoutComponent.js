@@ -26,7 +26,7 @@ export function LayoutComponent() {
         user ? (
           <>
             <nav className="navbar">
-            <a href="/"><img className="icon" src={logoIcon} alt="triviahack logo"/></a>
+                <img className="icon" src={logoIcon} alt="triviahack logo"/>
                 <NavLink to="/home">Play</NavLink>
 
                 <NavLink to="/profile">Profile</NavLink>

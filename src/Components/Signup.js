@@ -58,27 +58,19 @@ export function Signup() {
       <div className="login-box">
         <a href="/"><img className="logo" src={logo} alt="triviahack logo"/></a>
         <h2>Sign up </h2>
-
-        {previewSource && (
-          <div className="avatarDiv">
-            <img
-              className="avatar"
-              src={previewSource}
-              alt="chosen avatar"
-              style={{ height: "20vh" }}
-            />
-          </div>
-        )}
+        
+          {previewSource && (
+            <div className="avatarDiv">
+              <img
+                className="avatar"
+                src={previewSource}
+                alt="chosen avatar"
+              />
+            </div>
+          )}
 
         <form onSubmit={handleSubmit}>
-
-          {/* alternatively : action method enctype? instead consts sets method and body & headers... */}
-
-         
-
-          {/* where is upload specified to certain parameters: file size  */}
-          <div className="inputfields">
-
+         <div className="inputfields">
             <label for="avatar">Avatar:</label>
             <input
               type="file"

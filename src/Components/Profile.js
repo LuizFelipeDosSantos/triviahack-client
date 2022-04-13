@@ -19,7 +19,11 @@ export function Profile() {
           try {
             const { data } = await axios.get(`${API_BASE_URL}/user`);
             if (!data) return;
-            const { username, avatar, friends, score } = data;
+            let { username, avatar, friends, score } = data;
+            /* add each user to own leaderboard */
+            if (!friends.includes(username)) {
+                friends = [...friends, {username, avatar, score}];
+            }
             setUserState({ username, avatar, friends, score });
           } catch (err) {
             console.log(err.response.data);
@@ -52,7 +56,6 @@ export function Profile() {
         try {
             if (!previewSource) return;
             const response = await axios.put(API_BASE_URL + "/user/edit", {avatar: previewSource});
-            console.log(response.data);
             setEdit(!edit)
         } catch (err) {
             console.log(err.response.data);
@@ -68,7 +71,7 @@ export function Profile() {
     async function handleNewFriendSubmit(event) {
         event.preventDefault();
         try {
-            if (newFriend === "") return;
+            if (newFriend === "" || userState.friends.some(friend => friend.username === newFriend )) return;
             const response = await axios.put(API_BASE_URL + "/user/add-friend", {username: newFriend});
             console.log(response.data);
             setEdit(!edit);
@@ -92,8 +95,9 @@ export function Profile() {
         }
     }
     
-    const noFriendsAdded = userState.friends.length === 0;
-    const addFriendsMessage = () => <div>Add some friends to see their score.</div>;
+    /* check if user is the only person in leaderboard */
+    const noFriendsAdded = userState.friends.length === 1;
+    const addFriendsMessage = () => <tr><td></td> <td>Add some friends to see their score.</td> </tr>;
 
     return (
         <div className="profile">
@@ -103,7 +107,7 @@ export function Profile() {
                 <p>Score <b>{userState.score}</b></p>
 
          {/* if avatar dann das bild ansonsten default avatar: logo mit karten*/}
-
+                
                 <div className="avatarDiv" style={{ display: showForm ? 'none' : 'block' }}>
                     <img className="avatar" src={ userState.avatar} alt="avatar" />
                 </div>            
