@@ -1,10 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../consts";
 import logoIcon from '../Logo/logoIcon.png'
 
 export function Categories() {
+    const { state: { multiplayer }} = useLocation();
     const navigate = useNavigate();
     const [categories, setCategories] = useState();
     const [ownFriendsQuizzes, setOwnFriendsQuizzes] = useState();
@@ -43,8 +44,9 @@ export function Categories() {
                 categories.map((category) => {
                     return (
                         <div key={category.id}>
-                            <button className="btn cat" onClick={() => {
-                                navigate('/level', { state: { category }})
+                            <button className="btn cat" 
+                                    onClick={() => {
+                                navigate('/level', { state: { category, multiplayer }})
                             }}>{category.name}</button>
                         </div>
                     )
@@ -61,8 +63,8 @@ export function Categories() {
                 ownFriendsQuizzes.map((quiz) => {
                     return (
                         <div key={quiz._id}>
-                            <button className="btn cat" onClick={() => {
-                                navigate('/level', { state: { quiz }})
+                            <button onClick={() => {
+                                navigate('/level', { state: { quiz, multiplayer }})
                             }}>{quiz.name}</button>
                         </div>
                     )

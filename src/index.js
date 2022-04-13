@@ -5,13 +5,16 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProviderWrapper } from "./context/AuthProviderWrapper";
+import { MultiPlayer } from "./context/MultiPlayer";
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       {/* Provider Component for user authentication*/}
       <AuthProviderWrapper>
-        <App />
+        <MultiPlayer>
+          <App />
+        </MultiPlayer>
       </AuthProviderWrapper>
     </BrowserRouter>
   </React.StrictMode>,

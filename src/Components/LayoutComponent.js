@@ -12,8 +12,7 @@ export function LayoutComponent() {
 
   async function logout() {
     try {
-      const response = await axios.post(API_BASE_URL + "/logout");
-      console.log(response.data);
+      await axios.post(API_BASE_URL + "/logout");
       removeUserFromContext();
       navigate("/");
     } catch (err) {
