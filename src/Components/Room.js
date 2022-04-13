@@ -8,7 +8,7 @@ import { MultiPlayerContext } from "../context/MultiPlayer";
 export function Room() {
     const navigate = useNavigate();
     const { user } = useContext(AuthContext);
-    const { addMultiPlayerDataToContext, multiplayerData } = useContext(MultiPlayerContext);
+    const { addMultiPlayerDataToContext } = useContext(MultiPlayerContext);
     const [ socket, setSocket ] = useState();
     const [ gameId, setGameId ] = useState();
     const [ mySocketId, setMySocketId ] = useState();
@@ -32,14 +32,6 @@ export function Room() {
         });
 
         newsocket.on("gameStarted", statusUpdate => {
-            if (multiplayerData) return
-            console.log({
-                socket: newsocket,
-                gameId: statusUpdate.gameId,
-                usersRoom: statusUpdate.usersRoom,
-                host: false,
-                username: user.username,
-                questions: statusUpdate.questions});
             addMultiPlayerDataToContext({
                 socket: newsocket,
                 gameId: statusUpdate.gameId,
@@ -87,8 +79,8 @@ export function Room() {
                     {usersRoom &&
                         usersRoom.map(user => {
                         return (
-                            <div key={user}>
-                                <p>{user}</p>
+                            <div key={user.username}>
+                                <p>{user.username}</p>
                             </div>
                         )
                     })}

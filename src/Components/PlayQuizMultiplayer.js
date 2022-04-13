@@ -1,12 +1,15 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../consts";
+import { AuthContext } from "../context/AuthProviderWrapper";
 import { MultiPlayerContext } from "../context/MultiPlayer";
 
 export function PlayQuizMultiplayer() {
     const he = require('he');
-    const { multiplayerData } = useContext(MultiPlayerContext);
+    const navigate = useNavigate();
+    const { multiplayerData, updateUsersRoom } = useContext(MultiPlayerContext);
+    const { user } = useContext(AuthContext);
     const { state : { category, level, quiz } } = useLocation();
     const [ questions, setQuestions ] = useState();
     const [ currentQuestion, setCurrentQuestion] = useState(0);
@@ -48,32 +51,49 @@ export function PlayQuizMultiplayer() {
                 he.decode(multiplayerData.questions[0].incorrect_answers[2])
             ]));
         }
-        console.log(multiplayerData);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+        multiplayerData.socket.on("scoreUpdated", statusUpdate => {
+            updateUsersRoom(statusUpdate.usersRoom);
+        });
+
+        return () => {
+            multiplayerData.socket.emit("disconnectGame", {gameId: multiplayerData.gameId});
+            multiplayerData.socket.disconnect();
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
         if (playersAnswered === multiplayerData.usersRoom.length) {
-            if (currentQuestion < 9) {
-                setCurrentQuestion(currentQuestion + 1);
-                setAnswers(randomize([
-                    he.decode(questions[currentQuestion+1].correct_answer),
-                    he.decode(questions[currentQuestion+1].incorrect_answers[0]),
-                    he.decode(questions[currentQuestion+1].incorrect_answers[1]),
-                    he.decode(questions[currentQuestion+1].incorrect_answers[2])
-                ]));
-                setShowCorrectAnswer(!showCorrectAnswer);
-                setChosenAnswer("");
-            } else {
-                setQuizCompleted(!quizCompleted);
-            }
-            setPlayersAnswered(0);
+            const timerShowAnswer = setTimeout(() => {
+                if (currentQuestion < 9) {
+                    setCurrentQuestion(currentQuestion + 1);
+                    setAnswers(randomize([
+                        he.decode(questions[currentQuestion+1].correct_answer),
+                        he.decode(questions[currentQuestion+1].incorrect_answers[0]),
+                        he.decode(questions[currentQuestion+1].incorrect_answers[1]),
+                        he.decode(questions[currentQuestion+1].incorrect_answers[2])
+                    ]));
+                    setShowCorrectAnswer(!showCorrectAnswer);
+                    setChosenAnswer("");
+                } else {
+                    setQuizCompleted(!quizCompleted);
+                }
+                setPlayersAnswered(0);
+            }, 2000);
+            return () => clearTimeout(timerShowAnswer);
         }
 
         multiplayerData.socket.removeEventListener("playerAnswered");
         multiplayerData.socket.on("playerAnswered", statusUpdate => {
             setPlayersAnswered(playersAnswered + 1);
         });
+
+        /*multiplayerData.socket.removeEventListener("scoreUpdated");
+        multiplayerData.socket.on("scoreUpdated", statusUpdate => {
+            updateUsersRoom(statusUpdate.usersRoom);
+        });*/
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [playersAnswered]);
 
@@ -91,6 +111,11 @@ export function PlayQuizMultiplayer() {
         setChosenAnswer(event.target.outerText);
         if (event.target.outerText === he.decode(questions[currentQuestion].correct_answer)) {
             setScore(score + 1);
+            multiplayerData.socket.emit("updateScore", {
+                gameId: multiplayerData.gameId, 
+                username: user.username,
+                score: score + 1
+            });
         }
         setShowCorrectAnswer(!showCorrectAnswer);
         multiplayerData.socket.emit("answerQuestion", {gameId: multiplayerData.gameId});
@@ -112,6 +137,10 @@ export function PlayQuizMultiplayer() {
         }
     }
 
+    function playAgain() {
+        navigate("/home");
+    }
+
     return (
         <div>
             {(questions && answers && !quizCompleted) &&
@@ -130,7 +159,15 @@ export function PlayQuizMultiplayer() {
             {quizCompleted &&
                 <>
                     <h2>QUIZ COMPLETED</h2>
-                    <h2>SCORE: {score}</h2>
+                    <h2>RANKING:</h2>
+                    {multiplayerData.usersRoom.sort((a, b) => b.score - a.score).map(user => {
+                        return (
+                            <div key={user.username}>
+                                <h2>{user.username + " - " + user.score}</h2>
+                            </div>
+                        )
+                    })}
+                    <button onClick={playAgain}>Play Again</button>
                 </>
             }
 

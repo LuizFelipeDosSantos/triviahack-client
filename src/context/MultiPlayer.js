@@ -14,9 +14,13 @@ export function MultiPlayer(props) {
     setmultiplayerData(null);
   };
 
+  const updateUsersRoom = (usersRoom) => {
+    setmultiplayerData({...multiplayerData, usersRoom: usersRoom});
+  }
+
   return (
     <MultiPlayerContext.Provider
-      value={{ multiplayerData, addMultiPlayerDataToContext, removeMultiPlayerDataFromContext }}
+      value={{ multiplayerData, addMultiPlayerDataToContext, removeMultiPlayerDataFromContext, updateUsersRoom }}
     >
       {props.children}
     </MultiPlayerContext.Provider>
