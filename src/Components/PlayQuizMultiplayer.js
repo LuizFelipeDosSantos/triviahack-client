@@ -56,11 +56,6 @@ export function PlayQuizMultiplayer() {
         multiplayerData.socket.on("scoreUpdated", statusUpdate => {
             updateUsersRoom(statusUpdate.usersRoom);
         });
-
-        return () => {
-            multiplayerData.socket.emit("disconnectGame", {gameId: multiplayerData.gameId});
-            multiplayerData.socket.disconnect();
-        };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -155,7 +150,7 @@ export function PlayQuizMultiplayer() {
     }
 
     function playAgain() {
-        navigate("/home");
+        navigate("/room");
     }
 
     return (
@@ -183,7 +178,7 @@ export function PlayQuizMultiplayer() {
                     <img className="icon" src={logoIcon} alt="triviahack logo"/>
                     <h3> - QUIZ COMPLETED - </h3>
                     <h1>RANKING:</h1>
-                    {multiplayerData.usersRoom.sort((a, b) => b.score - a.score).map(user => {
+                    {[...multiplayerData.usersRoom].sort((a, b) => b.score - a.score).map(user => {
                         return (
                             <div key={user.username}>
                                 <h3>{user.username + " - " + user.score}</h3>
