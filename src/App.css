@@ -3,7 +3,9 @@
   padding: 0;
   font-family: 'Roboto Condensed', sans-serif;
 }
-
+.material-icons-outlined.md-18 { 
+  font-size: 2.5vh; 
+}
 /* ------------------- */
 /* NAVBAR */
 .navbar {
@@ -14,6 +16,7 @@
   align-items: center;
   padding-right: 2vw;
 }
+
 .logoAndIcon {
   display: flex;
   align-items: center;
@@ -33,7 +36,7 @@
 .navbar a {
   text-decoration: none;
   color: white;
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: 500;
 }
 
@@ -289,9 +292,6 @@
 
 /* ---------------------- */
 /* QuizLIst */
-.material-icons-outlined.md-18 { 
-  font-size: 2.5vh; 
-}
 
 .quizList {
   color: #24527A;
