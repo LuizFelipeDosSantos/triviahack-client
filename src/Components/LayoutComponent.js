@@ -26,22 +26,26 @@ export function LayoutComponent() {
         user ? (
           <>
             <nav className="navbar">
+              <div className="logoAndIcon">
                 <img className="icon" src={logoIcon} alt="triviahack logo"/>
+                <p>TRIVIAHACK</p>
+              </div>
+    
                 <NavLink to="/home">
                 <i class="material-icons-outlined md-18">play_circle</i>
-                &#160;Play</NavLink>
+                {/* &#160;Play */}</NavLink>
 
                 <NavLink to="/profile">
                 <i class="material-icons-outlined md-18">account_circle</i>
-                &#160;Profile</NavLink>
+                {/* &#160;Profile */}</NavLink>
 
                 <NavLink to="/quiz/list">
                 <i class="material-icons-outlined md-18">list_alt</i>
-                &#160;My Quizzes</NavLink>
+                {/* &#160;My Quizzes */}</NavLink>
 
                 <button onClick={logout}>
                 <i class="material-icons-outlined md-18">logout</i>
-                &#160;Logout</button>
+                {/* &#160;Logout */}</button>
             </nav>
 
             <Outlet />
