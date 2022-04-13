@@ -2,7 +2,10 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation , useNavigate} from "react-router-dom";
 import { API_BASE_URL } from "../consts";
-import logoIcon from '../Logo/logoIcon.png'
+import logoIcon from '../Logo/logoIcon.png';
+import timerSound from '../timer.wav';
+import correctAnswerSound from '../correct-answer.wav';
+import wrongAnswerSound from '../wrong-answer.wav';
 
 export function PlayQuiz() {
     const he = require('he');
@@ -15,6 +18,9 @@ export function PlayQuiz() {
     const [ showCorrectAnswer, setShowCorrectAnswer ] = useState(false);
     const [ chosenAnswer, setChosenAnswer ] = useState("");
     const navigate = useNavigate();
+    const [ timer ] = useState(new Audio(timerSound));
+    const [ correctAnswer ] = useState(new Audio(correctAnswerSound));
+    const [ wrongAnswer ] = useState(new Audio(wrongAnswerSound));
 
     useEffect(() => {
         async function fetchQuestions() {
@@ -36,6 +42,8 @@ export function PlayQuiz() {
             }
         }
         fetchQuestions();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        playTimerSound();
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -60,8 +68,10 @@ export function PlayQuiz() {
                 ]));
                 setShowCorrectAnswer(!showCorrectAnswer);
                 setChosenAnswer("");
+                playTimerSound();
             } else {
                 setQuizCompleted(!quizCompleted);
+                stopTimerSound();
                 if (!quiz) fetchUpdateUserScore();
             }
         }, 2000);
@@ -80,9 +90,13 @@ export function PlayQuiz() {
     }
 
     const answerQuestion = (event) => {
+        stopTimerSound();
         setChosenAnswer(event.target.outerText);
         if (event.target.outerText === he.decode(questions[currentQuestion].correct_answer)) {
             setScore(score + 1);
+            playCorrectAnswerSound();
+        } else {
+            playWrongAnswerSound();
         }
         setShowCorrectAnswer(!showCorrectAnswer);
     }
@@ -117,6 +131,30 @@ export function PlayQuiz() {
                 border: "0.4vw solid lightgrey"
             }
         }
+    }
+
+    function playTimerSound() {
+        timer.muted = false;
+        timer.volume = 0.2;
+        timer.loop = true;
+        timer.play();
+    }
+
+    function stopTimerSound() {
+        timer.currentTime = 0;
+        timer.pause();
+    }
+
+    function playCorrectAnswerSound() {
+        correctAnswer.muted = false;
+        correctAnswer.volume = 0.2;
+        correctAnswer.play();
+    }
+
+    function playWrongAnswerSound() {
+        wrongAnswer.muted = false;
+        wrongAnswer.volume = 0.2;
+        wrongAnswer.play();
     }
 
     return (

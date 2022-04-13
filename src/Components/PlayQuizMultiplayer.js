@@ -4,7 +4,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../consts";
 import { AuthContext } from "../context/AuthProviderWrapper";
 import { MultiPlayerContext } from "../context/MultiPlayer";
-import logoIcon from '../Logo/logoIcon.png'
+import logoIcon from '../Logo/logoIcon.png';
+import timerSound from '../timer.wav';
+import correctAnswerSound from '../correct-answer.wav';
+import wrongAnswerSound from '../wrong-answer.wav';
 
 export function PlayQuizMultiplayer() {
     const he = require('he');
@@ -20,6 +23,9 @@ export function PlayQuizMultiplayer() {
     const [ showCorrectAnswer, setShowCorrectAnswer ] = useState(false);
     const [ chosenAnswer, setChosenAnswer ] = useState("");
     const [ playersAnswered, setPlayersAnswered ] = useState(0);
+    const [ timer ] = useState(new Audio(timerSound));
+    const [ correctAnswer ] = useState(new Audio(correctAnswerSound));
+    const [ wrongAnswer ] = useState(new Audio(wrongAnswerSound));
 
     useEffect(() => {
         async function fetchQuestions() {
@@ -54,6 +60,8 @@ export function PlayQuizMultiplayer() {
             ]));
         }
 
+        playTimerSound();
+
         multiplayerData.socket.on("scoreUpdated", statusUpdate => {
             updateUsersRoom(statusUpdate.usersRoom);
         });
@@ -73,8 +81,10 @@ export function PlayQuizMultiplayer() {
                     ]));
                     setShowCorrectAnswer(!showCorrectAnswer);
                     setChosenAnswer("");
+                    playTimerSound();
                 } else {
                     setQuizCompleted(!quizCompleted);
+                    stopTimerSound();
                 }
                 setPlayersAnswered(0);
             }, 2000);
@@ -105,14 +115,18 @@ export function PlayQuizMultiplayer() {
     }
 
     const answerQuestion = (event) => {
+        stopTimerSound();
         setChosenAnswer(event.target.outerText);
         if (event.target.outerText === he.decode(questions[currentQuestion].correct_answer)) {
             setScore(score + 1);
+            playCorrectAnswerSound();
             multiplayerData.socket.emit("updateScore", {
                 gameId: multiplayerData.gameId, 
                 username: user.username,
                 score: score + 1
             });
+        } else {
+            playWrongAnswerSound();
         }
         setShowCorrectAnswer(!showCorrectAnswer);
         multiplayerData.socket.emit("answerQuestion", {gameId: multiplayerData.gameId});
@@ -148,6 +162,30 @@ export function PlayQuizMultiplayer() {
                 border: "0.4vw solid lightgrey"
             }
         }
+    }
+
+    function playTimerSound() {
+        timer.muted = false;
+        timer.volume = 0.2;
+        timer.loop = true;
+        timer.play();
+    }
+
+    function stopTimerSound() {
+        timer.currentTime = 0;
+        timer.pause();
+    }
+
+    function playCorrectAnswerSound() {
+        correctAnswer.muted = false;
+        correctAnswer.volume = 0.2;
+        correctAnswer.play();
+    }
+
+    function playWrongAnswerSound() {
+        wrongAnswer.muted = false;
+        wrongAnswer.volume = 0.2;
+        wrongAnswer.play();
     }
 
     function playAgain() {
