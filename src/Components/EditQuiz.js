@@ -34,6 +34,7 @@ export function EditQuiz() {
             } 
         }
         fetchQuestions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     /* NAME & LEVEL */
