@@ -4,6 +4,7 @@ import io from 'socket.io-client';
 import { API_BASE_URL } from "../consts";
 import { AuthContext } from "../context/AuthProviderWrapper";
 import { MultiPlayerContext } from "../context/MultiPlayer";
+import logoIcon from '../Logo/logoIcon.png'
 
 export function Room() {
     const navigate = useNavigate();
@@ -64,34 +65,40 @@ export function Room() {
     }
 
     return (
-        <div>
-            <button onClick={createRoom} disabled={gameId}>Create Room</button>
+        <div className="flex-column home room">
+            <img className="icon" src={logoIcon} alt="triviahack logo"/>
+            <button className="btn" onClick={createRoom} disabled={gameId}>
+                <i class="material-icons-outlined md-18">add_circle</i><br/>Create Room
+            </button>
             <br/>
             {gameId ? 
                 <>
                     <h1>Room Code: {gameId}</h1>
                     {host
-                     ? <h3>You are the Host!</h3>
-                     : <h3>Wait to Host to Start Game!</h3>
+                     ? <h3>You are the host.<br/> Send the code to other players.</h3>
+                     : <h3>Wait for host to start the game!</h3>
                     }
-                    <h3>Waiting for others players!</h3>
+                    <h3> - Waiting for players to join - </h3>
                     <h3>Players Connected:</h3>
-                    {usersRoom &&
-                        usersRoom.map(user => {
-                        return (
-                            <div key={user.username}>
-                                <p>{user.username}</p>
-                            </div>
-                        )
-                    })}
-                    {host &&
-                        <button onClick={chooseQuiz}>Choose Quiz & Start Game</button>
-                    }
+                    <div className="player">
+                        {usersRoom &&
+                            usersRoom.map(user => {
+                            return (
+                                <div key={user.username}>
+                                    <p>{user.username}</p>
+                                </div>
+                            )
+                        })}
+                    </div>
+                        {host &&
+                            <button className="btn" onClick={chooseQuiz}>Choose Quiz & Start Game</button>
+                        }
+                    
                 </>
              :  <>
-                    <label>Join: </label>
+                    <label>Enter Room Code: </label>
                     <input type="text" placeholder="Room Code" onChange={handleJoinGame}/>
-                    <button onClick={joinRoom}>Join</button>
+                    <button className="btn" onClick={joinRoom}>Join</button>
                 </>
             }
         </div>

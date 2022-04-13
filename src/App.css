@@ -425,3 +425,27 @@
   width: 100vw;
   height: auto;
 }
+
+/* -------------------------------- */
+/* ROOM */
+.room {
+ margin: 0 5vw;
+ text-align: center;
+}
+.room input {
+  outline-color: #24527A;
+}
+
+.room h1 {
+  margin: 1vh;
+}
+.room h3 {
+  margin: 2vh 0 0 0;
+}
+
+.player {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 0;
+}

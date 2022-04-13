@@ -33,7 +33,9 @@ export function LayoutComponent() {
 
                 <NavLink to="/quiz/list">My Quizzes</NavLink>
 
-                <button onClick={logout}>Logout</button>
+                <button onClick={logout}>
+                <i class="material-icons-outlined md-18">logout</i>
+                &#160;Logout</button>
             </nav>
 
             <Outlet />
