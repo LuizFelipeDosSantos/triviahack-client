@@ -107,7 +107,7 @@ export function Profile() {
                 <p>Score <b>{userState.score}</b></p>
 
          {/* if avatar dann das bild ansonsten default avatar: logo mit karten*/}
-
+                
                 <div className="avatarDiv" style={{ display: showForm ? 'none' : 'block' }}>
                     <img className="avatar" src={ userState.avatar} alt="avatar" />
                 </div>            
