@@ -26,8 +26,8 @@ export function PlayQuizMultiplayer() {
             try {
                 const response = await axios.get(API_BASE_URL + "/questions", { params: {
                     quizId: quiz ? quiz._id : "",
-                    category: category.id,
-                    difficulty: level
+                    category: category ? category.id : "",
+                    difficulty: level ? level : ""
                 }});
                 multiplayerData.socket.emit("startGame", {gameId: multiplayerData.gameId, questions: response.data.questions, state: { category, level, quiz }});
                 setQuestions(response.data.questions);
@@ -38,7 +38,8 @@ export function PlayQuizMultiplayer() {
                     he.decode(response.data.questions[0].incorrect_answers[2])
                 ]));
             } catch (error) {
-                console.log(error.response.data.errorMessage);
+                console.log(error);
+                //console.log(error.response.data.errorMessage);
             }
         }
         if (multiplayerData.host) {
@@ -56,11 +57,6 @@ export function PlayQuizMultiplayer() {
         multiplayerData.socket.on("scoreUpdated", statusUpdate => {
             updateUsersRoom(statusUpdate.usersRoom);
         });
-
-        return () => {
-            multiplayerData.socket.emit("disconnectGame", {gameId: multiplayerData.gameId});
-            multiplayerData.socket.disconnect();
-        };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -155,7 +151,7 @@ export function PlayQuizMultiplayer() {
     }
 
     function playAgain() {
-        navigate("/home");
+        navigate("/room");
     }
 
     return (
@@ -183,7 +179,7 @@ export function PlayQuizMultiplayer() {
                     <img className="icon" src={logoIcon} alt="triviahack logo"/>
                     <h3> - QUIZ COMPLETED - </h3>
                     <h1>RANKING:</h1>
-                    {multiplayerData.usersRoom.sort((a, b) => b.score - a.score).map(user => {
+                    {[...multiplayerData.usersRoom].sort((a, b) => b.score - a.score).map(user => {
                         return (
                             <div key={user.username}>
                                 <h3>{user.username + " - " + user.score}</h3>
