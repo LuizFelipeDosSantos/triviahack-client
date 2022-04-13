@@ -77,7 +77,7 @@ export function EditQuiz() {
     }
 
     async function finishEdit() {
-        const questions = allQuestionsToEdit.map((question) => {
+        const questions = 'allQuestionsToEdit'.map((question) => {
             return  {
                 question : question.question,
                 correct_answer: question.correct_answer,

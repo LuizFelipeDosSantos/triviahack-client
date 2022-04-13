@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import logoIcon from '../Logo/logoIcon.png'
 
 export function CreateQuiz() {
+    const navigate = useNavigate();
     const [newQuiz, setNewQuiz] = useState({ name: "", difficulty: "easy" }); 
     const [showQuestionForm, setShowQuestionForm] = useState(false);
     const [newQuestion, setNewQuestion] = useState({
@@ -12,13 +13,14 @@ export function CreateQuiz() {
         correct_answer: "", 
         incorrect_answer1: "",
         incorrect_answer2: "",
-        incorrect_answer3: "", })
+        incorrect_answer3: "", 
+    })
     const toggleForm = () => setShowQuestionForm(!showQuestionForm);
     const [questionsArr, setQuestionsArr] = useState([]);
+    const [ currentQuestion, setCurrentQuestion] = useState(0);
     const quizComplete = questionsArr.length === 10;
-    const navigate = useNavigate();
 
-    /* QUIZ NAME & LEVEL */
+    /* NAME & LEVEL */
     const handleQuizInput = (event) => {
         setNewQuiz({
             ...newQuiz,
@@ -30,7 +32,7 @@ export function CreateQuiz() {
         event.preventDefault();
     }
 
-    /* QUIZ QUESTIONS */
+    /* QUESTIONS */
     const handleQuestionInput = (event) => {
         setNewQuestion({
              ...newQuestion,
@@ -39,29 +41,61 @@ export function CreateQuiz() {
     }
 
     const handleQuestionSubmit = (event) => {
-        event.preventDefault();
-        setQuestionsArr([
-            ...questionsArr,
-            {
-            question: newQuestion.question,
-            correct_answer: newQuestion.correct_answer,
-            incorrect_answers: [newQuestion.incorrect_answer1, newQuestion.incorrect_answer2, newQuestion.incorrect_answer3]
+        event.preventDefault(); 
+    }
+
+    function saveQuestion() {
+        let newArr = [...questionsArr];
+        newArr[currentQuestion] = newQuestion;
+        setQuestionsArr(newArr);
+    }
+
+    const next = () => {
+        if (currentQuestion < 9) {
+            setCurrentQuestion(currentQuestion + 1);
+            if (questionsArr[currentQuestion + 1] !== undefined) {
+                setNewQuestion(questionsArr[currentQuestion +1 ])
+            } else {
+                setNewQuestion({
+                    question: "", 
+                    correct_answer: "", 
+                    incorrect_answer1: "", 
+                    incorrect_answer2: "",
+                    incorrect_answer3: "", 
+                });
+            }
+        }  
+    }
+
+    const previous = () => {
+        if (currentQuestion >= 1) {
+            setCurrentQuestion(currentQuestion - 1);
+            if(questionsArr[currentQuestion - 1] !== undefined) {
+                setNewQuestion(questionsArr[currentQuestion - 1 ])
+            } else {
+                setNewQuestion({
+                    question: "", 
+                    correct_answer: "", 
+                    incorrect_answer1: "", 
+                    incorrect_answer2: "",
+                    incorrect_answer3: "", 
+                });
+            }
         }
-        ])
-        /* resetting form */
-        setNewQuestion({
-            question: "", 
-            correct_answer: "", 
-            incorrect_answer1: "", 
-            incorrect_answer2: "",
-            incorrect_answer3: "", 
-        });
+        
     }
 
     async function createQuiz() {
         if (quizComplete) {
+            const questions = questionsArr.map((question) => {
+                return  {
+                    question : question.question,
+                    correct_answer: question.correct_answer,
+                    incorrect_answers: [question.incorrect_answer1, question.incorrect_answer2, question.incorrect_answer3],
+                }})
+
            try {
-                const response = await axios.post(API_BASE_URL + "/quiz/create", {quiz: newQuiz, questions: questionsArr, }); 
+                const response = await axios.post(API_BASE_URL + "/quiz/create", {quiz: newQuiz, questions }); 
                 console.log(response.data);
                 setQuestionsArr([])
                 navigate("/quiz/list");
@@ -105,8 +139,8 @@ export function CreateQuiz() {
 
             <br/>
 
-            <div style={{ display: showQuestionForm ? 'block' : 'none' }}>
-
+            <div style={{ display: showQuestionForm? (quizComplete ? 'none' : 'block') : 'none' }}>
+            {newQuestion &&
                 <form className="quizEditform" onSubmit={handleQuestionSubmit}>
                     <label for="question">Question: </label>
                     <input
@@ -153,15 +187,22 @@ export function CreateQuiz() {
                         onChange={handleQuestionInput}
                         placeholder="Enter a wrong answer"
                         />
-                    <button className="btn" type="submit" >{">>"}</button>
-                </form>
+                    
+                    <button className="btn" type="submit" onClick={ saveQuestion } > 
+                        <i class="material-icons-outlined md-18">save</i> 
+                    </button>
 
-                {/* only appears after 10 questions filled - how about saving process in between?? submit any time and the rest is empty? pre-filled: question + number and answewr.... */}
-                {/* button toggles: save or submit */}
-                <div className="quiz">
+                    <div>
+                        <button className="btn" onClick={ previous } > {"<<"} </button>
+                        <button className="btn" onClick={ next } >{">>"}</button>
+                    </div>
+                    <h5>{(currentQuestion + 1) + " / 10"}</h5>                
+                </form>
+            }
+            </div>
+            <div className="quiz">
                     <button className="btn" style={{ display: quizComplete ? 'block' : 'none' }} onClick={createQuiz}> Submit Quiz </button>
                 </div>
-            </div>
         </div>
     )
 }
