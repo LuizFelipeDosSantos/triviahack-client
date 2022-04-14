@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthProviderWrapper";
 import { API_BASE_URL } from "../consts";
@@ -7,8 +7,15 @@ import logoIcon from '../Logo/logoIcon.png'
 import cover_photo from '../Logo/cover_photo.png'
 
 export function LayoutComponent() {
-  const { user, removeUserFromContext} = useContext(AuthContext);
+  const [ user, setUser ] = useState(useContext(AuthContext).user);
+  const [ showNeedLoginPage, setShowNeedLoginPage ] = useState(false);
+  const { addUserToContext, removeUserFromContext} = useContext(AuthContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) getUserSession();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   async function logout() {
     try {
@@ -20,6 +27,21 @@ export function LayoutComponent() {
     }
   }
 
+  async function getUserSession() {
+    try {
+      const response = await axios.get(API_BASE_URL + "/logged");
+      if (response.data.user) {
+        addUserToContext(response.data.user);
+        setUser(response.data.user);
+        setShowNeedLoginPage(false);
+      } else {
+        setShowNeedLoginPage(true);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  } 
+
   return (
     <div className="App">
       {
@@ -30,7 +52,7 @@ export function LayoutComponent() {
                 <img className="icon" src={logoIcon} alt="triviahack logo"/>
                 <p>TRIVIAHACK</p>
               </div>
-    
+
                 <NavLink to="/home">
                 <i class="material-icons-outlined md-18">play_circle</i>
                 {/* &#160;Play */}</NavLink>
@@ -50,31 +72,28 @@ export function LayoutComponent() {
 
             <Outlet />
           </>
-        ) : (
-          // does this work? pass error message along: "Please login to access these pages?"
-          //navigate("/")
-          <>
-            <nav className="navbar">
-                <div className="logoAndIcon">
-                  <img className="icon" src={logoIcon} alt="triviahack logo"/>
-                  <p>TRIVIAHACK</p>
+        ) : 
+          showNeedLoginPage &&
+            <>
+              <nav className="navbar">
+                  <div className="logoAndIcon">
+                    <img className="icon" src={logoIcon} alt="triviahack logo"/>
+                    <p>TRIVIAHACK</p>
+                  </div>
+
+                    <NavLink to="/">
+                    Login
+                    {/* &#160;Play */}</NavLink>
+
+                    <NavLink to="/signup">
+                    Sign Up
+                    {/* &#160;Profile */}</NavLink>
+                </nav>
+                <div className="page404">
+                  <img src={cover_photo} alt="triviahack logo"/>
+                  <h3>You need to be logged in to play our game!</h3>
                 </div>
-
-                  <NavLink to="/">
-                  Login
-                  {/* &#160;Play */}</NavLink>
-
-                  <NavLink to="/signup">
-                  Sign Up
-                  {/* &#160;Profile */}</NavLink>
-              </nav>
-              <div className="page404">
-                <img src={cover_photo} alt="triviahack logo"/>
-                <h3>You need to be logged in to play our game!</h3>
-              </div>
-          </>
-        )
-
+            </>
       }
     </div>
   );
