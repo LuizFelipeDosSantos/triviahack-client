@@ -189,7 +189,7 @@ export function CreateQuiz() {
                         />
                     
                     <button className="btn" type="submit" onClick={ saveQuestion } > 
-                        <i class="material-icons-outlined md-18">save</i> 
+                        <i className="material-icons-outlined md-18">save</i> 
                     </button>
 
                     <div>

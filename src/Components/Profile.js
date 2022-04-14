@@ -121,7 +121,7 @@ export function Profile() {
                     <img className="avatar" src={ userState.avatar} alt="avatar" />
                 </div>            
                 <button className="iconBtn" onClick={toggleForm}> 
-                    { showForm ? <i class="material-icons-outlined md-18">keyboard_return</i> : <i class="material-icons-outlined md-18">settings</i>}
+                    { showForm ? <i className="material-icons-outlined md-18">keyboard_return</i> : <i className="material-icons-outlined md-18">settings</i>}
                 </button>  
             </div>
 
@@ -149,7 +149,7 @@ export function Profile() {
                         />
                         <br/>
                         <button className="iconBtn" type="submit"> 
-                            <i class="material-icons-outlined md-18">save</i> 
+                            <i className="material-icons-outlined md-18">save</i> 
                         </button>
                     </form>
                 </div>                                    
@@ -171,7 +171,7 @@ export function Profile() {
                         />
 
                         <button className="iconBtn" type="submit"> 
-                        <i class="material-icons-outlined md-18">person_add</i>
+                        <i className="material-icons-outlined md-18">person_add</i>
                         </button>
                 </form>
             </div>
@@ -202,7 +202,7 @@ export function Profile() {
                                 <td>{friend.username}</td>
                                 <td>{friend.score}</td>
                                 <td>
-                                    <button className="iconBtn" onClick={() => deleteFriend(friend.username)}> <i class="material-icons-outlined md-18">delete</i> </button>
+                                    <button className="iconBtn" onClick={() => deleteFriend(friend.username)}> <i className="material-icons-outlined md-18">delete</i> </button>
                                 </td>
                             </tr>
                             );
