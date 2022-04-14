@@ -65,7 +65,7 @@ export function QuizList() {
                                 </div>
                                 <div>
                                     <button className="iconBtn" onClick={ () => editQuiz(quiz._id)}> 
-                                    <i class="material-icons-outlined md-18" icon>edit</i></button>
+                                    <i class="material-icons-outlined md-18" icon>settings</i></button>
                                     <button className="iconBtn" onClick={ () => deleteQuiz(quiz._id)}> 
                                     <i class="material-icons-outlined md-18">delete</i></button>
                                 </div>

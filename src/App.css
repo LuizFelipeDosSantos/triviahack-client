@@ -17,6 +17,21 @@
   padding-right: 2vw;
 }
 
+.navbarDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btnName {
+  color: white;
+}
+
+@media only screen and (max-width: 600px) {
+  .btnName {
+   display: none;
+  }
+}
 .logoAndIcon {
   display: flex;
   align-items: center;
@@ -33,6 +48,7 @@
   padding-left: 2vw;
 }
 
+
 .navbar a {
   text-decoration: none;
   color: white;
@@ -40,8 +56,12 @@
   font-weight: 500;
 }
 
-.navbar a:hover, a:active {
-  color:#83b1c5
+.navbarDiv:hover {
+  color:#5aa8ba;
+}
+
+.navbarDiv:focus {
+  color:#5aa8ba;
 }
 
 .navbar button {
@@ -54,9 +74,6 @@
   font-family: 'Roboto Condensed', sans-serif;
 }
 
-.navbar button:hover {
-  color:#83b1c5;
-}
 
 /* ------------------- */
 /* LOGIN & SIGNUP*/
@@ -85,9 +102,16 @@
 }
 
 .logo {
-  width: 30vw;
+  width: 25vw;
   border-radius: 5%;
 }
+
+@media only screen and (max-width: 900px) {
+  .logo {
+   width: 18vh;
+  }
+}
+
 
 .avatarDiv {
   width: 7rem;
@@ -95,7 +119,14 @@
   border-radius: 50%;
   overflow: hidden;
   position: relative;
-  border: 0.3vw solid #42819D;
+  border: 0.3vw solid #5aa8ba;
+}
+
+@media only screen and (max-width: 900px) {
+  .avatarDiv {
+   width: 5rem;
+   height: 5rem;
+  }
 }
 
 .avatar {
@@ -110,7 +141,7 @@
 
 .login-box h2 {
   font-size: 1.2rem;
-  color:#42819D;
+  color:#5aa8ba;
   font-weight: 600;
 }
 
@@ -123,20 +154,20 @@
   margin-bottom: 1vh;
   margin-top: 1vh;
   font-size: 1.1rem;
-  border: 0.3vw solid #42819D;
+  border: 0.3vw solid #5aa8ba;
   border-radius: 1vw;
   outline-color:#24527A;
 }
 
 .login-box a {
-  color: #42819D;
+  color: #5aa8ba;
 }
 
 .btn {
   padding: 2vh;
   align-self: center;
   background-color: #24527A;
-  color: #83b1c5;
+  color: #5aa8ba;
   font-weight: bold;
   width: fit-content;
   border-radius: 0.9vw;
@@ -160,12 +191,18 @@
 /* Categories */
 .cat-page {
   color: #24527A;
+  background:#24527A;
   display: flex;
   flex-direction: column;
+  min-height: 92vh;
 }
 
 .cat-page .header h3 {
  color:#24527A;
+}
+
+.cat-page .header {
+  background: white;
 }
 
 .cat-list {
@@ -179,7 +216,7 @@
 
 .cat {
   color: white;
-  background-color: #42819D;
+  background-color: #5aa8ba;
 }
 
 .cat-page button {
@@ -233,10 +270,29 @@
   justify-content: space-between;
 }
 
+.profileHead {
+  margin-top: 10vh;
+}
+
 .profile .header h3, p {
-  margin-left: 5vw;
+  margin-left: 2vw;
   color: #42819D;
 }
+
+.profile .avatarDiv {
+  width: 6rem;
+  height: 6rem;
+  margin: 2vh;
+}
+
+@media only screen and (max-width: 900px) {
+  .profile .avatarDiv {
+    width: 4rem;
+    height: 4rem;
+    margin: 2vh;
+  }
+}
+
 
 .nameScore {
   display: flex;
@@ -261,10 +317,6 @@
   width: fit-content;
 }
 
-.profile .avatarDiv {
-  width: 4rem;
-  height: 4rem;
-}
 
 .editAvatarForm input::file-selector-button {
   padding: 1vh;
@@ -472,3 +524,4 @@
 .endQuiz h1 {
   color: #24527A;
 }
+

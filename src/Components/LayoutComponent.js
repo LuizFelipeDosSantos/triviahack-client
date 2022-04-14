@@ -1,6 +1,6 @@
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
-import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { NavLink, Outlet, useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../context/AuthProviderWrapper";
 import { API_BASE_URL } from "../consts";
 import logoIcon from '../Logo/logoIcon.png'
@@ -11,6 +11,7 @@ export function LayoutComponent() {
   const [ showNeedLoginPage, setShowNeedLoginPage ] = useState(false);
   const { addUserToContext, removeUserFromContext} = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     if (!user) getUserSession();
@@ -52,22 +53,42 @@ export function LayoutComponent() {
                 <img className="icon" src={logoIcon} alt="triviahack logo"/>
                 <p>TRIVIAHACK</p>
               </div>
+    
+              {
+                 location.pathname === "/categories"
+              || location.pathname === "/level" 
+              || location.pathname === "/quiz-single-player" 
+              || location.pathname === "/quiz-multiplayer" 
+              ? (<></>) :
+                <>
+                  <NavLink to="/home">
+                    <div className="navbarDiv">
+                      <i class="material-icons-outlined md-18">play_circle</i>
+                      <p className="btnName">Play</p>
+                    </div>
+                  </NavLink>
 
-                <NavLink to="/home">
-                <i class="material-icons-outlined md-18">play_circle</i>
-                {/* &#160;Play */}</NavLink>
+                  <NavLink to="/profile">
+                    <div className="navbarDiv">
+                      <i class="material-icons-outlined md-18">account_circle</i>
+                      <p className="btnName">Profile</p>
+                    </div>
+                  </NavLink>
 
-                <NavLink to="/profile">
-                <i class="material-icons-outlined md-18">account_circle</i>
-                {/* &#160;Profile */}</NavLink>
+                  <NavLink to="/quiz/list">
+                    <div className="navbarDiv">
+                      <i class="material-icons-outlined md-18">list_alt</i>
+                      <p className="btnName">My Quizzes</p>
+                    </div>
+                  </NavLink>
 
-                <NavLink to="/quiz/list">
-                <i class="material-icons-outlined md-18">list_alt</i>
-                {/* &#160;My Quizzes */}</NavLink>
-
-                <button onClick={logout}>
-                <i class="material-icons-outlined md-18">logout</i>
-                {/* &#160;Logout */}</button>
+                  <button onClick={logout}>
+                    <div className="navbarDiv">
+                      <i class="material-icons-outlined md-18">logout</i>
+                      <p className="btnName">Logout</p>
+                    </div>
+                  </button>
+                </>}
             </nav>
 
             <Outlet />
