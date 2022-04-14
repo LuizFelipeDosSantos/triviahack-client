@@ -67,6 +67,7 @@ export function PlayQuizMultiplayer() {
         multiplayerData.socket.on("scoreUpdated", statusUpdate => {
             updateUsersRoom(statusUpdate.usersRoom);
         });
+        return () => {stopTimerSound()}
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -97,11 +98,6 @@ export function PlayQuizMultiplayer() {
         multiplayerData.socket.on("playerAnswered", statusUpdate => {
             setPlayersAnswered(playersAnswered + 1);
         });
-
-        /*multiplayerData.socket.removeEventListener("scoreUpdated");
-        multiplayerData.socket.on("scoreUpdated", statusUpdate => {
-            updateUsersRoom(statusUpdate.usersRoom);
-        });*/
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [playersAnswered]);

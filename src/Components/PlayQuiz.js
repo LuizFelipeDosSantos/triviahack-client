@@ -46,6 +46,7 @@ export function PlayQuiz() {
         getScoreMultiplier();
         // eslint-disable-next-line react-hooks/exhaustive-deps
         playTimerSound();
+        return () => {stopTimerSound()};
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
