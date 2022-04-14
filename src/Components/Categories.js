@@ -63,7 +63,7 @@ export function Categories() {
                 ownFriendsQuizzes.map((quiz) => {
                     return (
                         <div key={quiz._id}>
-                            <button onClick={() => {
+                            <button className="btn cat" onClick={() => {
                                 navigate('/level', { state: { quiz, multiplayer }})
                             }}>{quiz.name}</button>
                         </div>

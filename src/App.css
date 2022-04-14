@@ -102,8 +102,14 @@
 }
 
 .logo {
-  width: 10vw;
+  width: 25vw;
   border-radius: 5%;
+}
+
+@media only screen and (max-width: 900px) {
+  .logo {
+   width: 18vh;
+  }
 }
 
 
@@ -185,12 +191,18 @@
 /* Categories */
 .cat-page {
   color: #24527A;
+  background:#24527A;
   display: flex;
   flex-direction: column;
+  min-height: 92vh;
 }
 
 .cat-page .header h3 {
  color:#24527A;
+}
+
+.cat-page .header {
+  background: white;
 }
 
 .cat-list {
@@ -204,7 +216,7 @@
 
 .cat {
   color: white;
-  background-color: #42819D;
+  background-color: #5aa8ba;
 }
 
 .cat-page button {
@@ -513,14 +525,3 @@
   color: #24527A;
 }
 
-@media only screen and (max-width: 900px) {
-  .logo {
-   width: 20vh;
-  }
-}
-
-@media only screen and (max-width: 600px) {
-  .logo {
-   width: 30vh;
-  }
-}
