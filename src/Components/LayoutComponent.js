@@ -40,20 +40,32 @@ export function LayoutComponent() {
               ? (<></>) :
                 <>
                   <NavLink to="/home">
-                  <i class="material-icons-outlined md-18">play_circle</i>
-                  {/* &#160;Play */}</NavLink>
+                    <div className="navbarDiv">
+                      <i class="material-icons-outlined md-18">play_circle</i>
+                      <p className="btnName">Play</p>
+                    </div>
+                  </NavLink>
 
                   <NavLink to="/profile">
-                  <i class="material-icons-outlined md-18">account_circle</i>
-                  {/* &#160;Profile */}</NavLink>
+                    <div className="navbarDiv">
+                      <i class="material-icons-outlined md-18">account_circle</i>
+                      <p className="btnName">Profile</p>
+                    </div>
+                  </NavLink>
 
                   <NavLink to="/quiz/list">
-                  <i class="material-icons-outlined md-18">list_alt</i>
-                  {/* &#160;My Quizzes */}</NavLink>
+                    <div className="navbarDiv">
+                      <i class="material-icons-outlined md-18">list_alt</i>
+                      <p className="btnName">My Quizzes</p>
+                    </div>
+                  </NavLink>
 
                   <button onClick={logout}>
-                  <i class="material-icons-outlined md-18">logout</i>
-                  {/* &#160;Logout */}</button>
+                    <div className="navbarDiv">
+                      <i class="material-icons-outlined md-18">logout</i>
+                      <p className="btnName">Logout</p>
+                    </div>
+                  </button>
                 </>}
             </nav>
 
