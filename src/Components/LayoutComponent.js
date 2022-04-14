@@ -43,6 +43,12 @@ export function LayoutComponent() {
     }
   } 
 
+  const determineStyle = ({ isActive }) => {
+    return {
+      color: isActive ? "5aa8ba" : "white",
+    };
+  };
+
   return (
     <div className="App">
       {
@@ -59,23 +65,24 @@ export function LayoutComponent() {
               || location.pathname === "/level" 
               || location.pathname === "/quiz-single-player" 
               || location.pathname === "/quiz-multiplayer" 
-              ? (<></>) :
-                <>
-                  <NavLink to="/home">
+              ? (<></>)
+              : 
+              <>
+                  <NavLink style={determineStyle} to="/home">
                     <div className="navbarDiv">
                       <i class="material-icons-outlined md-18">play_circle</i>
                       <p className="btnName">Play</p>
                     </div>
                   </NavLink>
 
-                  <NavLink to="/profile">
+                  <NavLink style={determineStyle} to="/profile">
                     <div className="navbarDiv">
                       <i class="material-icons-outlined md-18">account_circle</i>
                       <p className="btnName">Profile</p>
                     </div>
                   </NavLink>
 
-                  <NavLink to="/quiz/list">
+                  <NavLink style={determineStyle} to="/quiz/list">
                     <div className="navbarDiv">
                       <i class="material-icons-outlined md-18">list_alt</i>
                       <p className="btnName">My Quizzes</p>

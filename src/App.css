@@ -48,7 +48,6 @@
   padding-left: 2vw;
 }
 
-
 .navbar a {
   text-decoration: none;
   color: white;
@@ -57,10 +56,6 @@
 }
 
 .navbarDiv:hover {
-  color:#5aa8ba;
-}
-
-.navbarDiv:focus {
   color:#5aa8ba;
 }
 
@@ -270,10 +265,6 @@
   justify-content: space-between;
 }
 
-.profileHead {
-  margin-top: 10vh;
-}
-
 .profile .header h3, p {
   margin-left: 2vw;
   color: #42819D;
@@ -291,8 +282,8 @@
     height: 4rem;
     margin: 2vh;
   }
+  
 }
-
 
 .nameScore {
   display: flex;
@@ -327,10 +318,19 @@
 }
 
 .profile table {
-  border: 0.7vw solid #42819D;
+  border: 0.5vw solid #42819D;
   border-radius: 2vw;
   padding: 2vw;
 }
+
+@media only screen and (max-width: 900px) {
+  .profile table  {
+    border: 1vw solid #42819D;
+  }
+}
+
+
+
 
 .leaderboard {
   margin-top: 3vh;

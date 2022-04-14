@@ -202,7 +202,7 @@ export function PlayQuiz() {
                     <img className="icon" src={logoIcon} alt="triviahack logo"/>
                     <h3> - QUIZ COMPLETED - </h3>
                     <h1>SCORE: {score}</h1>
-                    <button className="btn" onClick={ () => navigate("/home") }> Play again </button>
+                    <button className="btn" onClick={ () => navigate("/home") }> <i class="material-icons-outlined md-18">keyboard_return</i> </button>
                 </div>
             }
 

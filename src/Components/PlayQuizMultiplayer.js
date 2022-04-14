@@ -239,7 +239,7 @@ export function PlayQuizMultiplayer() {
                             </div>
                         )
                     })}
-                    <button className="btn" onClick={playAgain}>Play Again</button>
+                    <button className="btn" onClick={playAgain}> <i class="material-icons-outlined md-18">keyboard_return</i></button>
                 </div>
             }
 
