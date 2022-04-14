@@ -12,7 +12,7 @@ export function Profile() {
     const [showForm, setShowForm] = useState(false);
     const [userState, setUserState] = useState({username: "", avatar: "", friends: [], score: 0, });
     const [previewSource, setPreviewSource] = useState();
-
+    const [errMessage, setErrMessage] = useState(errorState);
     /* fetch user data from server */
     useEffect(() => {
         async function fetchUser() {
@@ -33,6 +33,12 @@ export function Profile() {
         fetchUser();
     }, [edit]); //runs on mount and upon change (new Avatar, add or delete friend)
 
+    useEffect(() => {
+        const clearErrorMessage = setTimeout(() => {
+         setErrMessage("");
+        }, 3000);
+        return () => clearTimeout(clearErrorMessage);
+    }, [errorState]);
 
    /* Toggle Form to Upload new Avatar */
     const toggleForm = () => setShowForm(!showForm);
@@ -81,6 +87,7 @@ export function Profile() {
         catch (err) {
             console.log(err.response.data);
             setErrorState({ message: err.response.data.errorMessage });
+            setErrMessage(err.response.data.errorMessage);
         }
     }
 
@@ -134,7 +141,7 @@ export function Profile() {
                     )}
                     <form onSubmit={handleSubmit}>
                     
-                    {errorState && <h2>{errorState.message}</h2>}
+                    {errorState && <h2 style={{ color: "#42819D" }}>{errorState.message}</h2>}
                         <input
                         type="file"
                         name="avatar"
@@ -153,7 +160,7 @@ export function Profile() {
                 
                 <form onSubmit={handleNewFriendSubmit}>
                     
-                    {errorState && <h2 style={{ color: "#42819D" }}>{errorState.message}</h2>}
+                    {errorState && <h2 style={{ color: "#42819D" }}>{errMessage}</h2>}
 
                         <input
                         type="text"
