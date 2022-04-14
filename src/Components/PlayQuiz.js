@@ -15,6 +15,7 @@ export function PlayQuiz() {
     const [ answers, setAnswers ] = useState();
     const [ quizCompleted, setQuizCompleted ] = useState(false);
     const [ score, setScore ] = useState(0);
+    const [ scoreMultiplier, setScoreMultiplier ] = useState(0);
     const [ showCorrectAnswer, setShowCorrectAnswer ] = useState(false);
     const [ chosenAnswer, setChosenAnswer ] = useState("");
     const navigate = useNavigate();
@@ -42,6 +43,7 @@ export function PlayQuiz() {
             }
         }
         fetchQuestions();
+        getScoreMultiplier();
         // eslint-disable-next-line react-hooks/exhaustive-deps
         playTimerSound();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -93,7 +95,7 @@ export function PlayQuiz() {
         stopTimerSound();
         setChosenAnswer(event.target.outerText);
         if (event.target.outerText === he.decode(questions[currentQuestion].correct_answer)) {
-            setScore(score + 1);
+            setScore(score + scoreMultiplier);
             playCorrectAnswerSound();
         } else {
             playWrongAnswerSound();
@@ -131,6 +133,23 @@ export function PlayQuiz() {
                 border: "0.4vw solid lightgrey"
             }
         }
+    }
+
+    function getScoreMultiplier() {
+        const difficulty = quiz ? quiz.difficulty : level;
+        switch (difficulty) {
+            case 'easy':
+                setScoreMultiplier(1);
+                break;
+            case 'medium':
+                setScoreMultiplier(2);
+                break;
+            case 'hard':
+                setScoreMultiplier(3);
+                break;
+            default: 
+                break;
+        } 
     }
 
     function playTimerSound() {

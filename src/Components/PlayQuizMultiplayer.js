@@ -20,6 +20,7 @@ export function PlayQuizMultiplayer() {
     const [ answers, setAnswers ] = useState();
     const [ quizCompleted, setQuizCompleted ] = useState(false);
     const [ score, setScore ] = useState(0);
+    const [ scoreMultiplier, setScoreMultiplier ] = useState(0);
     const [ showCorrectAnswer, setShowCorrectAnswer ] = useState(false);
     const [ chosenAnswer, setChosenAnswer ] = useState("");
     const [ playersAnswered, setPlayersAnswered ] = useState(0);
@@ -60,6 +61,7 @@ export function PlayQuizMultiplayer() {
             ]));
         }
 
+        getScoreMultiplier();
         playTimerSound();
 
         multiplayerData.socket.on("scoreUpdated", statusUpdate => {
@@ -118,7 +120,7 @@ export function PlayQuizMultiplayer() {
         stopTimerSound();
         setChosenAnswer(event.target.outerText);
         if (event.target.outerText === he.decode(questions[currentQuestion].correct_answer)) {
-            setScore(score + 1);
+            setScore(score + scoreMultiplier);
             playCorrectAnswerSound();
             multiplayerData.socket.emit("updateScore", {
                 gameId: multiplayerData.gameId, 
@@ -162,6 +164,23 @@ export function PlayQuizMultiplayer() {
                 border: "0.4vw solid lightgrey"
             }
         }
+    }
+
+    function getScoreMultiplier() {
+        const difficulty = quiz ? quiz.difficulty : level;
+        switch (difficulty) {
+            case 'easy':
+                setScoreMultiplier(1);
+                break;
+            case 'medium':
+                setScoreMultiplier(2);
+                break;
+            case 'hard':
+                setScoreMultiplier(3);
+                break;
+            default: 
+                break;
+        } 
     }
 
     function playTimerSound() {
