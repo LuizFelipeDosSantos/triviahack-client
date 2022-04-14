@@ -119,7 +119,7 @@ export function LayoutComponent() {
                 </nav>
                 <div className="page404">
                   <img src={cover_photo} alt="triviahack logo"/>
-                  <h3>You need to be logged in to play our game!</h3>
+                  <h3>You need to log in to play Triviahack!</h3>
                 </div>
             </>
       }
