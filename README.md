@@ -20,7 +20,6 @@ Test your knowlegde in different areas with this quiz app and create your own qu
 ## Backlog
 
 -  **Play Quiz** As a user I can invite friends to play quiz
--  **Play Quiz** Question timer for each question to 30 seconds
 
   
 # Client
