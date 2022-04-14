@@ -33,6 +33,7 @@
   padding-left: 2vw;
 }
 
+
 .navbar a {
   text-decoration: none;
   color: white;
@@ -85,9 +86,10 @@
 }
 
 .logo {
-  width: 30vw;
+  width: 10vw;
   border-radius: 5%;
 }
+
 
 .avatarDiv {
   width: 7rem;
@@ -97,6 +99,14 @@
   position: relative;
   border: 0.3vw solid #42819D;
 }
+
+@media only screen and (max-width: 900px) {
+  .avatarDiv {
+   width: 5rem;
+   height: 5rem;
+  }
+}
+
 
 .avatar {
   width: 100%;
@@ -471,4 +481,16 @@
 }
 .endQuiz h1 {
   color: #24527A;
+}
+
+@media only screen and (max-width: 900px) {
+  .logo {
+   width: 20vh;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .logo {
+   width: 30vh;
+  }
 }
