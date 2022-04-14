@@ -329,9 +329,6 @@
   }
 }
 
-
-
-
 .leaderboard {
   margin-top: 3vh;
 }
@@ -433,13 +430,13 @@
   font-size: 1rem;
 }
 
-.answerBtn:hover {
+/* .answerBtn:hover {
   background-color: #24527A;
   color: white;
   transition: 0.7s;
   border: none;
 }
-
+ */
 .endQuiz {
   margin-top: 5vh;
   display: flex;

@@ -19,7 +19,7 @@ Test your knowlegde in different areas with this quiz app and create your own qu
 
 ## Backlog
 
--  **Play Quiz** As a user I can invite friends to play quiz
+-  **Play Quiz Multiplayer** As a user I can invite friends to play quiz
 
   
 # Client
@@ -31,11 +31,13 @@ Test your knowlegde in different areas with this quiz app and create your own qu
 - /home - homepage with mode choice
 - /categories - quiz category list
 - /level - level of difficulty
-- /quiz - single quiz game
 - /quiz/list - list of quizzes created by user
 - /quiz/create - create a new quiz
-- /quiz/edit/:id - edit a quiz
+- /quiz/edit- edit a quiz
 - /profile - see user profile
+- /room - create/join room to play in multiplayer mode
+- /quiz-single-player - single quiz game
+- /quiz-multiplayer - multiplayer quiz game
 - 404
 
 ## Pages
@@ -50,33 +52,26 @@ Test your knowlegde in different areas with this quiz app and create your own qu
 - Create Quiz (user only)
 - Edit Quiz (user only)
 - Profile Page (user only)
+- Room (user only)
+- Quiz Multiplayer (user only)
 - 404 (public)
 
-## Components // to be edited
+## Components
 
-- Question component
-  - Input: restaurant: any
-  - Output: favorite(restaurantId: string, on: boolean)
-- ... component
-  - Output: change(terms: string)
-
-## IO
-
-
-## Services // to be edited
-
-- Auth Service
-  - auth.login(user)
-  - auth.signup(user)
-  - auth.logout()
-  - auth.me()
-  - auth.getUser() // synchronous
-- Restaurant Service
-  - restaurant.list()
-  - restaurant.create(data)
-  - restaurant.detail(id)
-  - restaurant.addFavorite(id)
-  - restaurant.removeFavorite(id)   
+-Categories
+-CreateQuiz
+-Custom404Page
+-EditQuiz
+-LayoutComponent
+-Level
+-Login
+-Mode
+-PlayQuiz
+-PlayQuizMultiplayer
+-Profile
+-QuizList
+-Room
+-Signup
 
 # Server
 
@@ -110,34 +105,53 @@ incorrect_answers - [String]
 correct_answer - String
 ```
 
-## API Endpoints/Backend Routes // to be edited
+## API Endpoints/Backend Routes
 
-- GET /auth/me
-- POST /auth/signup
+- POST /login
   - body:
+   - email
+   - password
+- POST /signup
+  - body:
+    - avatar
     - username
     - email
     - password
-- POST /auth/login
+- POST /logout
+- GET /logged
+- GET /getCsrfToken
+- GET /user
+- PUT /user/edit
+  - body:
+    - avatar
+- PUT /user/add-friend
   - body:
     - username
-    - password
-- POST /auth/logout
-  - body: (empty)
-- POST /user/me/favorite
+- PUT /user/delete-friend
   - body:
-    - restaurantId
-- DELETE /user/me/favorite/:restaurantId
-  - body: (empty)
-- GET /restaurant
-- POST /restaurant
+    - username
+- PUT /user/update-score
   - body:
-    - name
-    - phone
-    - address
-- GET /restaurant/:id
-
-  
+    - score
+- GET /quiz/list
+- POST /quiz/create
+  - body: 
+    - quiz
+    - questions
+- PUT /quiz/edit
+  - body: 
+    - quiz
+    - questions
+- DELETE /quiz/delete
+  - query:
+    - quizId
+- GET /categories
+- GET /own-friends-quizzes
+- GET /questions
+  - query:
+    - quizId
+    - category
+    - difficulty
 
 ## Links
 
@@ -152,10 +166,13 @@ The url to your repository and to your deployed project
 [Server repository Link](https://github.com/Rowe32/triviahack-server)
 [Client repository Link](https://github.com/LuizFelipeDosSantos/triviahack-client)
 
-[Deploy Link](http://heroku.com)
+[Deploy Link](https://triviahack.netlify.app/)
 
 ### Slides
 
 The url to your presentation slides
 
-[Slides Link](http://slides.com)
+[Slides Link](https://docs.google.com/presentation/d/1NvPP8yJQDQlGvrYbut4C_2c9uXEZJzD69r-XcqEg0Oc/edit?usp=sharing)
+
+### Attribution for Sounds
+https://mixkit.co/free-sound-effects/game-show/
