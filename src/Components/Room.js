@@ -109,7 +109,7 @@ export function Room() {
         <div className="flex-column home room">
             <img className="icon" src={logoIcon} alt="triviahack logo"/>
             <button className="btn" onClick={createRoom} disabled={gameId}>
-                <i class="material-icons-outlined md-18">add_circle</i><br/>Create Room
+                <i className="material-icons-outlined md-18">add_circle</i><br/>Create Room
             </button>
             <br/>
             {gameId ? 

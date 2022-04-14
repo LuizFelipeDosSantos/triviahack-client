@@ -114,7 +114,7 @@ export function CreateQuiz() {
                 <h3>Create your own Quiz</h3>
             </div>
             <form onSubmit={handleQuizSubmit}>
-                <label for="name">Name of your Quiz: </label>
+                <label htmlFor="name">Name of your Quiz: </label>
                 <input
                     required
                     type="text"
@@ -124,7 +124,7 @@ export function CreateQuiz() {
                     placeholder="Enter a name for your quiz"
                     />
                 <br/>
-                <label for="difficulty">Level of Difficulty: </label>
+                <label htmlFor="difficulty">Level of Difficulty: </label>
                 <select name="difficulty" value={newQuiz.difficulty} onChange={handleQuizInput} >
                     <option value="easy">easy</option>
                     <option value="medium">medium</option>
@@ -142,7 +142,7 @@ export function CreateQuiz() {
             <div style={{ display: showQuestionForm? (quizComplete ? 'none' : 'block') : 'none' }}>
             {newQuestion &&
                 <form className="quizEditform" onSubmit={handleQuestionSubmit}>
-                    <label for="question">Question: </label>
+                    <label htmlFor="question">Question: </label>
                     <input
                         required
                         type="text"
@@ -151,7 +151,7 @@ export function CreateQuiz() {
                         onChange={handleQuestionInput}
                         placeholder="Enter a question"
                         />
-                    <label style={{color: "#38824e"}} for="question">Correct Answer: </label>
+                    <label style={{color: "#38824e"}} htmlFor="question">Correct Answer: </label>
                     <input
                         required
                         type="text"
@@ -160,7 +160,7 @@ export function CreateQuiz() {
                         onChange={handleQuestionInput}
                         placeholder="Enter the correct answer"
                         />
-                    <label style={{color: "#c24040"}} for="incorrect_answer1">Wrong Answer 1: </label>
+                    <label style={{color: "#c24040"}} htmlFor="incorrect_answer1">Wrong Answer 1: </label>
                     <input
                         required
                         type="text"
@@ -169,7 +169,7 @@ export function CreateQuiz() {
                         onChange={handleQuestionInput}
                         placeholder="Enter a wrong answer"
                         />
-                    <label style={{color: "#c24040"}} for="incorrect_answer2">Wrong Answer 2: </label>
+                    <label style={{color: "#c24040"}} htmlFor="incorrect_answer2">Wrong Answer 2: </label>
                     <input
                         required
                         type="text"
@@ -178,7 +178,7 @@ export function CreateQuiz() {
                         onChange={handleQuestionInput}
                         placeholder="Enter a wrong answer"
                         />
-                    <label style={{color: "#c24040"}} for="incorrect_answer3">Wrong Answer 3: </label>
+                    <label style={{color: "#c24040"}} htmlFor="incorrect_answer3">Wrong Answer 3: </label>
                     <input
                         required
                         type="text"
@@ -189,7 +189,7 @@ export function CreateQuiz() {
                         />
                     
                     <button className="btn" type="submit" onClick={ saveQuestion } > 
-                        <i class="material-icons-outlined md-18">save</i> 
+                        <i className="material-icons-outlined md-18">save</i> 
                     </button>
 
                     <div>

@@ -70,28 +70,28 @@ export function LayoutComponent() {
               <>
                   <NavLink style={determineStyle} to="/home">
                     <div className="navbarDiv">
-                      <i class="material-icons-outlined md-18">play_circle</i>
+                      <i className="material-icons-outlined md-18">play_circle</i>
                       <p className="btnName">Play</p>
                     </div>
                   </NavLink>
 
                   <NavLink style={determineStyle} to="/profile">
                     <div className="navbarDiv">
-                      <i class="material-icons-outlined md-18">account_circle</i>
+                      <i className="material-icons-outlined md-18">account_circle</i>
                       <p className="btnName">Profile</p>
                     </div>
                   </NavLink>
 
                   <NavLink style={determineStyle} to="/quiz/list">
                     <div className="navbarDiv">
-                      <i class="material-icons-outlined md-18">list_alt</i>
+                      <i className="material-icons-outlined md-18">list_alt</i>
                       <p className="btnName">My Quizzes</p>
                     </div>
                   </NavLink>
 
                   <button onClick={logout}>
                     <div className="navbarDiv">
-                      <i class="material-icons-outlined md-18">logout</i>
+                      <i className="material-icons-outlined md-18">logout</i>
                       <p className="btnName">Logout</p>
                     </div>
                   </button>
@@ -119,7 +119,7 @@ export function LayoutComponent() {
                 </nav>
                 <div className="page404">
                   <img src={cover_photo} alt="triviahack logo"/>
-                  <h3>You need to be logged in to play our game!</h3>
+                  <h3>You need to log in to play Triviahack!</h3>
                 </div>
             </>
       }

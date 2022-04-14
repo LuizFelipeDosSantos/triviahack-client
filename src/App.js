@@ -31,7 +31,6 @@ function App() {
         </Route>
         <Route path="/profile" element={<Profile />} />
         <Route path="/room" element={<Room />}/>
-        {/* toggle navbar class */}
         <Route path="/categories" element={<Categories />} />
         <Route path="/level" element={<Level />} />
         <Route path="/quiz-single-player" element={<PlayQuiz />} />

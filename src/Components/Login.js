@@ -46,7 +46,7 @@ export function Login() {
         <form onSubmit={handleSubmit}>
 
           <div className="inputfields">
-            <label for="email">Email:</label>
+            <label htmlFor="email">Email:</label>
             <br/>
             <input
               type="email"
@@ -57,7 +57,7 @@ export function Login() {
               placeholder="Enter your Email"
             />
             <br/>
-            <label for="password">Password:</label>
+            <label htmlFor="password">Password:</label>
             <br/>
             <input
               type="password"
