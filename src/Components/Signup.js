@@ -71,7 +71,7 @@ export function Signup() {
 
         <form onSubmit={handleSubmit}>
          <div className="inputfields">
-            <label for="avatar">Avatar:</label>
+            <label htmlFor="avatar">Avatar:</label>
             <input
               type="file"
               name="avatar"
@@ -81,7 +81,7 @@ export function Signup() {
 
             <br/>
 
-            <label for="username">Username:</label>
+            <label htmlFor="username">Username:</label>
             <input
               required
               type="text"
@@ -92,7 +92,7 @@ export function Signup() {
             />
 
             <br/>
-            <label for="email">Email:</label>
+            <label htmlFor="email">Email:</label>
             <input
               required
               type="email"
@@ -103,7 +103,7 @@ export function Signup() {
             />
 
             <br/>
-            <label for="password">Password:</label>
+            <label htmlFor="password">Password:</label>
             <input
               required
               type="password"

@@ -104,7 +104,7 @@ export function EditQuiz() {
             
             {/* Name & Level */}
             <form onSubmit={(event)=> event.preventDefault()}>
-            <label for="name">Name of your Quiz: </label>
+            <label htmlFor="name">Name of your Quiz: </label>
             <input
                 type="text"
                 name="name"
@@ -114,7 +114,7 @@ export function EditQuiz() {
                 />
             <br/>
 
-            <label for="difficulty">Level of Difficulty: </label>
+            <label htmlFor="difficulty">Level of Difficulty: </label>
             <select name="difficulty" value={quizEdited.difficulty} onChange={handleNameLevelInput} >
                 <option value="easy">easy</option>
                 <option value="medium">medium</option>
@@ -129,14 +129,14 @@ export function EditQuiz() {
             <div>
             {questionToEdit &&
                 <form className="quizEditform" onSubmit={handleSubmit} >       
-                    <label for="question">Question: </label>
+                    <label htmlFor="question">Question: </label>
                     <input
                         type="text"
                         name="question"
                         value={questionToEdit.question}
                         onChange={handleQuestionInput}
                         />
-                    <label style={{color: "#38824e"}} for="question">Correct Answer: </label>
+                    <label style={{color: "#38824e"}} htmlFor="question">Correct Answer: </label>
                     <input
                         required
                         type="text"
@@ -144,7 +144,7 @@ export function EditQuiz() {
                         value={questionToEdit.correct_answer}
                         onChange={handleQuestionInput}
                         />
-                    <label style={{color: "#c24040"}} for="incorrect_answer1">Wrong Answer 1: </label>
+                    <label style={{color: "#c24040"}} htmlFor="incorrect_answer1">Wrong Answer 1: </label>
                     <input
                         required
                         type="text"
@@ -152,7 +152,7 @@ export function EditQuiz() {
                         value={questionToEdit.incorrect_answer1}
                         onChange={handleQuestionInput}
                         />
-                    <label style={{color: "#c24040"}} for="incorrect_answer2">Wrong Answer 2: </label>
+                    <label style={{color: "#c24040"}} htmlFor="incorrect_answer2">Wrong Answer 2: </label>
                     <input
                         required
                         type="text"
@@ -160,7 +160,7 @@ export function EditQuiz() {
                         value={questionToEdit.incorrect_answer2}
                         onChange={handleQuestionInput}
                         />
-                    <label style={{color: "#c24040"}} for="incorrect_answer3">Wrong Answer 3: </label>
+                    <label style={{color: "#c24040"}} htmlFor="incorrect_answer3">Wrong Answer 3: </label>
                     <input
                         required
                         type="text"
