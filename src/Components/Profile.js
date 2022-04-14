@@ -102,7 +102,7 @@ export function Profile() {
 
     return (
         <div className="profile">
-            <div className="header">
+            <div className="header profileHead">
                 <img className="icon" src={logoIcon} alt="triviahack logo"/>
                 <div className="nameScore">
                     <h3>{userState.username}</h3>
@@ -114,7 +114,7 @@ export function Profile() {
                     <img className="avatar" src={ userState.avatar} alt="avatar" />
                 </div>            
                 <button className="iconBtn" onClick={toggleForm}> 
-                    { showForm ? <i class="material-icons-outlined md-18">keyboard_return</i> : <i class="material-icons-outlined md-18">edit</i>}
+                    { showForm ? <i class="material-icons-outlined md-18">keyboard_return</i> : <i class="material-icons-outlined md-18">settings</i>}
                 </button>  
             </div>
 

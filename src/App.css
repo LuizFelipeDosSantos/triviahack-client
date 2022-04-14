@@ -123,7 +123,6 @@
   }
 }
 
-
 .avatar {
   width: 100%;
   min-height: 100%;
@@ -259,10 +258,29 @@
   justify-content: space-between;
 }
 
+.profileHead {
+  margin-top: 10vh;
+}
+
 .profile .header h3, p {
   margin-left: 2vw;
   color: #42819D;
 }
+
+.profile .avatarDiv {
+  width: 6rem;
+  height: 6rem;
+  margin: 2vh;
+}
+
+@media only screen and (max-width: 900px) {
+  .profile .avatarDiv {
+    width: 4rem;
+    height: 4rem;
+    margin: 2vh;
+  }
+}
+
 
 .nameScore {
   display: flex;
@@ -287,10 +305,6 @@
   width: fit-content;
 }
 
-.profile .avatarDiv {
-  width: 4rem;
-  height: 4rem;
-}
 
 .editAvatarForm input::file-selector-button {
   padding: 1vh;
