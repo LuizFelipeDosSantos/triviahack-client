@@ -95,7 +95,7 @@ export function PlayQuiz() {
     const answerQuestion = (event) => {
         stopTimerSound();
         setChosenAnswer(event.target.outerText);
-        if (event.target.outerText === he.decode(questions[currentQuestion].correct_answer)) {
+        if (event.target.outerText.trim() === he.decode(questions[currentQuestion].correct_answer.trim())) {
             setScore(score + scoreMultiplier);
             playCorrectAnswerSound();
         } else {
@@ -106,8 +106,8 @@ export function PlayQuiz() {
 
     function answerStyles(answer) {
         if (!showCorrectAnswer) return;
-        if (chosenAnswer === answer) {
-            if (answer === he.decode(questions[currentQuestion].correct_answer)) {
+        if (chosenAnswer.trim() === answer.trim()) {
+            if (answer.trim() === he.decode(questions[currentQuestion].correct_answer.trim())) {
                 return { /* green */
                     backgroundColor: "#38824e", 
                     color: "white", 
@@ -121,7 +121,7 @@ export function PlayQuiz() {
                 } 
             }
         } else {
-            if (answer === he.decode(questions[currentQuestion].correct_answer)) {
+            if (answer.trim() === he.decode(questions[currentQuestion].correct_answer.trim())) {
                 return { /* green */
                     backgroundColor: "#38824e", 
                     color: "white", 
