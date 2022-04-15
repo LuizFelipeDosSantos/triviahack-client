@@ -53,7 +53,9 @@ export function Room() {
                 usersRoom: statusUpdate.usersRoom,
                 host: false,
                 username: user.username,
-                questions: statusUpdate.questions});
+                questions: statusUpdate.questions,
+                avatar: user.avatar
+            });
             navigate("/quiz-multiplayer", { state: statusUpdate.state });
         });
 
@@ -74,12 +76,12 @@ export function Room() {
     }, []);
 
     function createRoom() {
-        socket.emit("createNewGame", {username: user.username});
+        socket.emit("createNewGame", {username: user.username, avatar: user.avatar});
         setHost(true);
     }
 
     function joinRoom() {
-        socket.emit("playerJoinGame", {gameId: roomCode, mySocketId, username: user.username});
+        socket.emit("playerJoinGame", {gameId: roomCode, mySocketId, username: user.username, avatar: user.avatar});
     }
 
     function handleJoinGame(event) {
@@ -87,7 +89,7 @@ export function Room() {
     }
 
     function chooseQuiz() {
-        addMultiPlayerDataToContext({socket, gameId, usersRoom, host, username: user.username});
+        addMultiPlayerDataToContext({socket, gameId, usersRoom, host, username: user.username, avatar: user.avatar});
         navigate("/categories", { state: { multiplayer: true }});
     }
 

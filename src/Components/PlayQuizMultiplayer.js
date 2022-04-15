@@ -232,13 +232,34 @@ export function PlayQuizMultiplayer() {
                     <img className="icon" src={logoIcon} alt="triviahack logo"/>
                     <h3> - QUIZ COMPLETED - </h3>
                     <h1>RANKING:</h1>
-                    {[...multiplayerData.usersRoom].sort((a, b) => b.score - a.score).map(user => {
-                        return (
-                            <div key={user.username}>
-                                <h3>{user.username + " - " + user.score}</h3>
-                            </div>
-                        )
-                    })}
+                    <div className="profile">
+                        <div className="leaderboard">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Players</th>
+                                        <th>Score</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {[...multiplayerData.usersRoom].sort((a, b) => b.score - a.score).map(user => {
+                                    return (
+                                        <tr key={user.username}>
+                                        <td>
+                                            <div className="avatarDiv">
+                                                <img className="avatar" src={user.avatar} alt={`${user.username}'s avatar`}/>
+                                            </div>
+                                        </td>
+                                        <td>{user.username}</td>
+                                        <td>{user.score}</td>                                    
+                                        </tr>
+                                    )
+                                })}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                     <button className="btn" onClick={playAgain}> <i className="material-icons-outlined md-18">keyboard_return</i></button>
                 </div>
             }
